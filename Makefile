@@ -4,7 +4,7 @@ SRCS = 	./srcs/main.c		./srcs/input.c \
 
 
 OBJS = $(SRCS:.c=.o)
-CC = cc -Wall -Wextra -Werror
+CC = cc -Wall -Wextra -Werror -lreadline
 RM = rm -f
 
 $(NAME): $(OBJS)

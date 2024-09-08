@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 15:59:57 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/08 16:11:02 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/09/08 16:29:56 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,6 @@ void	get_input(void)
 {
 	char	*input;
 
-	input = readline("Minishell$");
+	input = readline("Minishell$ ");
+    printf("%s\n", input);
 }
