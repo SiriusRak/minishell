@@ -1,34 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input.c                                            :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/08 15:59:57 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/10 13:11:46 by rdiary           ###   ########.fr       */
+/*   Created: 2024/02/21 08:20:12 by rdiary            #+#    #+#             */
+/*   Updated: 2024/09/10 13:25:08 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "libft.h"
 
-void	parse_input(char *s)
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	printf("%ld\n", ft_strlen(s));
-}
+	size_t	len;
+	size_t	i;
 
-void	get_input(void)
-{
-	char	*input;
-
-	input = readline("Minishell$ ");
-	if (input == NULL)
-		rl_redisplay();
-	if (*input)
+	len = ft_strlen(dst);
+	i = 0;
+	if (len < size)
 	{
-		add_history(input);
-		parse_input(input);
+		while (src[i] != '\0' && i + len < size - 1)
+		{
+			dst[len + i] = src[i];
+			i++;
+		}
+		dst[len + i] = '\0';
+		while (src[i] != '\0')
+			i++;
 	}
-    printf("%s\n", input);
-	free(input);
+	else
+	{
+		while (src[i] != '\0')
+			i++;
+		return (i + size);
+	}
+	return (len + i);
 }

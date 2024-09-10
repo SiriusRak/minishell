@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input.c                                            :+:      :+:    :+:   */
+/*   ft_lstmap_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/08 15:59:57 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/10 13:11:46 by rdiary           ###   ########.fr       */
+/*   Created: 2024/02/27 10:36:16 by rdiary            #+#    #+#             */
+/*   Updated: 2024/09/10 13:23:14 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "libft.h"
 
-void	parse_input(char *s)
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	printf("%ld\n", ft_strlen(s));
-}
+	t_list	*new;
+	t_list	*element;
 
-void	get_input(void)
-{
-	char	*input;
-
-	input = readline("Minishell$ ");
-	if (input == NULL)
-		rl_redisplay();
-	if (*input)
+	new = NULL;
+	while (lst)
 	{
-		add_history(input);
-		parse_input(input);
+		element = ft_lstnew(f(lst->content));
+		if (!element)
+		{
+			ft_lstclear(&element, (*del));
+			return (NULL);
+		}
+		ft_lstadd_back(&new, element);
+		lst = lst->next;
 	}
-    printf("%s\n", input);
-	free(input);
+	return (new);
 }

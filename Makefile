@@ -1,19 +1,22 @@
 NAME = minishell
 
-SRCS = 	./srcs/main.c		./srcs/input.c \
+SRCS = 	./srcs/main.c ./srcs/input.c ./srcs/signal.c \
 
+LIB = libft
 
 OBJS = $(SRCS:.c=.o)
-CC = cc -Wall -Wextra -Werror -lreadline
+FLAGS = -Wall -Wextra -Werror -lreadline
 RM = rm -f
 
 $(NAME): $(OBJS)
-	@$(CC) -o $(NAME) $(OBJS)
+	@make bonus -s -C $(LIB)
+	@$(CC) $(FLAGS) -o $(NAME) $(OBJS) -Llibft -lft
 
 all:$(NAME)
 
 clean:
 	@$(RM) $(OBJS)
+	@make clean -C $(LIB) 
 
 fclean: clean
 	@$(RM) $(NAME)

@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input.c                                            :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/08 15:59:57 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/10 13:11:46 by rdiary           ###   ########.fr       */
+/*   Created: 2024/02/21 11:08:27 by rdiary            #+#    #+#             */
+/*   Updated: 2024/09/10 13:24:47 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "libft.h"
 
-void	parse_input(char *s)
+char	*ft_strchr(const char *s, int c)
 {
-	printf("%ld\n", ft_strlen(s));
-}
+	char	*str;
+	int		i;
 
-void	get_input(void)
-{
-	char	*input;
-
-	input = readline("Minishell$ ");
-	if (input == NULL)
-		rl_redisplay();
-	if (*input)
+	str = (char *)s;
+	if (!c)
+		return (str + ft_strlen(str));
+	i = 0;
+	while (str[i])
 	{
-		add_history(input);
-		parse_input(input);
+		if (str[i] == (char)c)
+			return (str + i);
+		i++;
 	}
-    printf("%s\n", input);
-	free(input);
+	return (NULL);
 }
