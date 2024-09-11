@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input.c                                            :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/08 15:59:57 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/10 13:11:46 by rdiary           ###   ########.fr       */
+/*   Created: 2024/02/19 15:20:38 by rdiary            #+#    #+#             */
+/*   Updated: 2024/09/10 13:23:55 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "libft.h"
 
-void	parse_input(char *s)
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	printf("%ld\n", ft_strlen(s));
-}
+	char	*s1;
+	char	*s2;
 
-void	get_input(void)
-{
-	char	*input;
-
-	input = readline("Minishell$ ");
-	if (input == NULL)
-		rl_redisplay();
-	if (*input)
+	s1 = dest;
+	s2 = (char *)src;
+	while (n-- > 0)
 	{
-		add_history(input);
-		parse_input(input);
+		*s1 = *s2;
+		s1++;
+		s2++;
 	}
-    printf("%s\n", input);
-	free(input);
+	return (dest);
 }

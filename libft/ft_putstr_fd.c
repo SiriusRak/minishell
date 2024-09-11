@@ -1,34 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input.c                                            :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/08 15:59:57 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/10 13:11:46 by rdiary           ###   ########.fr       */
+/*   Created: 2024/02/25 08:35:17 by rdiary            #+#    #+#             */
+/*   Updated: 2024/09/10 13:24:30 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "libft.h"
 
-void	parse_input(char *s)
+void	ft_putstr_fd(char *s, int fd)
 {
-	printf("%ld\n", ft_strlen(s));
-}
+	size_t	len;
 
-void	get_input(void)
-{
-	char	*input;
-
-	input = readline("Minishell$ ");
-	if (input == NULL)
-		rl_redisplay();
-	if (*input)
-	{
-		add_history(input);
-		parse_input(input);
-	}
-    printf("%s\n", input);
-	free(input);
+	len = ft_strlen(s);
+	write(fd, s, len);
 }

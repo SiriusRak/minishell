@@ -1,34 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input.c                                            :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/08 15:59:57 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/10 13:11:46 by rdiary           ###   ########.fr       */
+/*   Created: 2024/02/19 14:43:59 by rdiary            #+#    #+#             */
+/*   Updated: 2024/09/10 13:21:56 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "libft.h"
 
-void	parse_input(char *s)
+void	ft_bzero(void *s, size_t n)
 {
-	printf("%ld\n", ft_strlen(s));
-}
+	char	*str;
 
-void	get_input(void)
-{
-	char	*input;
-
-	input = readline("Minishell$ ");
-	if (input == NULL)
-		rl_redisplay();
-	if (*input)
+	str = s;
+	while (n-- > 0)
 	{
-		add_history(input);
-		parse_input(input);
+		*str = '\0';
+		str++;
 	}
-    printf("%s\n", input);
-	free(input);
 }

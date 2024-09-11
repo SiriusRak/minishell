@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input.c                                            :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/08 15:59:57 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/10 13:11:46 by rdiary           ###   ########.fr       */
+/*   Created: 2024/02/24 00:01:24 by rdiary            #+#    #+#             */
+/*   Updated: 2024/09/10 13:24:51 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "libft.h"
 
-void	parse_input(char *s)
+char	*ft_strdup(const char *s)
 {
-	printf("%ld\n", ft_strlen(s));
-}
+	char	*copy;
+	size_t	i;
 
-void	get_input(void)
-{
-	char	*input;
-
-	input = readline("Minishell$ ");
-	if (input == NULL)
-		rl_redisplay();
-	if (*input)
+	copy = (char *)malloc(sizeof(char) * ft_strlen(s) + 1);
+	if (!copy)
+		return (NULL);
+	i = 0;
+	while (s[i] != '\0')
 	{
-		add_history(input);
-		parse_input(input);
+		copy[i] = s[i];
+		i++;
 	}
-    printf("%s\n", input);
-	free(input);
+	copy[i] = '\0';
+	return (copy);
 }
