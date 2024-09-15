@@ -12,7 +12,21 @@
 
 #include "libft.h"
 
-static int	ft_count_word(char const *s, char c)
+int	ft_is_sep(char c, char *sep)
+{
+	int		i;
+
+	i = 0;
+	while (sep[i])
+	{
+		if (sep[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+static int	ft_count_word(char const *s, char *sep)
 {
 	int	count;
 	int	i;
@@ -21,34 +35,34 @@ static int	ft_count_word(char const *s, char c)
 	count = 0;
 	while (s[i] != '\0')
 	{
-		while (s[i] && s[i] == c)
+		while (s[i] && ft_is_sep(s[i], sep))
 			i++;
 		if (s[i] != '\0')
 			count++;
-		while (s[i] && s[i] != c)
+		while (s[i] && !ft_is_sep(s[i], sep))
 			i++;
 	}
 	return (count);
 }
 
-static int	ft_strlen_sep(char const *s, char c)
+static int	ft_strlen_sep(char const *s, char *sep)
 {
 	int	i;
 
 	i = 0;
-	while (s[i] && s[i] != c)
+	while (s[i] && !ft_is_sep(s[i], sep))
 		i++;
 	return (i);
 }
 
-static char	*ft_word(char const *s, char c)
+static char	*ft_word(char const *s, char *sep)
 {
 	int		len_word;
 	int		i;
 	char	*word;
 
 	i = 0;
-	len_word = ft_strlen_sep(s, c);
+	len_word = ft_strlen_sep(s, sep);
 	word = malloc(sizeof(char) * (len_word + 1));
 	if (!word)
 		return (NULL);
@@ -61,25 +75,25 @@ static char	*ft_word(char const *s, char c)
 	return (word);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char *sep)
 {
 	char	**strings;
 	int		i;
 
 	i = 0;
-	strings = malloc(sizeof(char *) * (ft_count_word(s, c) + 1));
+	strings = malloc(sizeof(char *) * (ft_count_word(s, sep) + 1));
 	if (!strings)
 		return (NULL);
 	while (*s)
 	{
-		while (*s && *s == c)
+		while (*s && ft_is_sep(*s, sep))
 			s++;
 		if (*s != '\0')
 		{
-			strings[i] = ft_word(s, c);
+			strings[i] = ft_word(s, sep);
 			i++;
 		}
-		while (*s && *s != c)
+		while (*s && !ft_is_sep(*s, sep))
 			s++;
 	}
 	strings[i] = 0;

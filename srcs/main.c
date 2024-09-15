@@ -16,6 +16,7 @@ int	main(int ac, char **av)
 {
 	(void)ac;
 	(void)av;
+	char	**tab;
 	waiting_signal();
 	while(1)
 	{
