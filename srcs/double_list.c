@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   double_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 08:19:47 by enarindr          #+#    #+#             */
-/*   Updated: 2024/09/15 07:02:57 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/09/16 15:12:40 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ int	ft_lstfree(t_d_list **list)
 	return (0);
 }
 
-t_d_list	*ft_newlist(long *content)
+t_d_list	*ft_newlist(char *content)
 {
 	t_d_list	*new;
 
 	new = (t_d_list *) malloc(sizeof(t_d_list));
 	if (!new)
 		return (NULL);
-	new->content = content;
+	new->token->type = content;
 	new->prev = NULL;
 	new->next = NULL;
 	return (new);
