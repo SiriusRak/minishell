@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/10 13:10:26 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/09/16 13:16:12 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,28 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
+# include <dirent.h>
 # include "../libft/libft.h"
+
+typedef	struct s_token
+{
+	int		cmd;
+	int 	arg;
+	int 	redir;
+	int 	pip;
+	char	*type;
+}				t_token;
 
 typedef struct s_d_list
 {
 	struct s_d_list	*prev;
-	void			*content;
+	struct s_token	*token;
 	struct s_d_list	*next;
 }				t_d_list;
 
 typedef struct  s_data
 {
-
+	
 }       t_data;
 
 int	ft_lstfree(t_d_list **list);
