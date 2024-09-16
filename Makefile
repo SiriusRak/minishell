@@ -9,16 +9,17 @@ FLAGS = -Wall -Wextra -Werror -lreadline
 RM = rm -f
 
 $(NAME): $(OBJS)
-	@make bonus -s -C $(LIB)
+	@make -s bonus -C $(LIB)
 	@$(CC) $(FLAGS) -o $(NAME) $(OBJS) -Llibft -lft
 
 all:$(NAME)
 
 clean:
 	@$(RM) $(OBJS)
-	@make clean -C $(LIB) 
+	@make -s clean -C $(LIB) 
 
 fclean: clean
 	@$(RM) $(NAME)
+	@make -s fclean -C $(LIB)
 
 re: fclean all

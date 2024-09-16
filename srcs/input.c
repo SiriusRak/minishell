@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 15:59:57 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/10 13:11:46 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/09/10 14:20:20 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,11 @@
 
 void	parse_input(char *s)
 {
-	printf("%ld\n", ft_strlen(s));
+	char	**input;
+
+	input = ft_split(s, ' ');
+	
+	ft_free_split(input, ft_count_word(s, ' '));
 }
 
 void	get_input(void)
@@ -29,6 +33,5 @@ void	get_input(void)
 		add_history(input);
 		parse_input(input);
 	}
-    printf("%s\n", input);
 	free(input);
 }

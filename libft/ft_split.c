@@ -6,13 +6,26 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 14:21:53 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/10 13:24:37 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/09/10 14:15:27 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_count_word(char const *s, char c)
+void	ft_free_split(char **strings, int count)
+{
+	int	i;
+
+	i = 0;
+	while (i < count)
+	{
+		free(strings[i]);
+		i++;
+	}
+	free(strings);
+}
+
+int	ft_count_word(char const *s, char c)
 {
 	int	count;
 	int	i;
@@ -77,6 +90,8 @@ char	**ft_split(char const *s, char c)
 		if (*s != '\0')
 		{
 			strings[i] = ft_word(s, c);
+			if (!strings[i])
+				ft_free_split(strings, i);
 			i++;
 		}
 		while (*s && *s != c)
