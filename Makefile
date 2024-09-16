@@ -1,6 +1,7 @@
 NAME = minishell
 
 SRCS = 	./srcs/main.c ./srcs/input.c ./srcs/signal.c \
+		./srcs/double_list.c
 
 LIB = libft
 

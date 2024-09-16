@@ -6,26 +6,27 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 14:21:53 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/10 14:15:27 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/09/16 12:12:12 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_free_split(char **strings, int count)
+int	ft_is_sep(char c, char *sep)
 {
-	int	i;
+	int		i;
 
 	i = 0;
-	while (i < count)
+	while (sep[i])
 	{
-		free(strings[i]);
+		if (sep[i] == c)
+			return (1);
 		i++;
 	}
-	free(strings);
+	return (0);
 }
 
-int	ft_count_word(char const *s, char c)
+int	ft_count_word(char const *s, char *sep)
 {
 	int	count;
 	int	i;
@@ -34,34 +35,34 @@ int	ft_count_word(char const *s, char c)
 	count = 0;
 	while (s[i] != '\0')
 	{
-		while (s[i] && s[i] == c)
+		while (s[i] && ft_is_sep(s[i], sep))
 			i++;
 		if (s[i] != '\0')
 			count++;
-		while (s[i] && s[i] != c)
+		while (s[i] && !ft_is_sep(s[i], sep))
 			i++;
 	}
 	return (count);
 }
 
-static int	ft_strlen_sep(char const *s, char c)
+static int	ft_strlen_sep(char const *s, char *sep)
 {
 	int	i;
 
 	i = 0;
-	while (s[i] && s[i] != c)
+	while (s[i] && !ft_is_sep(s[i], sep))
 		i++;
 	return (i);
 }
 
-static char	*ft_word(char const *s, char c)
+static char	*ft_word(char const *s, char *sep)
 {
 	int		len_word;
 	int		i;
 	char	*word;
 
 	i = 0;
-	len_word = ft_strlen_sep(s, c);
+	len_word = ft_strlen_sep(s, sep);
 	word = malloc(sizeof(char) * (len_word + 1));
 	if (!word)
 		return (NULL);
@@ -74,27 +75,25 @@ static char	*ft_word(char const *s, char c)
 	return (word);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char *sep)
 {
 	char	**strings;
 	int		i;
 
 	i = 0;
-	strings = malloc(sizeof(char *) * (ft_count_word(s, c) + 1));
+	strings = malloc(sizeof(char *) * (ft_count_word(s, sep) + 1));
 	if (!strings)
 		return (NULL);
 	while (*s)
 	{
-		while (*s && *s == c)
+		while (*s && ft_is_sep(*s, sep))
 			s++;
 		if (*s != '\0')
 		{
-			strings[i] = ft_word(s, c);
-			if (!strings[i])
-				ft_free_split(strings, i);
+			strings[i] = ft_word(s, sep);
 			i++;
 		}
-		while (*s && *s != c)
+		while (*s && !ft_is_sep(*s, sep))
 			s++;
 	}
 	strings[i] = 0;
