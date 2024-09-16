@@ -1,37 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input.c                                            :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/08 15:59:57 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/16 12:09:50 by rdiary           ###   ########.fr       */
+/*   Created: 2024/02/25 07:59:21 by rdiary            #+#    #+#             */
+/*   Updated: 2024/09/10 13:24:56 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-
-void	parse_input(char *s)
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	char	**input;
+	unsigned int	i;
 
-	input = ft_split(s, ' ');
-	
-	ft_free_split(input, ft_count_word(s, ' '));
-}
-
-void	get_input(void)
-{
-	char	*input;
-
-	input = readline("Minishell$ ");
-	if (input == NULL)
-		rl_redisplay();
-	if (*input)
+	i = 0;
+	while (s[i])
 	{
-		add_history(input);
-		parse_input(input);
+		(*f)(i, s + i);
+		i++;
 	}
-	free(input);
 }

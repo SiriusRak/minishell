@@ -1,37 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input.c                                            :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/08 15:59:57 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/16 12:09:50 by rdiary           ###   ########.fr       */
+/*   Created: 2024/02/21 13:19:56 by rdiary            #+#    #+#             */
+/*   Updated: 2024/09/10 13:23:30 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "libft.h"
 
-void	parse_input(char *s)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	char	**input;
+	size_t			i;
+	unsigned char	*p;
+	unsigned char	*out;
 
-	input = ft_split(s, ' ');
-	
-	ft_free_split(input, ft_count_word(s, ' '));
-}
-
-void	get_input(void)
-{
-	char	*input;
-
-	input = readline("Minishell$ ");
-	if (input == NULL)
-		rl_redisplay();
-	if (*input)
+	i = 0;
+	p = (unsigned char *)s;
+	while (n > i)
 	{
-		add_history(input);
-		parse_input(input);
+		if (p[i] == (unsigned char)c)
+		{
+			out = (unsigned char *)&p[i];
+			return (out);
+		}
+		i++;
 	}
-	free(input);
+	return (0);
 }

@@ -1,37 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input.c                                            :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/08 15:59:57 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/16 12:09:50 by rdiary           ###   ########.fr       */
+/*   Created: 2024/02/21 12:57:06 by rdiary            #+#    #+#             */
+/*   Updated: 2024/09/10 13:25:30 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "libft.h"
 
-void	parse_input(char *s)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	char	**input;
+	size_t	i;
 
-	input = ft_split(s, ' ');
-	
-	ft_free_split(input, ft_count_word(s, ' '));
-}
-
-void	get_input(void)
-{
-	char	*input;
-
-	input = readline("Minishell$ ");
-	if (input == NULL)
-		rl_redisplay();
-	if (*input)
-	{
-		add_history(input);
-		parse_input(input);
-	}
-	free(input);
+	i = 0;
+	while (*(char *)(s1 + i) == *(char *)(s2 + i) && i < n)
+		i++;
+	if (i < n)
+		return (*(char *)(s1 + i) - *(char *)(s2 + i));
+	return (0);
 }

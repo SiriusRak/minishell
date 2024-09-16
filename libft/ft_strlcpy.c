@@ -1,37 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input.c                                            :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/08 15:59:57 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/16 12:09:50 by rdiary           ###   ########.fr       */
+/*   Created: 2024/02/20 17:19:11 by rdiary            #+#    #+#             */
+/*   Updated: 2024/09/10 13:25:14 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "libft.h"
 
-void	parse_input(char *s)
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	char	**input;
+	size_t	i;
+	size_t	len;
 
-	input = ft_split(s, ' ');
-	
-	ft_free_split(input, ft_count_word(s, ' '));
-}
-
-void	get_input(void)
-{
-	char	*input;
-
-	input = readline("Minishell$ ");
-	if (input == NULL)
-		rl_redisplay();
-	if (*input)
+	i = 0;
+	len = ft_strlen(src);
+	if (!size)
+		return (len);
+	while (src[i] != '\0' && i < size - 1)
 	{
-		add_history(input);
-		parse_input(input);
+		dst[i] = src[i];
+		i++;
 	}
-	free(input);
+	dst[i] = '\0';
+	return (len);
 }

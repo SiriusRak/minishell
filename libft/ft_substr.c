@@ -1,37 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input.c                                            :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/08 15:59:57 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/16 12:09:50 by rdiary           ###   ########.fr       */
+/*   Created: 2024/02/24 09:34:00 by rdiary            #+#    #+#             */
+/*   Updated: 2024/09/10 13:25:56 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "libft.h"
 
-void	parse_input(char *s)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	**input;
+	char	*copy;
+	size_t	i;
 
-	input = ft_split(s, ' ');
-	
-	ft_free_split(input, ft_count_word(s, ' '));
-}
-
-void	get_input(void)
-{
-	char	*input;
-
-	input = readline("Minishell$ ");
-	if (input == NULL)
-		rl_redisplay();
-	if (*input)
+	if (ft_strlen(s + start) < len)
+		len = ft_strlen(s + start);
+	if (ft_strlen(s) <= start)
+		len = 0;
+	copy = malloc(sizeof(char) * (len + 1));
+	if (!copy)
+		return (NULL);
+	i = 0;
+	while (i + start < ft_strlen(s) && i < len)
 	{
-		add_history(input);
-		parse_input(input);
+		copy[i] = s[i + start];
+		i++;
 	}
-	free(input);
+	copy[i] = '\0';
+	return (copy);
 }

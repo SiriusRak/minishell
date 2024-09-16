@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/08 16:11:17 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/09/10 13:10:26 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,27 @@
 # include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <signal.h>
+# include "../libft/libft.h"
 
+typedef struct s_d_list
+{
+	struct s_d_list	*prev;
+	void			*content;
+	struct s_d_list	*next;
+}				t_d_list;
+
+typedef struct  s_data
+{
+
+}       t_data;
+
+int	ft_lstfree(t_d_list **list);
+
+void	ft_add_front_list(t_d_list **list, t_d_list *new);
+void	ft_add_back_list(t_d_list **list, t_d_list *new);
 void	get_input(void);
+void	waiting_signal(void);
 
+t_d_list	*ft_newlist(long *content);
 #endif

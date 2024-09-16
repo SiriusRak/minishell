@@ -1,37 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input.c                                            :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/08 15:59:57 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/16 12:09:50 by rdiary           ###   ########.fr       */
+/*   Created: 2024/02/21 15:46:27 by rdiary            #+#    #+#             */
+/*   Updated: 2024/09/10 13:20:49 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-
-void	parse_input(char *s)
+int	ft_atoi(const char *nptr)
 {
-	char	**input;
+	int		i;
+	int		nb;
+	int		signe;
+	char	*s;
 
-	input = ft_split(s, ' ');
-	
-	ft_free_split(input, ft_count_word(s, ' '));
-}
-
-void	get_input(void)
-{
-	char	*input;
-
-	input = readline("Minishell$ ");
-	if (input == NULL)
-		rl_redisplay();
-	if (*input)
+	s = (char *)nptr;
+	i = 0;
+	nb = 0;
+	signe = 1;
+	while (s[i] != '\0' && (s[i] == 32 || (s[i] >= 9 && s[i] <= 13)))
+		i++;
+	if (s[i] == '-' || s[i] == '+')
 	{
-		add_history(input);
-		parse_input(input);
+		if (s[i] == '-')
+			signe *= -1;
+		i++;
 	}
-	free(input);
+	while (s[i] != '\0' && s[i] >= '0' && s[i] <= '9')
+	{
+		nb = nb * 10 + s[i] - '0';
+		i++;
+	}
+	return (nb * signe);
 }

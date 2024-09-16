@@ -1,37 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input.c                                            :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/08 15:59:57 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/16 12:09:50 by rdiary           ###   ########.fr       */
+/*   Created: 2024/02/24 11:11:32 by rdiary            #+#    #+#             */
+/*   Updated: 2024/09/10 13:25:02 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "libft.h"
 
-void	parse_input(char *s)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	**input;
+	char	*res;
+	size_t	len;
 
-	input = ft_split(s, ' ');
-	
-	ft_free_split(input, ft_count_word(s, ' '));
-}
-
-void	get_input(void)
-{
-	char	*input;
-
-	input = readline("Minishell$ ");
-	if (input == NULL)
-		rl_redisplay();
-	if (*input)
-	{
-		add_history(input);
-		parse_input(input);
-	}
-	free(input);
+	len = ft_strlen(s1) + ft_strlen(s2);
+	res = malloc(sizeof(char) * (len + 1));
+	if (!res)
+		return (NULL);
+	ft_strlcpy(res, s1, ft_strlen(s1) + 1);
+	ft_strlcat(res, s2, len + 1);
+	res[len] = '\0';
+	return (res);
 }
