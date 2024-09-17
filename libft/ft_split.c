@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 14:21:53 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/10 13:24:37 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/09/16 12:12:12 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_is_sep(char c, char *sep)
 	return (0);
 }
 
-static int	ft_count_word(char const *s, char *sep)
+int	ft_count_word(char const *s, char *sep)
 {
 	int	count;
 	int	i;

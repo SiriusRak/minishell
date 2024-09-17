@@ -67,6 +67,5 @@ void	get_input(t_data *data)
 		add_history(data->input);
 		parse_input(data);
 	}
-    printf("%s\n", input);
 	free(input);
 }
