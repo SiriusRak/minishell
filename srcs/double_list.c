@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   circulaire_list.c                                  :+:      :+:    :+:   */
+/*   double_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 08:19:47 by enarindr          #+#    #+#             */
-/*   Updated: 2024/08/08 11:13:01 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/09/17 07:13:57 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,21 @@ int	ft_lstfree(t_d_list **list)
 			(*list) = temp;
 		}
 	}
+	return (0);
 }
 
-t_d_list	*ft_newlist(long *content)
+t_d_list	*ft_newlist(char *content)
 {
 	t_d_list	*new;
 
 	new = (t_d_list *) malloc(sizeof(t_d_list));
 	if (!new)
 		return (NULL);
-	new->content = content;
+	new->token->name = content;
+	new->token->arg = 0;
+	new->token->cmd = 0;
+	new->token->pip = 0;
+	new->token->redir = 0;
 	new->prev = NULL;
 	new->next = NULL;
 	return (new);
