@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 15:59:57 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/17 08:58:36 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/09/17 13:36:16 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,12 @@ void	parse_input(t_data *data)
 
 void	get_input(t_data *data)
 {
-	char	*input;
-
-	input = readline("Minishell$ ");
-	if (input == NULL)
+	data->input = readline("Minishell$ ");
+	if (data->input == NULL)
 		rl_redisplay();
-	data->input = input;
-	if (*input)
+	if (data->input)
 	{
 		add_history(data->input);
 		parse_input(data);
 	}
-	free(input);
 }
