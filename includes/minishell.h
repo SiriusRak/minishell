@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/16 15:12:25 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/09/17 07:28:47 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef	struct s_token
 	int 	arg;
 	int 	redir;
 	int 	pip;
-	char	*type;
+	char	*name;
 }				t_token;
 
 typedef struct s_d_list
@@ -42,7 +42,9 @@ typedef struct s_d_list
 typedef struct  s_data
 {
 	char		**env;
+	char		*input;
 	t_d_list	*list;
+	char		**tab;
 	
 }       t_data;
 
@@ -51,7 +53,7 @@ int	ft_init(char **env, t_data *data);
 
 void	ft_add_front_list(t_d_list **list, t_d_list *new);
 void	ft_add_back_list(t_d_list **list, t_d_list *new);
-void	get_input(char **env);
+void	get_input(t_data *data);
 void	waiting_signal(void);
 
 t_d_list	*ft_newlist(char *content);
