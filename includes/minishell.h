@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/17 07:28:47 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/09/17 08:58:55 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct  s_data
 
 int	ft_lstfree(t_d_list **list);
 int	ft_init(char **env, t_data *data);
+int	ft_is_builtin(char *cmd);
 
 void	ft_add_front_list(t_d_list **list, t_d_list *new);
 void	ft_add_back_list(t_d_list **list, t_d_list *new);

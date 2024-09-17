@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 15:59:57 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/17 08:26:41 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/09/17 08:58:36 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ void	ft_tokenisation(t_data *data)
 	data->tab = tab;
 }
 
-void	ft_init_token(t_d_list *list)
+void	ft_init_token(t_data *data)
 {
 	t_d_list	*temp;
 
-	temp = list;
+	temp = data->list;
 	while (temp)
 	{
 		if (ft_is_builtin(temp))
@@ -51,7 +51,7 @@ void	parse_input(t_data *data)
 {
 	printf("%ld\n", ft_strlen(data->input));
 	ft_tokenisation(data);
-	ft_init_token(data->list);
+	ft_init_token(data);
 }
 
 void	get_input(t_data *data)
