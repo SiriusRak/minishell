@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/17 13:35:47 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/09/18 08:28:10 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,14 @@
 typedef struct s_token	t_token;
 typedef struct s_d_list	t_d_list;
 
+typedef	struct	s_cmd
+{
+	char	*heredoc;
+	char	*cmd;
+	char	*arg;
+	char	*out_file;
+	char	*in_file;
+}				t_cmd;
 typedef	struct s_token
 {
 	int		cmd;
@@ -58,4 +66,5 @@ void	get_input(t_data *data);
 void	waiting_signal(void);
 
 t_d_list	*ft_newlist(char *content);
+
 #endif
