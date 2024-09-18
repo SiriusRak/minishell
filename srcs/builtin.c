@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:35:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/18 16:29:56 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/09/18 16:35:55 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,13 @@ void	ft_builtin_pwd(void)
 		printf("%s\n", cwd);
 	else
 		perror("pwd");
+}
+void	ft_builtin_exit(char *arg)
+{
+	int	exit_code;
+
+	exit_code = 0;
+	if (arg)
+		exit_code = ft_atoi(arg);
+	exit(exit_code);
 }

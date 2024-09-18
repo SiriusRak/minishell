@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/18 16:28:32 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/09/18 16:36:05 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	ft_add_front_list(t_d_list **list, t_d_list *new);
 void	ft_add_back_list(t_d_list **list, t_d_list *new);
 void	ft_builtin_echo(char *arg);
 void	ft_buitlin_cd(char *arg);
+void	ft_builtin_exit(char *arg);
 void	ft_builtin_pwd(void);
 void	get_input(t_data *data);
 void	waiting_signal(void);
