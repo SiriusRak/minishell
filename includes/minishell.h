@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/17 13:35:47 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/09/18 16:28:32 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,15 @@
 
 typedef struct s_token	t_token;
 typedef struct s_d_list	t_d_list;
+
+typedef	struct	s_cmd
+{
+	char	*heredoc;
+	char	*cmd;
+	char	*arg;
+	char	*out_file;
+	char	*in_file;
+}				t_cmd;
 
 typedef	struct s_token
 {
@@ -54,6 +63,9 @@ int	ft_is_builtin(char *cmd);
 
 void	ft_add_front_list(t_d_list **list, t_d_list *new);
 void	ft_add_back_list(t_d_list **list, t_d_list *new);
+void	ft_builtin_echo(char *arg);
+void	ft_buitlin_cd(char *arg);
+void	ft_builtin_pwd(void);
 void	get_input(t_data *data);
 void	waiting_signal(void);
 
