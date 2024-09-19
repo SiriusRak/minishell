@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:35:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/18 16:35:55 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/09/19 14:19:08 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,15 @@ void	ft_builtin_exit(char *arg)
 	if (arg)
 		exit_code = ft_atoi(arg);
 	exit(exit_code);
+}
+void	ft_builtin_env(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (data->env[i])
+	{
+		printf("%s\n", data->env[i]);
+		i++;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 15:59:57 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/18 16:30:31 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/09/19 14:28:22 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@
 
 void	parse_input(t_data *data)
 {
-	printf("%ld\n", ft_strlen(data->input));
+	// printf("%ld\n", ft_strlen(data->input));
 	// ft_tokenisation(data);
 	// ft_init_token(data);
 }
@@ -63,7 +63,6 @@ void	get_input(t_data *data)
 	{
 		add_history(data->input);
 		parse_input(data);
-		ft_buitlin_cd(data->input);
-		ft_builtin_pwd();
+		ft_builtin_echo(data->input);
 	}
 }
