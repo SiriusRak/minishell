@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 08:54:36 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/17 08:57:29 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/09/19 16:24:22 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,19 @@ char	*find_in_path(char *cmd)
 		ft_strlcat(full_path, cmd, ft_strlen(full_path) + ft_strlen(cmd));
 		if (!access(full_path, X_OK))
 		{
-			return (ft_str)
+			// return (ft_str)
 		}
 		i++;
 	}
 	printf("%s\n", path);
 	return (NULL);
 }
-
-int	ft_is_cmd(char *cmd)
+int	ft_count_line(char **strings)
 {
+	int	height;
 
+	height = 0;
+	while (strings[height] != NULL)
+		height++;
+	return (height);
 }

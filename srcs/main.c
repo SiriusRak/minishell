@@ -6,13 +6,13 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 15:55:15 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/19 14:24:20 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/09/19 17:03:25 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	ft_init(char **env, t_data *data)
+void	ft_init(char **env, t_data *data)
 {
 	char *path;
 

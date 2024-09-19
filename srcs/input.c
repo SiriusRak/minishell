@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 15:59:57 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/19 14:28:22 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/09/19 17:05:06 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,9 @@ void	get_input(t_data *data)
 	{
 		add_history(data->input);
 		parse_input(data);
-		ft_builtin_echo(data->input);
+		// ft_builtin_env(data);
+		printf("-------------------------\n");
+		ft_builtin_export("ABC=", data, data->input);
+		// ft_builtin_env(data);
 	}
 }
