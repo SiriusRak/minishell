@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/17 13:35:47 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/09/20 16:30:43 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,43 +19,20 @@
 # include <signal.h>
 # include <dirent.h>
 # include "../libft/libft.h"
-
-typedef struct s_token	t_token;
-typedef struct s_d_list	t_d_list;
-
-typedef	struct s_token
-{
-	int		cmd;
-	int 	arg;
-	int 	redir;
-	int 	pip;
-	char	*name;
-}				t_token;
-
-typedef struct s_d_list
-{
-	struct s_d_list	*prev;
-	t_token			*token;
-	struct s_d_list	*next;
-}				t_d_list;
-
-typedef struct  s_data
-{
-	char		**env;
-	char		*input;
-	t_d_list	*list;
-	char		**tab;
-	
-}       t_data;
+# include "struct.h"
+# include "buitlin.h"
 
 int	ft_lstfree(t_d_list **list);
-int	ft_init(char **env, t_data *data);
 int	ft_is_builtin(char *cmd);
+int	ft_count_line(char **strings);
 
+void	ft_init(char **env, t_data *data);
 void	ft_add_front_list(t_d_list **list, t_d_list *new);
 void	ft_add_back_list(t_d_list **list, t_d_list *new);
 void	get_input(t_data *data);
 void	waiting_signal(void);
+void	ft_free_split(char **strings);
+char	**ft_dup(char **s2);
 
 t_d_list	*ft_newlist(char *content);
 #endif

@@ -1,12 +1,12 @@
 NAME = minishell
 
 SRCS = 	./srcs/main.c ./srcs/input.c ./srcs/signal.c \
-		./srcs/double_list.c
+		./srcs/double_list.c ./srcs/builtin.c ./srcs/builtin2.c ./srcs/utils.c
 
 LIB = libft
 
 OBJS = $(SRCS:.c=.o)
-FLAGS = -Wall -Wextra -Werror -lreadline
+FLAGS = -Wall -Wextra -Werror -lreadline -g
 RM = rm -f
 
 $(NAME): $(OBJS)

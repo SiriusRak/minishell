@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 08:54:36 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/17 08:57:29 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/09/20 16:30:36 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,39 @@ char	*find_in_path(char *cmd)
 		ft_strlcat(full_path, cmd, ft_strlen(full_path) + ft_strlen(cmd));
 		if (!access(full_path, X_OK))
 		{
-			return (ft_str)
+			// return (ft_str)
 		}
 		i++;
 	}
 	printf("%s\n", path);
 	return (NULL);
 }
-
-int	ft_is_cmd(char *cmd)
+int	ft_count_line(char **strings)
 {
+	int	height;
 
+	height = 0;
+	while (strings[height] != NULL)
+		height++;
+	return (height);
+}
+
+char	**ft_dup(char **s2)
+{
+	int		len;
+	int		i;
+	char	**str;
+
+	i = 0;
+	len = ft_count_line(s2);
+	str = malloc(sizeof(char *) * (len + 1));
+	if (!str)
+		return (NULL);
+	while (s2[i])
+	{
+		str[i] = ft_strdup(s2[i]);
+		i++;
+	}
+	str[i] = 0;
+	return (str);
 }
