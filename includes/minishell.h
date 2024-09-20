@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/20 16:30:43 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/09/20 17:06:33 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include "buitlin.h"
 
 int	ft_lstfree(t_d_list **list);
-int	ft_is_builtin(char *cmd);
+int	ft_is_builtin(t_data *data);
 int	ft_count_line(char **strings);
 
 void	ft_init(char **env, t_data *data);

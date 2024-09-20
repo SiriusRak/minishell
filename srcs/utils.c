@@ -6,16 +6,18 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 08:54:36 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/20 16:30:36 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/09/20 17:07:21 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	ft_is_builtin(char *cmd)
+int	ft_is_builtin(t_data *data)
 {
 	size_t	len;
+	char	*cmd;
 
+	cmd = data->list->token->cmd;
 	len = ft_strlen(cmd);
 	if (!ft_strncmp(cmd, "echo", len))
 		return (1);
