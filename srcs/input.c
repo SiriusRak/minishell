@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 15:59:57 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/20 13:32:21 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/09/20 16:51:17 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,14 @@ void	get_input(t_data *data)
 	{
 		add_history(data->input);
 		parse_input(data);
+		ft_builtin_export("SCV=", data, data->input);
+		ft_builtin_export("xyz=", data, data->input);
 		ft_builtin_env(data);
 		printf("-------------------------\n");
-		ft_builtin_export("abc=", data, data->input);
+		ft_builtin_unset(data, "SCV");
+		ft_builtin_unset(data, "xyz");
 		ft_builtin_env(data);
+		ft_free_split(data->env);
 		ft_builtin_exit("0");
 	}
 }

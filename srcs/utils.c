@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 08:54:36 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/19 16:24:22 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/09/20 16:30:36 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,24 @@ int	ft_count_line(char **strings)
 	while (strings[height] != NULL)
 		height++;
 	return (height);
+}
+
+char	**ft_dup(char **s2)
+{
+	int		len;
+	int		i;
+	char	**str;
+
+	i = 0;
+	len = ft_count_line(s2);
+	str = malloc(sizeof(char *) * (len + 1));
+	if (!str)
+		return (NULL);
+	while (s2[i])
+	{
+		str[i] = ft_strdup(s2[i]);
+		i++;
+	}
+	str[i] = 0;
+	return (str);
 }

@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 15:55:15 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/20 13:38:49 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/09/20 15:42:32 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_init(char **env, t_data *data)
 {
 	char *path;
 
-	data->env = env;
+	data->env = ft_dup(env);
 	path = getenv("PATH");
 	data->path = ft_split(path, ":");
 }
