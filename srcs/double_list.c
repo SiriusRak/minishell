@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 08:19:47 by enarindr          #+#    #+#             */
-/*   Updated: 2024/09/17 07:13:57 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/09/22 16:10:51 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,6 @@ t_d_list	*ft_newlist(char *content)
 	if (!new)
 		return (NULL);
 	new->token->name = content;
-	new->token->arg = 0;
-	new->token->cmd = 0;
-	new->token->pip = 0;
-	new->token->redir = 0;
 	new->prev = NULL;
 	new->next = NULL;
 	return (new);

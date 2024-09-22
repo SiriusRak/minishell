@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 14:21:53 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/16 12:12:12 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/09/22 13:42:12 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,6 @@ char	**ft_split(char const *s, char *sep)
 		while (*s && !ft_is_sep(*s, sep))
 			s++;
 	}
-	strings[i] = 0;
+	strings[i] = NULL;
 	return (strings);
 }
