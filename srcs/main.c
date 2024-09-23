@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 15:55:15 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/22 16:40:01 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/09/23 16:42:54 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ int	ft_init(char **env, t_data *data)
 	data->env = ft_split(path, ":");
 	data->sep = malloc(sizeof(char) * 6);
 	data->sep = " \'\"$<>|";
-	data->list = NULL;
+	data->list = malloc(sizeof (t_d_list));
+	data->list->token = malloc(sizeof(t_token));
+	ft_init_list(data->list);
 	return (0);
 }
 

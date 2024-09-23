@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 15:59:57 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/23 10:29:02 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:19:30 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ void	ft_parse(t_d_list *list, t_data *data)
 	int	i;
 
 	i = 0;
-	ft_init_list(list);
 	while (list->token->name[i])
 	{
 		if (list->token->name[i] == '\''
@@ -120,12 +119,73 @@ void	parse_input(t_data *data)
 	ft_tokenisation(data);
 }
 
+int		ft_iswite_space(char c)
+{
+	if (c >= 9 && c <= 13 || c == ' ')
+		return (1);
+	return (0);
+}
+
+char	*ft_epure_line(char *str)
+{
+	int		i;
+	int		j;
+	char	*new;
+
+	j = 0;
+	i = 0;
+	while (str[i])
+	{
+		while (ft_iswite_space(str[i]))
+			i++;
+		if (!t_iswite_space(str[i]) && i != 0)
+			new[j++] = ' ';
+		while (!t_iswite_space(str[i]))
+			new[j++] = str[i++];		
+	}
+	free (str);
+	return (new);
+}
+
+int		ft_is_heredoc(char	*str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i + 1])
+	{
+		if (str[i] == '<' && str[i + 1] == '<')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+void	ft_heredoc(t_data *data)
+{
+	char	*prev;
+	char	*next;
+}
+
 void	get_input(t_data *data)
 {
-	data->input = readline("Minishell$ ");
-	if (data->input)
+	char	*rd_line;
+
+	rd_line = readline("Minishell By Nary & Zazou $");
+	data->input = ft_epure_line(rd_line);
+	while (ft_is_heredoc(data->input))
+		ft_heredoc(data->input);
+	ft_herdoc(data);
+	while (ft_end_pip(rd_line))
 	{
-		add_history(data->input);
-		parse_input(data);
+		rd_line = ft_strjoin(rd_line, ft_epure_line(readline(">")));
+		ft_heredoc(data);
 	}
+
+	// if (data->input)
+	// {
+	// 	add_history(data->input);
+	// 	parse_input(data);
+	// }
 }
+
