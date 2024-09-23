@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 15:59:57 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/22 17:14:58 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/09/23 10:29:02 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,38 @@ void	ft_init_list(t_d_list *list)
 	list->token->out_two = NULL;
 	list->token->var = NULL;
 }
+void	ft_check_type(t_d_list *list, char *type)
+{
+	
+}
+
 int		ft_quotes(t_d_list *list, int start)
 {
 	int		len;
 	int		i;
+	int		j;
+	char	*type;
 
 	i = start + 1;
+	j = 0;
 	while (list->token->name[i] != '\'' && list->token->name[i] != '\"')
-		list->token->name[i++];
-	len = i - start + 2;
+	{
+		list->token->name[i];
+		i++;
+	}
+	len = i - start + 1;
+	type = malloc(sizeof (char) * len + 1);
+	if (!len)
+		return 0;
+	
+	while (start <= i)
+	{
+		type[j] = list->token->name[start + j];
+		j++;
+	}
+	type[j] = '\0';
+	ft_check_type(list, type);
+	return (len);
 }
 
 void	ft_parse(t_d_list *list, t_data *data)
