@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/20 17:06:33 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/09/23 14:14:41 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define MINISHELL_H
 # include <stdio.h>
 # include <stdlib.h>
+# include <unistd.h>
+# include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
@@ -33,6 +35,8 @@ void	get_input(t_data *data);
 void	waiting_signal(void);
 void	ft_free_split(char **strings);
 char	**ft_dup(char **s2);
+void    ft_redir(t_list *out, int type);
+void    ft_execute(t_data *data);
 
 t_d_list	*ft_newlist(char *content);
 #endif

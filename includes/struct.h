@@ -6,31 +6,30 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:44:23 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/19 14:23:14 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/09/23 15:05:15 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../libft/libft.h"
 
 #ifndef STRUCT_H
 # define STRUCT_H
 
+typedef	struct	s_type	t_type;
 typedef struct s_token	t_token;
 typedef struct s_d_list	t_d_list;
-
-typedef	struct	s_cmd
-{
-	char	*heredoc;
-	char	*cmd;
-	char	*arg;
-	char	*out_file;
-	char	*in_file;
-}				t_cmd;
+typedef struct  s_data	t_data;
 
 typedef	struct s_token
 {
-	int		cmd;
-	int 	arg;
-	int 	redir;
-	int 	pip;
+	t_list	*cmd;
+	t_list	*builting;
+	t_list	*arg;
+	t_list	*in;
+	t_list	*out;
+	t_list	*out_two;
+	t_list	*heredoc;
+	t_list	*var;
 	char	*name;
 }				t_token;
 
@@ -44,11 +43,10 @@ typedef struct s_d_list
 typedef struct  s_data
 {
 	char		**env;
-	char		*input;
-    char        **path;
-	t_d_list	*list;
 	char		**tab;
-	
-}       t_data;
+	char		*input;
+	char		*sep;
+	t_d_list	*list;
+}				t_data;
 
 #endif

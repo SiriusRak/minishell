@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 11:52:33 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/16 12:14:03 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/09/23 17:12:23 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
+	int				type;
 }				t_list;
 
 int		ft_isalpha(int c);
