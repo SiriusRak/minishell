@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 11:52:33 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/23 17:12:23 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/09/25 12:57:17 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size);
 
 t_list	*ft_lstnew(void *content);
 t_list	*ft_lstlast(t_list *lst);
+t_list	*ft_add_node(t_list *head, char *str);
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 void	ft_lstadd_front(t_list **lst, t_list *new);
 void	ft_lstadd_back(t_list **lst, t_list *new);

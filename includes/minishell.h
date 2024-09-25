@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/23 14:14:41 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/09/25 13:27:34 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ void	ft_add_back_list(t_d_list **list, t_d_list *new);
 void	get_input(t_data *data);
 void	waiting_signal(void);
 void	ft_free_split(char **strings);
-char	**ft_dup(char **s2);
 void    ft_redir(t_list *out, int type);
 void    ft_execute(t_data *data);
 
+t_list      *ft_duplicate(char **str);
 t_d_list	*ft_newlist(char *content);
 #endif

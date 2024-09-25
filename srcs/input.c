@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 15:59:57 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/23 16:09:33 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/09/25 14:55:46 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,6 @@ void	get_input(t_data *data)
 	{
 		add_history(data->input);
 		// parse_input(data);
-		ft_execute(data);
+		// ft_execute(data);
 	}
 }

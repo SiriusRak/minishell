@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:44:23 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/25 11:27:54 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/09/25 12:41:43 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct s_d_list
 
 typedef struct  s_data
 {
-	char		**env;
+	t_list		*env;
 	char		**tab;
 	char		*input;
 	char		*sep;

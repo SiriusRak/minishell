@@ -6,35 +6,37 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 08:54:36 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/23 14:31:05 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/09/25 13:28:38 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-// int	ft_is_builtin(t_data *data)
-// {
-// 	size_t	len;
-// 	char	*cmd;
+int	ft_is_builtin(t_data *data)
+{
+	size_t	len;
+	char	*cmd;
+	char	*arg;
 
-// 	cmd = data->list->token->cmd;
-// 	len = ft_strlen(cmd);
-// 	if (!ft_strncmp(cmd, "echo", len))
-// 		return (1);
-// 	else if (!ft_strncmp(cmd, "exit", len))
-// 		return (1);
-// 	else if (!ft_strncmp(cmd, "env", len))
-// 		return (1);
-// 	else if (!ft_strncmp(cmd, "export", len))
-// 		return (1);
-// 	else if (!ft_strncmp(cmd, "unset", len))
-// 		return (1);
-// 	else if (!ft_strncmp(cmd, "cd", len))
-// 		return (1);
-// 	else if (!ft_strncmp(cmd, "pwd", len))
-// 		return (1);
-// 	return (0);
-// }
+	cmd = (char *)data->list->token->cmd;
+	arg = (char *)data->list->token->arg;
+	len = ft_strlen(cmd);
+	if (!ft_strncmp(cmd, "echo", len))
+		ft_builtin_echo(arg);
+	else if (!ft_strncmp(cmd, "exit", len))
+		ft_builtin_exit(arg);
+	else if (!ft_strncmp(cmd, "env", len))
+		ft_builtin_env(data);
+	// else if (!ft_strncmp(cmd, "export", len))
+		// ft_builtin_export(cmd, data, arg);
+	else if (!ft_strncmp(cmd, "unset", len))
+		return (1);
+	else if (!ft_strncmp(cmd, "cd", len))
+		ft_buitlin_cd(arg);
+	else if (!ft_strncmp(cmd, "pwd", len))
+		ft_builtin_pwd();
+	return (0);
+}
 
 char	*find_in_path(char *cmd)
 {
@@ -72,22 +74,17 @@ int	ft_count_line(char **strings)
 	return (height);
 }
 
-char	**ft_dup(char **s2)
+t_list	*ft_duplicate(char **str)
 {
-	int		len;
+	t_list	*list;
 	int		i;
-	char	**str;
 
+	list = NULL;
 	i = 0;
-	len = ft_count_line(s2);
-	str = malloc(sizeof(char *) * (len + 1));
-	if (!str)
-		return (NULL);
-	while (s2[i])
+	while (str[i])
 	{
-		str[i] = ft_strdup(s2[i]);
+		list = ft_add_node(list, str[i]);
 		i++;
 	}
-	str[i] = 0;
-	return (str);
+	return (list);
 }
