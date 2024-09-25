@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 15:59:57 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/23 17:19:30 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/09/25 17:44:40 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,6 @@ int		ft_notsep(char	c, t_data *data)
 	return (1);
 }
 
-void	ft_init_list(t_d_list *list)
-{
-	list->token->arg = NULL;
-	list->token->cmd = NULL;
-	list->token->heredoc = NULL;
-	list->token->in = NULL;
-	list->token->out = NULL;
-	list->token->out_two = NULL;
-	list->token->var = NULL;
-}
 void	ft_check_type(t_d_list *list, char *type)
 {
 	
@@ -52,7 +42,7 @@ int		ft_quotes(t_d_list *list, int start)
 	j = 0;
 	while (list->token->name[i] != '\'' && list->token->name[i] != '\"')
 	{
-		list->token->name[i];
+		// list->token->name[i];
 		i++;
 	}
 	len = i - start + 1;
@@ -134,16 +124,18 @@ char	*ft_epure_line(char *str)
 
 	j = 0;
 	i = 0;
+	if (!str)
+		return (NULL);
+	new = ft_calloc(sizeof(char), ft_strlen(str) + 1);
 	while (str[i])
 	{
-		while (ft_iswite_space(str[i]))
+		while (str[i] && ft_iswite_space(str[i]))
 			i++;
-		if (!t_iswite_space(str[i]) && i != 0)
+		if (str[i] && !ft_iswite_space(str[i]) && i != 0)
 			new[j++] = ' ';
-		while (!t_iswite_space(str[i]))
-			new[j++] = str[i++];		
+		while (str[i] && !ft_iswite_space(str[i]))
+			new[j++] = str[i++];
 	}
-	free (str);
 	return (new);
 }
 
@@ -160,32 +152,93 @@ int		ft_is_heredoc(char	*str)
 	}
 	return (0);
 }
-
-void	ft_heredoc(t_data *data)
+void	ft_add_heredoc(t_data *data, char *heredoc)
 {
-	char	*prev;
-	char	*next;
+	char	*line;
+	char	*read;
+
+	line = NULL;
+	while (1)
+	{
+		read = readline("> ");
+		if (!read)
+			return ;
+		if (ft_strncmp(read, heredoc, ft_strlen(read)) == 0)
+		{
+			free (read);
+			break;
+		}
+		line = ft_strjoin_2(line, read);
+		line = ft_strjoin_2(line, ft_strdup("\n"));
+	}
+	ft_lstadd_back(&(data->list->token->heredoc), ft_lstnew(line));
 }
 
-void	get_input(t_data *data)
+void		ft_heredoc(t_data *data)
+{
+	int		i;
+	int		j;
+	char	*heredoc;
+
+	i = 0;
+	while ((data->input)[i + 1])
+	{
+		if (data->input[i] == '<' && data->input[i + 1] == '<')
+		{
+			heredoc = ft_calloc(sizeof(char), ft_strlen(data->input));
+			if (!heredoc)
+				return ;
+			i += 2;
+			j = 0;
+			while ((data->input)[i] && !ft_iswite_space(data->input[i]))
+				heredoc[j++] = data->input[i++];
+			ft_add_heredoc(data, heredoc);
+			free (heredoc);
+		}
+		i++;
+	}
+}
+
+int	ft_end_pip(char *str)
+{
+	if (str[ft_strlen(str) - 1] == '|')
+		return (1);
+	return (0);
+}
+
+int	get_input(t_data *data)
 {
 	char	*rd_line;
 
-	rd_line = readline("Minishell By Nary & Zazou $");
+	rd_line = readline("😂😂😂😂$ ");
+	if (!rd_line)
+		ft_exit(data);
 	data->input = ft_epure_line(rd_line);
-	while (ft_is_heredoc(data->input))
-		ft_heredoc(data->input);
-	ft_herdoc(data);
-	while (ft_end_pip(rd_line))
+	free (rd_line);
+	if (ft_strncmp(data->input, "exit", 4) == 0)
+		ft_exit (data);
+	if (ft_is_heredoc(data->input))
 	{
-		rd_line = ft_strjoin(rd_line, ft_epure_line(readline(">")));
 		ft_heredoc(data);
 	}
-
+	if (data->list->token->heredoc)
+	{
+		while (data->list->token->heredoc)
+		{
+			printf ("%s", data->list->token->heredoc->content);
+			data->list->token->heredoc = data->list->token->heredoc->next;
+		}
+	}
+	// while (ft_end_pip(data->input))
+	// {
+	// 	rd_line = readline(">");
+	// 	data->input = ft_strjoin_2(data->input, ft_epure_line(rd_line));
+	// 	ft_heredoc(data);
+	// }
 	// if (data->input)
 	// {
 	// 	add_history(data->input);
 	// 	parse_input(data);
 	// }
+	return (0);
 }
-

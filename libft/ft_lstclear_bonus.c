@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 10:15:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/10 13:23:04 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/09/25 17:41:09 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,17 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 		ft_lstdelone(*lst, del);
 		*lst = next;
 	}
+}
+
+void	ft_lstclear_2(t_list **list)
+{
+	t_list	*temp;
+
+	temp = *list;
+	while (temp)
+	{
+		free(temp->content);
+		temp = temp->next;
+	}
+	free (list);
 }

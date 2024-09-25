@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/23 14:21:35 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/09/25 12:25:20 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ typedef	struct s_token
 	t_list	*heredoc;
 	t_list	*in;
 	t_list	*out;
-	t_list	*out_two;
 	t_list	*var;
 	t_list	*var_two;
 	char	*name;
@@ -59,9 +58,13 @@ int	ft_lstfree(t_d_list **list);
 int	ft_init(char **env, t_data *data);
 int	ft_is_builtin(char *cmd);
 
+int		ft_iswite_space(char c);
+int 	ft_exit(t_data *data);
+
+
 void	ft_add_front_list(t_d_list **list, t_d_list *new);
 void	ft_add_back_list(t_d_list **list, t_d_list *new);
-void	get_input(t_data *data);
+int	get_input(t_data *data);
 void	waiting_signal(void);
 
 t_d_list	*ft_newlist(char *content);
