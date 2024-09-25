@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:44:23 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/23 15:05:15 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/09/25 11:27:54 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ typedef	struct s_token
 	t_list	*arg;
 	t_list	*in;
 	t_list	*out;
-	t_list	*out_two;
 	t_list	*heredoc;
 	t_list	*var;
 	char	*name;
