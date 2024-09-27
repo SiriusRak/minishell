@@ -6,11 +6,26 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:41:09 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/25 14:55:32 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/09/27 15:31:50 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	ft_export_no_arg(t_data *data)
+{
+	char	**env;
+	int		i;
+
+	env = ft_lstcopy(data->env);
+	ft_sort_tab(env);
+	i = 0;
+	while (env[i])
+	{
+		printf("export %s\n", env[i]);
+		i++;
+	}
+}
 
 void	ft_builtin_export(char *key, t_data *data, char *args)
 {
@@ -19,6 +34,11 @@ void	ft_builtin_export(char *key, t_data *data, char *args)
 
 	tmp = data->env;
 	is_exist = 1;
+	if (!args)
+	{
+		ft_export_no_arg(data);
+		return ;
+	}
 	while (data->env && is_exist)
 	{
 		if (ft_strncmp(data->env->content, key, ft_strlen(key)) == 0)

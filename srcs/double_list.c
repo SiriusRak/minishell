@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 08:19:47 by enarindr          #+#    #+#             */
-/*   Updated: 2024/09/23 14:30:21 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/09/27 13:53:59 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,18 @@ int	ft_lstfree(t_d_list **list)
 	return (0);
 }
 
-t_d_list	*ft_newlist(char *content)
-{
-	t_d_list	*new;
+// t_d_list	*ft_newlist(char *content)
+// {
+// 	t_d_list	*new;
 
-	new = (t_d_list *) malloc(sizeof(t_d_list));
-	if (!new)
-		return (NULL);
-	new->token->name = content;
-	new->prev = NULL;
-	new->next = NULL;
-	return (new);
-}
+// 	new = (t_d_list *) malloc(sizeof(t_d_list));
+// 	if (!new)
+// 		return (NULL);
+// 	new->token->name = content;
+// 	new->prev = NULL;
+// 	new->next = NULL;
+// 	return (new);
+// }
 
 void	ft_add_front_list(t_d_list **list, t_d_list *new)
 {

@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 15:59:57 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/25 14:55:46 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/09/27 14:52:40 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@
 // 	}
 // }
 
-void	parse_input(t_data *data)
-{
-	// printf("%ld\n", ft_strlen(data->input));
-	// ft_tokenisation(data);
-	// ft_init_token(data);
-}
+// void	parse_input(t_data *data)
+// {
+// 	// printf("%ld\n", ft_strlen(data->input));
+// 	// ft_tokenisation(data);
+// 	// ft_init_token(data);
+// }
 
 void	get_input(t_data *data)
 {
@@ -62,6 +62,11 @@ void	get_input(t_data *data)
 	if (data->input)
 	{
 		add_history(data->input);
+		// ft_builtin_env(data);
+		printf("----------------\n");
+		ft_export_no_arg(data);
+		// ft_builtin_export("as", data, "");
+		// ft_builtin_env(data);
 		// parse_input(data);
 		// ft_execute(data);
 	}

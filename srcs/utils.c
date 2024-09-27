@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 08:54:36 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/25 13:28:38 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/09/27 15:27:58 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,42 @@ t_list	*ft_duplicate(char **str)
 		i++;
 	}
 	return (list);
+}
+
+void	ft_swap(char *a, char *b)
+{
+	char *tmp;
+	
+	tmp = ft_strdup(a);
+	a = ft_strdup(b);
+	b = ft_strdup(tmp);
+	free(tmp);
+}
+
+void	ft_sort_tab(char **tab)
+{
+	int		i;
+	int		j;
+	char	*key;
+	size_t	k_len;
+
+	i = 1;
+	while (i < ft_count_line(tab))
+	{
+		key = tab[i];
+		k_len = ft_strlen(key);
+		j = i - 1;
+		while (j >= 0)
+		{
+			if (strncmp(tab[j], key, k_len) > 0)
+			{
+				tab[j + 1] = tab[j];
+				j = j - 1;
+			}
+			else
+				break;
+		}
+		tab[j + 1] = key;
+		i++;
+	}
 }
