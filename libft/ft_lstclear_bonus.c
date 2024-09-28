@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/27 10:15:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/25 17:41:09 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/09/27 13:46:22 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,16 @@ void	ft_lstclear_2(t_list **list)
 {
 	t_list	*temp;
 
-	temp = *list;
-	while (temp)
+	// if (!(*list))
+	// 	free (*list);
+	if (*list)
 	{
-		free(temp->content);
-		temp = temp->next;
+		while (*list)
+		{
+			temp = (*list)->next;
+			free((*list)->content);
+			free(*list);
+			*list = temp;
+		}
 	}
-	free (list);
 }

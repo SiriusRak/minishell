@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/25 12:25:20 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/09/28 11:51:00 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,23 +50,40 @@ typedef struct  s_data
 	char		**env;
 	char		**tab;
 	char		*input;
+	char		*prompt;
 	char		*sep;
+	int			pipe;
 	t_d_list	*list;
 }				t_data;
 
-int	ft_lstfree(t_d_list **list);
-int	ft_init(char **env, t_data *data);
-int	ft_is_builtin(char *cmd);
+/*debug start*/
+void    ft_print_list(t_list **list);
+
+/*debug end*/
+int		ft_lstfree(t_d_list **list);
+int		ft_init(char **env, t_data *data);
+int		ft_is_builtin(char *cmd);
+int		ft_notsep(char	c, t_data *data);
 
 int		ft_iswite_space(char c);
-int 	ft_exit(t_data *data);
+int 	ft_exit(t_data *data, int i);
+int		get_input(t_data *data);
+int		ft_is_heredoc(char	*str);
+int		ft_init(char **env, t_data *data);
+int		ft_end_pip(char *str);
+int		ft_free_loop(t_data *data, int i);
+int		ft_d_free_list(t_d_list **list);
+int		ft_t_free_list(t_list **list);
 
+char	*ft_epure_line(char *str);
 
 void	ft_add_front_list(t_d_list **list, t_d_list *new);
 void	ft_add_back_list(t_d_list **list, t_d_list *new);
-int	get_input(t_data *data);
 void	waiting_signal(void);
+void	ft_init_list(t_d_list **list);
+void	ft_heredoc(t_data *data);
 
 t_d_list	*ft_newlist(char *content);
+
 
 #endif

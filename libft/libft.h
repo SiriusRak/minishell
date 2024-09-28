@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 11:52:33 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/25 17:28:48 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/09/28 08:51:24 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 typedef struct s_list
 {
-	void			*content;
+	char			*content;
 	int				type;
 	char			*value;
 	struct s_list	*next;

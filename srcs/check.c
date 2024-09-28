@@ -1,27 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
+/*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/25 10:53:36 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/27 17:35:54 by enarindr         ###   ########.fr       */
+/*   Created: 2024/09/27 07:20:39 by enarindr          #+#    #+#             */
+/*   Updated: 2024/09/27 16:27:25 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/minishell.h"
 
-t_list	*ft_lstnew(void *content)
+int		ft_notsep(char	c, t_data *data)
 {
-	t_list	*new;
+	int		i;
 
-	if (!content)
-		content = ft_strdup("");
-	new = malloc(sizeof(t_list));
-	if (!new)
-		return (NULL);
-	new->content = content;
-	new->next = NULL;
-	return (new);
+	i = 0;
+	while (data->sep[i])
+	{
+		if (data->sep[i] == c)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int		ft_iswite_space(char c)
+{
+	if ((c >= 9 && c <= 13) || c == ' ')
+		return (1);
+	return (0);
+}
+
+int	ft_end_pip(char *str)
+{
+	if (str[ft_strlen(str) - 1] == '|')
+		return (1);
+	return (0);
 }
