@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 13:46:17 by enarindr          #+#    #+#             */
-/*   Updated: 2024/09/28 10:23:49 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/09/28 13:59:14 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int ft_exit(t_data *data, int i)
 	if (i == 2)
 		free (data->input);
 	free (data->env);
-	free (data->sep);
 	if (i == 1)
 		ft_free_loop(data, i);
 	exit (0);

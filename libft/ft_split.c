@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 14:21:53 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/22 13:42:12 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/09/28 16:06:31 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static char	*ft_word(char const *s, char *sep)
 
 	i = 0;
 	len_word = ft_strlen_sep(s, sep);
-	word = malloc(sizeof(char) * (len_word + 1));
+	word = ft_calloc(sizeof(char), (len_word + 3));
 	if (!word)
 		return (NULL);
 	while (i < len_word)

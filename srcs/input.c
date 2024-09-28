@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 15:59:57 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/28 13:47:03 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/09/28 15:29:57 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,20 @@ void	ft_add_name(char *, t_data *data)
 
 int	ft_tokenisation(t_data *data)
 {
+	t_d_list	*temp;
 
 	ft_add_name(data->input, data);
 	printf("%d\n", data->pipe);
-	ft_init_list(&(data->list));
-	if (ft_is_heredoc(data->input))
+	temp = *(&(data->list));
+	while (temp)
 	{
-		ft_heredoc(data);
+		ft_init_list(&(temp));
+		temp->data = data;
+		if (ft_is_heredoc(temp->token->name))
+		{
+			ft_heredoc(temp);
+		}
+		temp = temp->next;
 	}
 	free (data->tab);
 	return (0);

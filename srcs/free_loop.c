@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 09:14:55 by enarindr          #+#    #+#             */
-/*   Updated: 2024/09/28 13:39:23 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/09/28 13:50:22 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,6 @@ int	ft_d_free_list(t_d_list **list)
 
 int    ft_free_loop(t_data *data, int i)
 {
-	// int a;
-
-	// a = 0;
-	// while (data->tab[a])
-	// {
-	// 	free (data->tab[a]);
-	// 	a++;
-	// }
-	// free (data->tab);
 	if (i == 1)
 		free (data->input);
 	ft_d_free_list (&(data->list));
