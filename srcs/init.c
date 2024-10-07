@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 08:26:35 by enarindr          #+#    #+#             */
-/*   Updated: 2024/09/28 14:27:33 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/07 08:27:22 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,30 @@ int	ft_init(char **env, t_data *data)
 	data->env = ft_split(getenv("PATH"), ":");
 	data->input = NULL;
 	data->list = NULL;
-
+	data->final_list = NULL;
+	data->prompt = NULL;
 	return (0);
+}
+
+char	*ft_epure_line(char *str)
+{
+	int		i;
+	int		j;
+	char	*new;
+
+	j = 0;
+	i = 0;
+	if (!str)
+		return (NULL);
+	new = ft_calloc(sizeof(char), ft_strlen(str) + 3);
+	while (str[i])
+	{
+		while (str[i] && ft_iswite_space(str[i]))
+			i++;
+		if (str[i] && !ft_iswite_space(str[i]) && i != 0)
+			new[j++] = ' ';
+		while (str[i] && !ft_iswite_space(str[i]))
+			new[j++] = str[i++];
+	}
+	return (new);
 }

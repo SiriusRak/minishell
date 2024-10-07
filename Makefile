@@ -12,6 +12,7 @@ CFLAGS = -Wall -Wextra -Werror -lreadline -g
 RM = rm -f
 
 $(NAME): $(OBJS)
+	@mkdir ".heredoc"
 	@make -s bonus -C $(LIB)
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -Llibft -lft
 
@@ -24,5 +25,6 @@ clean:
 fclean: clean
 	@$(RM) $(NAME)
 	@make -s fclean -C $(LIB)
+	@rm -rf ".heredoc"
 
 re: fclean all

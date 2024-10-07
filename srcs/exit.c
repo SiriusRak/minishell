@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 13:46:17 by enarindr          #+#    #+#             */
-/*   Updated: 2024/09/28 13:59:14 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/07 08:36:06 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int ft_exit(t_data *data, int i)
 	free (data->env);
 	if (i == 1)
 		ft_free_loop(data, i);
+	if (data->prompt)
+		free (data->prompt);
 	exit (0);
 	return (0);
 }

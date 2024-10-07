@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/28 16:07:06 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/07 11:03:09 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,29 @@
 # define MINISHELL_H
 # include <stdio.h>
 # include <stdlib.h>
+# include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
 # include <dirent.h>
 # include "../libft/libft.h"
 
-typedef	struct	s_type	t_type;
+typedef enum e_type		t_type;
+// typedef	struct	s_type	t_type;
 typedef struct s_token	t_token;
 typedef struct s_d_list	t_d_list;
 typedef struct  s_data	t_data;
 
+typedef enum e_type
+{
+	ARG,
+	CMD,
+	HERE,
+	IN,
+	OUT,
+	VAR,
+	VAR_TWO
+}				t_type;
 typedef	struct s_token
 {
 	t_list	*arg;
@@ -34,6 +46,7 @@ typedef	struct s_token
 	t_list	*out;
 	t_list	*var;
 	t_list	*var_two;
+	t_type	type;
 	char	*name;
 	int		pip;
 }				t_token;
@@ -54,6 +67,7 @@ typedef struct  s_data
 	char		*prompt;
 	int			pipe;
 	t_d_list	*list;
+	t_d_list	*final_list;
 }				t_data;
 
 /*debug start*/

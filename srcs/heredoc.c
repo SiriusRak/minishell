@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 07:19:00 by enarindr          #+#    #+#             */
-/*   Updated: 2024/09/28 15:32:16 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/07 07:23:05 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	ft_heredoc(t_d_list *list)
 
 	pip = 0;
 	i = 0;
+	list->token->type = HERE;
 	while (list->token->name[i + 1])
 	{
 		if (list->token->name[i] == '<' && list->token->name[i + 1] == '<')
