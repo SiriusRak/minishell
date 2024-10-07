@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:43:41 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/27 11:09:38 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/07 11:31:59 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,7 @@ void	ft_builtin_env(t_data *data);
 void    ft_builtin_export(char *key, t_data *data, char *args);
 void    ft_builtin_unset(t_data *data, char *key);
 char	*ft_get_key(char *content);
+char	*ft_find_in_path(char *cmd);
+int     ft_is_builtin(t_token *token);
 
 #endif

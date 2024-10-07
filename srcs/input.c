@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 15:59:57 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/27 14:52:40 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/07 10:26:30 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	get_input(t_data *data)
 		// ft_builtin_env(data);
 		printf("----------------\n");
 		ft_export_no_arg(data);
+		exit(0);
 		// ft_builtin_export("as", data, "");
 		// ft_builtin_env(data);
 		// parse_input(data);

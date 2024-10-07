@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:44:23 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/25 12:41:43 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/07 13:49:31 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,14 @@ typedef	struct s_token
 {
 	t_list	*cmd;
 	t_list	*builting;
-	t_list	*arg;
+	// t_list	*arg;
 	t_list	*in;
 	t_list	*out;
 	t_list	*heredoc;
 	t_list	*var;
 	char	*name;
+	char	*path;
+	char	**arg;
 }				t_token;
 
 typedef struct s_d_list
