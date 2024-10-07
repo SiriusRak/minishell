@@ -6,20 +6,16 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 08:54:36 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/07 13:56:51 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/07 16:42:17 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	ft_is_builtin(t_token *token)
+int	ft_is_builtin(char *cmd)
 {
 	size_t	len;
-	char	*cmd;
-	char	*arg;
 
-	cmd = (char *)token->cmd;
-	arg = (char *)token->arg;
 	len = ft_strlen(cmd);
 	if (!ft_strncmp(cmd, "echo", len))
 		return (1);
@@ -38,7 +34,7 @@ int	ft_is_builtin(t_token *token)
 	return (0);
 }
 
-char	*ft_find_13in_path(char *cmd)
+char	*ft_find_in_path(char *cmd)
 {
 	char	*path;
 	char	full_path[1024];
@@ -52,9 +48,9 @@ char	*ft_find_13in_path(char *cmd)
 	splitted_path = ft_split(path, ":");
 	while (splitted_path[i])
 	{
-		ft_strlcpy(full_path, splitted_path[i], ft_strlen(splitted_path[i]));
-		ft_strlcat(full_path, "/", ft_strlen(full_path) + 1);
-		ft_strlcat(full_path, cmd, ft_strlen(full_path) + ft_strlen(cmd));
+		ft_strlcpy(full_path, splitted_path[i], ft_strlen(splitted_path[i]) + 1);
+		ft_strlcat(full_path, "/", ft_strlen(full_path) + 2);
+		ft_strlcat(full_path, cmd, ft_strlen(full_path) + ft_strlen(cmd) + 1);
 		if (!access(full_path, X_OK))
 		{
 			ft_free_split(splitted_path);

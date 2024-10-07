@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 15:59:57 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/07 10:26:30 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/07 16:52:56 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,15 @@ void	get_input(t_data *data)
 	if (data->input)
 	{
 		add_history(data->input);
-		// ft_builtin_env(data);
-		printf("----------------\n");
-		ft_export_no_arg(data);
-		exit(0);
-		// ft_builtin_export("as", data, "");
-		// ft_builtin_env(data);
-		// parse_input(data);
-		// ft_execute(data);
+		data->list = malloc(sizeof(t_d_list));
+		data->list->token = malloc(sizeof(t_token));
+		data->list->token->cmd = malloc(sizeof(t_list));
+		data->list->token->cmd = NULL;
+		data->list->token->cmd = ft_add_node(data->list->token->cmd, "env");
+		data->list->token->arg = malloc(sizeof(t_list));
+		data->list->token->arg = NULL;
+		data->list->token->arg = ft_add_node(data->list->token->arg, "");
+		// printf("%s\n", (char *)data->list->token->cmd->content);
+		ft_execute(data);
 	}
 }

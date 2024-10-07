@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 11:04:22 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/27 13:44:38 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/07 14:18:59 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*ft_get_key(char *content)
 	return (key);
 }
 
-char	**ft_lstcopy(t_list *list)
+char	**ft_lst_to_char(t_list *list)
 {
 	char	**tab;
 	int		i;

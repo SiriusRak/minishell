@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/07 13:33:57 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/07 14:45:20 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <readline/history.h>
 # include <signal.h>
 # include <dirent.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 # include "../libft/libft.h"
 # include "struct.h"
 # include "buitlin.h"
@@ -39,7 +41,7 @@ void	ft_sort_tab(char **tab);
 void	ft_export_no_arg(t_data *data);
 void	ft_execute_builtin(t_data *data, char *cmd, char *arg);
 
-char	**ft_lstcopy(t_list *list);
+char	**ft_lst_to_char(t_list *list);
 
 t_list      *ft_duplicate(char **str);
 t_d_list	*ft_newlist(char *content);
