@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:02:05 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/27 14:37:17 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/08 15:32:56 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,33 @@ void    ft_redir(t_list *out, int type)
 	ft_check_fd_dup(0, dup2(fd, STDOUT_FILENO));
 	close(fd);
 	exit(0);
+}
+
+int	ft_check_path(t_d_list *list)
+{
+	char	*big;
+
+	big = ft_strdup(list->token->cmd->content);
+	if (ft_strnstr(big, "/bin/", 5))
+	{
+		if (access(big, X_OK) == 0)
+		{
+			list->token->path = ft_strdup(big);
+			// ft_lstadd_front(&(list->token->arg), ft_lstnew(list->token->cmd->content))
+			free(big);
+			return (1);
+		}
+	}
+	else
+	{
+		list->token->path = ft_find_in_path(big);
+		if (list->token->path)
+		{
+			ft_lstadd_front(&(list->token->arg), ft_lstnew(big));
+			free(big);
+			return (1);
+		}
+	}
+	free(big);
+	return (0);
 }

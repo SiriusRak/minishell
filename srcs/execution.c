@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:21:42 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/07 16:48:35 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/08 15:37:21 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ void	ft_execute_cmd(t_data *data)
 	char	**arg;
 	pid_t	pid;
 
-	pid = fork();
 	env = ft_lst_to_char(data->env);
 	arg = ft_lst_to_char(data->list->token->arg);
+	pid = fork();
 	if (pid == 0)
 	{
-		if (execve(data->list->token->path, arg, env) == -1)
+		if (execve(data->list->token->path, arg, env) != 0)
 			perror("execve");
 		exit (1);
 	}
@@ -31,6 +31,7 @@ void	ft_execute_cmd(t_data *data)
 		wait(NULL);
 	else
 		perror("fork");
+	
 	ft_free_split(env);
 	ft_free_split(arg);
 }
@@ -46,10 +47,9 @@ int	ft_check_cmd(t_data *data)
 	while (head)
 	{
 		cmd = ft_strdup(head->token->cmd->content);
-		head->token->path = ft_find_in_path(cmd);
 		if (ft_is_builtin((char *)head->token->cmd->content))
 			checker = 1;
-		else if (head->token->path && checker == 0)
+		else if (ft_check_path(head) && checker == 0)
 			checker = 1;
 		else
 		{
