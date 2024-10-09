@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 11:52:33 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/28 08:51:24 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/09 08:12:09 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,24 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+
+typedef enum e_type		t_type;
+typedef struct s_list	t_list;
+
+typedef enum e_type
+{
+	ARG,
+	CMD,
+	HERE,
+	IN,
+	OUT,
+	VAR,
+	VAR_TWO
+}				t_type;
 typedef struct s_list
 {
 	char			*content;
-	int				type;
+	t_type			type;
 	char			*value;
 	struct s_list	*next;
 }				t_list;

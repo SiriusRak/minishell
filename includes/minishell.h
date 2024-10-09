@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/07 11:03:09 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/09 08:06:05 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,11 @@
 # include <dirent.h>
 # include "../libft/libft.h"
 
-typedef enum e_type		t_type;
 // typedef	struct	s_type	t_type;
 typedef struct s_token	t_token;
 typedef struct s_d_list	t_d_list;
 typedef struct  s_data	t_data;
 
-typedef enum e_type
-{
-	ARG,
-	CMD,
-	HERE,
-	IN,
-	OUT,
-	VAR,
-	VAR_TWO
-}				t_type;
 typedef	struct s_token
 {
 	t_list	*arg;
@@ -46,7 +35,6 @@ typedef	struct s_token
 	t_list	*out;
 	t_list	*var;
 	t_list	*var_two;
-	t_type	type;
 	char	*name;
 	int		pip;
 }				t_token;
@@ -72,6 +60,7 @@ typedef struct  s_data
 
 /*debug start*/
 void    ft_print_list(t_list **list);
+int		ft_print_all(t_data *data);
 
 /*debug end*/
 

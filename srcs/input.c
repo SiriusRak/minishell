@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 15:59:57 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/07 16:15:17 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/09 07:55:20 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	ft_tokenisation(t_data *data)
 	t_d_list	*temp;
 
 	ft_convert_list(data);
-	printf("%d\n", data->pipe);
 	temp = *(&(data->list));
 	while (temp)
 	{
@@ -85,7 +84,8 @@ int	get_input(t_data *data)
 		ft_tokenisation(data);
 		ft_echange_list(data);
 	}
-	printf("%s\n", data->prompt);
+	printf("[--prompt%s--]\n", data->prompt);
+	ft_print_all(data);
 	add_history(data->prompt);
 	return (0);
 }

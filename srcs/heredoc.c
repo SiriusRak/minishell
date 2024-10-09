@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 07:19:00 by enarindr          #+#    #+#             */
-/*   Updated: 2024/10/07 07:23:05 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/09 08:12:50 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	ft_add_file(char *file, t_d_list *list)
 			&& ft_strlen(file) == ft_strlen(heredoc))
 		{
 			ft_lstadd_back(&(list->token->heredoc), ft_lstnew(text));
+			list->token->heredoc->type = HERE;
 			free (file);
 			free (heredoc);
 			return ;
@@ -80,7 +81,6 @@ void	ft_heredoc(t_d_list *list)
 
 	pip = 0;
 	i = 0;
-	list->token->type = HERE;
 	while (list->token->name[i + 1])
 	{
 		if (list->token->name[i] == '<' && list->token->name[i + 1] == '<')
@@ -93,5 +93,5 @@ void	ft_heredoc(t_d_list *list)
 		i++;
 	}
 	/***print heredoc****/
-	ft_print_list(&(list->token->heredoc));
+	// ft_print_list(&(list->token->heredoc));
 }
