@@ -3,89 +3,69 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/08 15:59:57 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/11 06:46:41 by enarindr         ###   ########.fr       */
+/*   Created: 2024/10/11 13:47:50 by enarindr          #+#    #+#             */
+/*   Updated: 2024/10/11 18:13:37 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_convert_list(t_data *data)
+int	ft_take_pipe(char *str, t_data *data)
 {
-	char		**tab;
-	t_d_list	*list;
-	int			i;
+	int	i;
+	int	start;
 
-	tab = ft_split(data->input, "|");
-	data->tab = tab;
 	i = 0;
-	list = NULL;
-	while (tab[i])
+	start = 0;
+	str = ft_epure_line(str);
+	if (str[0] && str[0] == '|')
 	{
-		ft_add_back_list(&(list), ft_newlist(tab[i]));
+		ft_exit_pipe(str, data);
+		return (0);
+	}
+	printf("%s\n", str);
+	while (str[i])
+	{
+		if (str[i] == '\'' || str[i] == '\"')
+		{
+			if (str[i] == '\'')
+				i = ft_find_next_quote(str, i, 1, data);
+			else if (str[i] == '\"')
+				i = ft_find_next_quote(str, i, 2, data);
+			if (!i)
+				return (0);
+		}
+		if (str[i] && str[i] == '|')
+		{
+			if (ft_pipe_error(str, i))
+			{
+				ft_exit_pipe(str, data);
+				return (0);
+			}
+			i = ft_add_list(data, start, i, str);
+			start = i + 1;
+		}
 		i++;
 	}
-	data->pipe = i;
-	data->list = list;
+	if (start < i)
+		ft_add_list(data, start, i, str);
+	free(str);
+	return (1);
 }
 
-int	ft_tokenisation(t_data *data)
+int	ft_get_input(t_data *data)
 {
-	t_d_list	*temp;
+	char	*rd_line;
 
-	ft_convert_list(data);
-	temp = *(&(data->list));
-	while (temp)
-	{
-		ft_init_list(&(temp));
-		temp->data = data;
-		if (ft_is_heredoc(temp->token->name))
-			ft_heredoc(temp);
-		temp = temp->next;
-	}
-	free (data->tab);
-	data->prompt = ft_strjoin_2(data->prompt, ft_strdup(data->input));
-	free (data->input);
-	data->input = NULL;
-	return (0);
-}
-
-void	ft_echange_list(t_data *data)
-{
-	t_d_list	*temp;
-
-	temp = data->list;
-	data->list = NULL;
-	ft_add_back_list(&(data->final_list), temp);
-}
-
-int	get_input(t_data *data)
-{
-	char		*rd_line;
-
-	rd_line = readline("😂😂😂😂$ ");
-	if (!rd_line)
+	rd_line = readline("MINISHELL $ ");
+	if ((!rd_line) || ft_exit(rd_line))
+		ft_exit_1(data);
+	data->history = ft_strdup(rd_line);
+	if (!ft_take_pipe(rd_line, data))
 		return (1);
-	data->input = ft_epure_line(rd_line);
-	free (rd_line);
-	if (ft_strncmp(data->input, "exit", 4) == 0)
-		ft_exit (data, 2);
-	ft_tokenisation(data);
-	ft_echange_list(data);
-	while (ft_end_pip(data->prompt))
-	{
-
-		rd_line = readline("🥶🥶$ ");
-		if (!rd_line)
-			return (1);
-		data->input = ft_epure_line(rd_line);
-		ft_tokenisation(data);
-		ft_echange_list(data);
-	}
-	printf("[--prompt%s--]\n", data->prompt);
 	ft_print_all(data);
-	add_history(data->prompt);
-	return (0);
+	ft_clear_history(data);
+	return (1);
 }

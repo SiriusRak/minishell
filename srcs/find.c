@@ -1,28 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug.c                                            :+:      :+:    :+:   */
+/*   find.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/28 08:39:55 by enarindr          #+#    #+#             */
-/*   Updated: 2024/09/28 08:59:27 by enarindr         ###   ########.fr       */
+/*   Created: 2024/10/11 13:51:02 by enarindr          #+#    #+#             */
+/*   Updated: 2024/10/11 17:16:55 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void    ft_print_list(t_list **list)
+int		ft_find_next_quote(char *str, int start, int type, t_data *data)
 {
-    t_list  *temp;
-    int     i;
+	char	c;
 
-    i = 0;
-    temp = *list;
-    while (temp)
+	start++;
+
+	if (type == 1)
+		c = '\'';
+	else if (type == 2)
+		c = '\"';
+	while (str[start] && str[start] != c)
+		start++;
+	if (!str[start])
     {
-        printf("[heredoc %d:]\n%s\n", i, temp->content);
-        i++;
-        temp = temp->next;
+		ft_exit_quote(str, data);
+        return (0);
     }
+	return (start);	
+		
 }

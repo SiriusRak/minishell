@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 00:01:24 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/24 09:32:01 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/11 07:01:43 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*ft_strdup(const char *s)
 	return (copy);
 }
 
-char	*ft_strdup_2(char *s, char *old)
+char	*ft_strdup_2(char *s)
 {
 	char	*copy;
 	size_t	i;
@@ -46,6 +46,5 @@ char	*ft_strdup_2(char *s, char *old)
 	}
 	copy[i] = '\0';
 	free(s);
-	free (old);
 	return (copy);
 }

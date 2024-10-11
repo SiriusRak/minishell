@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   double_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 08:19:47 by enarindr          #+#    #+#             */
-/*   Updated: 2024/10/07 07:15:39 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/11 13:50:30 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,10 @@ t_d_list	*ft_newlist(char *content)
 		return (NULL);
 	new->token = token;
 	new->token->name = content;
-	new->token->arg = NULL;
 	new->token->cmd = NULL;
 	new->token->heredoc = NULL;
 	new->token->in = NULL;
 	new->token->out = NULL;
-	new->token->var = NULL;
-	new->token->var_two = NULL;
 	new->prev = NULL;
 	new->next = NULL;
 	return (new);
@@ -80,4 +77,14 @@ void	ft_add_back_list(t_d_list **list, t_d_list *new)
 		temp->next = new;
 		new->prev = temp;
 	}
+}
+
+int		ft_add_list(t_data *data, int start, int i, char *str)
+{
+	char	*content;
+
+	content = ft_substr(str, start, i - start);
+	ft_add_back_list(&(data->list), ft_newlist(content));
+	return (i);
+
 }

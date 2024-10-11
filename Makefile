@@ -1,10 +1,10 @@
 NAME = minishell
 
 SRCS = 	./srcs/print_all.c \
-		./srcs/main.c ./srcs/input.c ./srcs/signal.c \
-		./srcs/double_list.c ./srcs/exit.c ./srcs/heredoc.c \
-		./srcs/check.c ./srcs/init.c ./srcs/free_loop.c \
-		./srcs/debug.c 
+		./srcs/main.c ./srcs/signal.c ./srcs/exit.c \
+		./srcs/double_list.c ./srcs/init.c ./srcs/epure.c \
+		./srcs/check.c ./srcs/free.c ./srcs/find.c \
+		./srcs/input.c ./srcs/error.c \
 
 LIB = libft
 

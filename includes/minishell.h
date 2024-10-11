@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/09 08:06:05 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/11 17:00:17 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,11 @@ typedef struct  s_data	t_data;
 
 typedef	struct s_token
 {
-	t_list	*arg;
 	t_list	*cmd;
 	t_list	*heredoc;
 	t_list	*in;
 	t_list	*out;
-	t_list	*var;
-	t_list	*var_two;
 	char	*name;
-	int		pip;
 }				t_token;
 
 typedef struct s_d_list
@@ -50,42 +46,43 @@ typedef struct s_d_list
 typedef struct  s_data
 {
 	char		**env;
-	char		**tab;
 	char		*input;
 	char		*prompt;
-	int			pipe;
+	char		*history;
 	t_d_list	*list;
-	t_d_list	*final_list;
 }				t_data;
 
 /*debug start*/
-void    ft_print_list(t_list **list);
 int		ft_print_all(t_data *data);
 
 /*debug end*/
 
 int		ft_lstfree(t_d_list **list);
-int		ft_init(char **env, t_data *data);
-int		ft_is_builtin(char *cmd);
-int		ft_notsep(char	c);
-
+int		ft_free_t_d_list(t_data *data);
+int     ft_free_tab(char **tab);
 int		ft_iswite_space(char c);
-int 	ft_exit(t_data *data, int i);
-int		get_input(t_data *data);
-int		ft_is_heredoc(char	*str);
-int		ft_init(char **env, t_data *data);
-int		ft_end_pip(char *str);
-int		ft_free_loop(t_data *data, int i);
-int		ft_d_free_list(t_d_list **list);
-int		ft_t_free_list(t_list **list);
+int		ft_notsep(char	c);
+int		ft_get_input(t_data *data);
+int		ft_add_list(t_data *data, int start, int i, char *str);
+int		ft_find_next_quote(char *str, int start, int type, t_data *data);
+int		ft_exit_quote(char *str, t_data *data);
+int		ft_get_input(t_data *data);
+int		ft_take_pipe(char *str, t_data *data);
+int		ft_clear_history(t_data *data);
+int		ft_exit(char *str);
+int		ft_free_data(t_data *data);
+int		ft_pipe_error(char *str, int i);
 
 char	*ft_epure_line(char *str);
 
+void    ft_exit_1(t_data *data);
+void    ft_exit_2(t_data *data);
+void	ft_exit_pipe(char *str, t_data *data);
+void    ft_init(t_data *data);
 void	ft_add_front_list(t_d_list **list, t_d_list *new);
 void	ft_add_back_list(t_d_list **list, t_d_list *new);
+void	signal_handler(int	sig);
 void	waiting_signal(void);
-void	ft_init_list(t_d_list **list);
-void	ft_heredoc(t_d_list *list);
 
 t_d_list	*ft_newlist(char *content);
 

@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 11:52:33 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/09 08:12:09 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/11 07:02:00 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,10 @@ typedef struct s_list	t_list;
 
 typedef enum e_type
 {
-	ARG,
 	CMD,
 	HERE,
 	IN,
 	OUT,
-	VAR,
-	VAR_TWO
 }				t_type;
 typedef struct s_list
 {
@@ -52,7 +49,7 @@ char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
 char	*ft_strnstr(const char *big, const char *little, size_t len);
 char	*ft_strdup(const char *s);
-char	*ft_strdup_2(char *s, char *old);
+char	*ft_strdup_2(char *s);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strjoin_2(char *s1, char *s2);

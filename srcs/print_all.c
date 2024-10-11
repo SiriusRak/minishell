@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_all.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 07:13:03 by enarindr          #+#    #+#             */
-/*   Updated: 2024/10/10 07:20:33 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/11 18:14:16 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ int		print_child(t_list **lst)
 
 	list = *lst;
 	i = 0;
-	if (list->type == ARG)
-		name = "ARG";
-	else if (list->type == CMD)
+	if (list->type == CMD)
 		name = "CMD";
 	else if (list->type == HERE)
 		name = "HEREDOC";
@@ -32,6 +30,8 @@ int		print_child(t_list **lst)
 		name = "OUTPUT";
 	while (list)
 	{
+		printf("--------%s[%d]--------\n", name, i);
+		printf("%s\n", list->content);
 		printf("--------%s[%d]--------\n", name, i);
 		printf("%s\n", list->content);
 		list = list->next;
@@ -45,17 +45,15 @@ int		ft_print_all(t_data *data)
 	t_d_list	*list;
 	int			pipe;
 
-	list = data->final_list;
+	list = data->list;
 	pipe = 0;
 	printf("---------------------------------\n");
-	printf("[--prompt:  %s--]\n", data->prompt);
+	// printf("[--prompt:  %s--]\n", data->prompt);
 	while (list)
 	{
 		if (list->token->name)
 			printf("----commande[%d] : %s\n", pipe, list->token->name);
 		printf("\n");
-		if (list->token->arg)
-			print_child(&(list->token->arg));
 		if (list->token->cmd)
 			print_child(&(list->token->cmd));
 		if (list->token->heredoc)
@@ -64,6 +62,7 @@ int		ft_print_all(t_data *data)
 			print_child(&(list->token->in));
 		if (list->token->out)
 			print_child(&(list->token->out));
+		printf("\n");
 		printf("\n");
 		list = list->next;
 		pipe++;
