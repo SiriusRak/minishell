@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 07:13:03 by enarindr          #+#    #+#             */
-/*   Updated: 2024/10/09 08:18:42 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/10 07:20:33 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,20 @@ int		print_child(t_list **lst)
 
 	list = *lst;
 	i = 0;
+	if (list->type == ARG)
+		name = "ARG";
+	else if (list->type == CMD)
+		name = "CMD";
+	else if (list->type == HERE)
+		name = "HEREDOC";
+	else if (list->type == IN)
+		name = "INPUT";
+	else if (list->type == OUT)
+		name = "OUTPUT";
 	while (list)
 	{
-		printf("%s[%d]\n", name, i);
+		printf("--------%s[%d]--------\n", name, i);
+		printf("%s\n", list->content);
 		list = list->next;
 		i++;
 	}
@@ -40,9 +51,9 @@ int		ft_print_all(t_data *data)
 	printf("[--prompt:  %s--]\n", data->prompt);
 	while (list)
 	{
-		printf("pipe--[%d]\n", pipe);
 		if (list->token->name)
-			printf("commande[%d]\n", pipe);
+			printf("----commande[%d] : %s\n", pipe, list->token->name);
+		printf("\n");
 		if (list->token->arg)
 			print_child(&(list->token->arg));
 		if (list->token->cmd)
@@ -53,6 +64,7 @@ int		ft_print_all(t_data *data)
 			print_child(&(list->token->in));
 		if (list->token->out)
 			print_child(&(list->token->out));
+		printf("\n");
 		list = list->next;
 		pipe++;
 	}

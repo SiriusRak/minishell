@@ -10,6 +10,7 @@ LIB = libft
 
 OBJS = $(SRCS:.c=.o)
 CFLAGS = -Wall -Wextra -Werror -lreadline -g
+CC=cc
 RM = rm -f
 
 $(NAME): $(OBJS)
