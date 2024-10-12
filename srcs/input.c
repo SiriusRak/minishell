@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 13:47:50 by enarindr          #+#    #+#             */
-/*   Updated: 2024/10/11 18:13:37 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/12 09:07:26 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,15 @@ int	ft_get_input(t_data *data)
 {
 	char	*rd_line;
 
+	ft_clear_input(data);
 	rd_line = readline("MINISHELL $ ");
 	if ((!rd_line) || ft_exit(rd_line))
 		ft_exit_1(data);
-	data->history = ft_strdup(rd_line);
+	data->input = ft_strdup(rd_line);
+	data->history = ft_strjoin_2(data->history, ft_strdup(rd_line));
 	if (!ft_take_pipe(rd_line, data))
+		return (1);
+	if (!ft_check_list(data))
 		return (1);
 	ft_print_all(data);
 	ft_clear_history(data);

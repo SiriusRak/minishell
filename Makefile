@@ -4,7 +4,7 @@ SRCS = 	./srcs/print_all.c \
 		./srcs/main.c ./srcs/signal.c ./srcs/exit.c \
 		./srcs/double_list.c ./srcs/init.c ./srcs/epure.c \
 		./srcs/check.c ./srcs/free.c ./srcs/find.c \
-		./srcs/input.c ./srcs/error.c \
+		./srcs/input.c ./srcs/error.c ./srcs/parsing.c \
 
 LIB = libft
 

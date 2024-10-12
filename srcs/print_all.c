@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 07:13:03 by enarindr          #+#    #+#             */
-/*   Updated: 2024/10/11 18:14:16 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/12 10:06:26 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int		print_child(t_list **lst)
 	{
 		printf("--------%s[%d]--------\n", name, i);
 		printf("%s\n", list->content);
-		printf("--------%s[%d]--------\n", name, i);
-		printf("%s\n", list->content);
+		// printf("--------%s[%d]--------\n", name, i);
+		// printf("%s\n", list->content);
 		list = list->next;
 		i++;
 	}
@@ -52,7 +52,7 @@ int		ft_print_all(t_data *data)
 	while (list)
 	{
 		if (list->token->name)
-			printf("----commande[%d] : %s\n", pipe, list->token->name);
+			printf("prompt[%d] : %s\n", pipe, list->token->name);
 		printf("\n");
 		if (list->token->cmd)
 			print_child(&(list->token->cmd));

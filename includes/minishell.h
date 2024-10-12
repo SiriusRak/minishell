@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/11 17:00:17 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/12 08:29:40 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ typedef struct  s_data
 
 /*debug start*/
 int		ft_print_all(t_data *data);
-
 /*debug end*/
 
 int		ft_lstfree(t_d_list **list);
@@ -65,6 +64,7 @@ int		ft_notsep(char	c);
 int		ft_get_input(t_data *data);
 int		ft_add_list(t_data *data, int start, int i, char *str);
 int		ft_find_next_quote(char *str, int start, int type, t_data *data);
+int		ft_find_next_quote_2(char *str, int start, int type);
 int		ft_exit_quote(char *str, t_data *data);
 int		ft_get_input(t_data *data);
 int		ft_take_pipe(char *str, t_data *data);
@@ -72,9 +72,12 @@ int		ft_clear_history(t_data *data);
 int		ft_exit(char *str);
 int		ft_free_data(t_data *data);
 int		ft_pipe_error(char *str, int i);
+int		ft_check_list(t_data *data);
+int		ft_pars(t_d_list *list, char *script);
 
 char	*ft_epure_line(char *str);
 
+void	ft_epure_redir(char *str);
 void    ft_exit_1(t_data *data);
 void    ft_exit_2(t_data *data);
 void	ft_exit_pipe(char *str, t_data *data);
@@ -83,6 +86,7 @@ void	ft_add_front_list(t_d_list **list, t_d_list *new);
 void	ft_add_back_list(t_d_list **list, t_d_list *new);
 void	signal_handler(int	sig);
 void	waiting_signal(void);
+void	ft_clear_input(t_data *data);
 
 t_d_list	*ft_newlist(char *content);
 
