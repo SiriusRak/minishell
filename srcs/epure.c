@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 07:12:01 by enarindr          #+#    #+#             */
-/*   Updated: 2024/10/14 15:32:02 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/14 20:32:18 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,99 @@ void	ft_clear_input(t_data *data)
 		free (data->input);
 		data->input = NULL;
 	}
+}
+
+char	*ft_arrange_prev_redir(char *str)
+{
+	int		i;
+	char	*prev;
+	char	*next;
+	char	c;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\'' || str[i] == '\"')
+		{
+			if (str[i] == '\'')
+				i = ft_find_next_quote_2(str, i, 1);
+			else if (str[i] == '\"')
+				i = ft_find_next_quote_2(str, i, 2);
+		}
+		if (str[i] == '<' || str[i] == '>')
+		{
+			if (str[i] == '<')
+				c = '<';
+			else if (str[i] == '>')
+				c = '>';
+			if (i > 0)
+			{
+				if (str[i - 1] != ' ' && str[i - 1] != c)
+				{
+					prev = ft_substr(str, 0, i);
+					prev = ft_strjoin_2(prev, ft_strdup(" "));
+					next = ft_substr(str, i, ft_strlen(str) - i);
+					free (str);
+					str = ft_strjoin_2(prev, next);
+				}
+			}
+			i++;
+		}
+		else
+			i++;
+	}
+	return (str);
+}
+
+char	*ft_arrange_back_redir(char *str)
+{
+	int		i;
+	char	*prev;
+	char	*next;
+	char	c;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\'' || str[i] == '\"')
+		{
+			if (str[i] == '\'')
+				i = ft_find_next_quote_2(str, i, 1);
+			else if (str[i] == '\"')
+				i = ft_find_next_quote_2(str, i, 2);
+		}
+		if (str[i] == '<' || str[i] == '>')
+		{
+			if (str[i] == '<')
+				c = '<';
+			else if (str[i] == '>')
+				c = '>';
+			i++;
+			if (str[i] == c)
+				i++;
+			if (str[i] != ' ')
+			{
+				prev = ft_substr(str, 0, i);
+				prev = ft_strjoin_2(prev, ft_strdup(" "));
+				next = ft_substr(str, i, ft_strlen(str) - i);
+				free (str);
+				str = ft_strjoin_2(prev, next);	
+				i++;
+			}
+		}
+		else
+			i++;
+	}
+	return (str);
+}
+
+char	*ft_epure_redir(char *str)
+{
+	char	*new;
+
+	new = ft_strdup(str);
+	new = ft_arrange_prev_redir(new);
+	new = ft_arrange_back_redir(new);
+	free (str);
+	return (new);	
 }

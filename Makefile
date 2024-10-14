@@ -9,15 +9,16 @@ SRCS = 	./srcs/print_all.c \
 LIB = libft
 
 OBJS = $(SRCS:.c=.o)
-CFLAGS = -Wall -Wextra -Werror -lreadline -g
-CC=cc
+CFLAGS = -Wall -Wextra -Werror -g
+LDFLAGS = -lreadline
+CC = cc
 RM = rm -f
 
 $(NAME): $(OBJS)
 	@make -s bonus -C $(LIB)
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -Llibft -lft
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -Llibft -lft $(LDFLAGS)
 
-all:$(NAME)
+all: $(NAME)
 
 clean:
 	@$(RM) $(OBJS)

@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/14 15:33:25 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/14 20:32:11 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,9 @@ int		ft_check_list(t_data *data);
 int		ft_pars(t_d_list *list);
 
 char	*ft_epure_line(char *str);
+char	*ft_epure_redir(char *str);
+char	*ft_arrange_prev_redir(char *str);
+char	*ft_arrange_back_redir(char *str);
 
 char	*ft_epure_space(char *str);
 void    ft_exit_1(t_data *data);
