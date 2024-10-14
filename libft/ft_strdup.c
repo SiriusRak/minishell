@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 00:01:24 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/11 07:01:43 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/14 13:32:24 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,6 @@ char	*ft_strdup_2(char *s)
 	}
 	copy[i] = '\0';
 	free(s);
+	s = NULL;
 	return (copy);
 }

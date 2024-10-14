@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 07:12:01 by enarindr          #+#    #+#             */
-/*   Updated: 2024/10/12 09:26:36 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/14 15:32:02 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,27 +40,50 @@ char	*ft_epure_line(char *str)
 	return (new);
 }
 
-void	ft_epure_redir(char *str)
+char	*ft_epure_space(char *str)
 {
+	char	*new_str;
+	char	c;
 	int		i;
+	int		j;
 
-	i= 0;
+	i = 0;
+	j = 0;
+	new_str = ft_calloc(sizeof(char), ft_strlen(str) + 1);
+	if (!new_str)
+		return (NULL);
 	while (str[i])
 	{
 		if (str[i] == '\'' || str[i] == '\"')
 		{
 			if (str[i] == '\'')
-				i = ft_find_next_quote_2(str, i, 1);
+				c = '\'';
 			else if (str[i] == '\"')
-				i = ft_find_next_quote_2(str, i, 2);
+				c = '\"';
+			new_str[j++] = str[i++];
+			while (str[i] != c)
+				new_str[j++] = str[i++];
+			new_str[j++] = str[i++];
+			if (ft_iswite_space(str[i]))
+			{
+				new_str[j++] = ' ';
+				i++;
+			}
 		}
-		while (str[i] && str[i + 1] &&
-			(str[i] == ' ' && str[i + 1] == ' ')) 
+		else if (str[i] && !ft_iswite_space(str[i]))
 		{
-			ft_strlcpy(&(str[i + 1]), &(str[i + 2]), ft_strlen(&(str[i + 1])));
+			while (str[i] && !ft_iswite_space(str[i])
+				&& str[i] != '\'' && str[i] != '\"')
+				new_str[j++] = str[i++];
+			if (ft_iswite_space(str[i]))
+				new_str[j++] = ' ';
 		}
-		i++;
+		else
+			i++;
 	}
+	free (str);
+	new_str[j] = '\0';
+	return(new_str);
 }
 
 void	ft_clear_input(t_data *data)
