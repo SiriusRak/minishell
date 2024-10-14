@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/08 15:33:21 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/14 16:23:41 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 int	ft_lstfree(t_d_list **list);
 int	ft_count_line(char **strings);
 int	ft_check_path(t_d_list *list);
+int	ft_dlstsize(t_d_list *lst);
+int	ft_check_cmd(t_data *data);
 
 void	ft_init(char **env, t_data *data);
 void	ft_add_front_list(t_d_list **list, t_d_list *new);

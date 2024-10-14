@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:02:05 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/08 15:32:56 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/14 16:23:48 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,29 @@ int	ft_check_path(t_d_list *list)
 	}
 	free(big);
 	return (0);
+}
+int	ft_check_cmd(t_data *data)
+{
+	t_d_list	*head;
+	char		*cmd;
+	int			checker;
+
+	head = data->list;
+	checker = 0;
+	while (head)
+	{
+		cmd = ft_strdup(head->token->cmd->content);
+		if (ft_is_builtin((char *)head->token->cmd->content))
+			checker = 1;
+		else if (ft_check_path(head) && checker == 0)
+			checker = 1;
+		else
+		{
+			perror("cmd");
+			return (0);
+		}
+		head = head->next;
+		free(cmd);
+	}
+	return (1);
 }

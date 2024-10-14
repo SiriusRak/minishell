@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:41:09 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/08 15:34:04 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/14 15:24:07 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_export_no_arg(t_data *data)
 		i++;
 	}
 }
-//TAF: export avec variable sans valeur
+//TAF: export avec variable sans valeur, export multiple arg
 void	ft_builtin_export(char *key, t_data *data, char *args)
 {
 	t_list	*tmp;
@@ -55,7 +55,7 @@ void	ft_builtin_export(char *key, t_data *data, char *args)
 		data->env = ft_add_node(data->env, args);
 	data->env = tmp;
 }
-
+//TAF: unset multiple arg
 void	ft_builtin_unset(t_data *data, char *key)
 {
 	t_list	*head;
