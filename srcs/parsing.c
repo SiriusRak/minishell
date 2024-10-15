@@ -3,47 +3,117 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 07:42:56 by enarindr          #+#    #+#             */
-/*   Updated: 2024/10/14 20:55:17 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/15 16:46:51 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+int	ft_lex_ext(t_d_list *list, char **tab, int i)
+{
+	int	error;
+
+	if (tab[i + 1])
+	{
+		if (tab[i][0] == '>' && ft_strlen(tab[i]) == 1)
+			error = ft_add_out(list, tab[i + 1], 1);
+		else if (tab[i][0] == '>' && tab[i][1] == '>')
+			error = ft_add_out(list, tab[i + 1], 2);
+		else if (tab[i][0] == '<' && ft_strlen(tab[i]) == 1)
+			error = ft_add_in(list, tab[i + 1], 1);
+		else if (tab[i][0] == '<' && tab[i][1] == '<')
+			error = ft_add_in(list, tab[i + 1], 2);
+		if (error == 1)
+		{
+			while (tab[++i])
+				free(tab[i]);			
+		}
+		return (error);
+	}
+	else
+	{
+		ft_putstr_fd("MINISHELL: syntax error near unexpected\
+token `newline'\n", 2);
+	}
+	return (1);
+}
+
+int	ft_lex(t_d_list *list, char *str)
+{
+	char	**tab;
+	int		i;
+	int		error;
+
+	i = -1;
+	tab = ft_split(str, "\n");
+	free (str);
+	while (tab[++i])
+	{
+		if (tab[i][0] == '<' || tab[i][0] == '>')
+		{
+			error = ft_lex_ext(list, tab, i);
+			free (tab[i]);
+			++i;
+		}
+		else
+			error = ft_add_cmd(list, tab[i]);
+		if (error == 1)
+		{
+			free (tab);
+			return (0);
+		}
+	}
+	free (tab);
+	return (1);
+}
+
+int	ft_pars_ext(char *str, char **tmp, int i, char c)
+{
+	char	*temp;
+
+	temp = *tmp;
+	temp[i] = str[i];
+	i++;
+	while (str[i] != c)
+	{
+		temp[i] = str[i];
+		i++;
+	}
+	temp[i] = str[i];
+	i++;
+	return (i);
+}
+
 int	ft_pars(t_d_list *list)
 {
 	int		i;
-	int		j;
 	char	*str;
-	char	*token;
+	char	*temp;
 
-	i = 0;
 	str = list->token->name;
+	i = 0;
+	temp = malloc(sizeof(char) * ft_strlen(str) + 1);
 	while (str[i])
 	{
-		if (str[i] == '\'' || str[i] == '\"')
+		if (str[i] == '\'')
+			i = ft_pars_ext(str, &temp, i, '\'');
+		else if (str[i] == '\"')
+			i = ft_pars_ext(str, &temp, i, '\"');
+		else if (str[i] == ' ')
+			temp[i++] = '\n';
+		else
 		{
-			j = i;
-			if (str[i] == '\'')
-				i = ft_find_next_quote_2(str, i, 1);
-			else if (str[i] == '\"')
-				i = ft_find_next_quote_2(str, i, 2);
-			token = ft_substr(str, j, i - j + 1);
-			ft_add_type(token, list)
-		}
-		if(str[i] == '<' || str[i] == '>')
-		{
-			j = i;
-			while (str[i] != ' ')
-				i++;
-			while (str[i] != ' ')
-				i++;
-			token = ft_substr(str, j, i - j + 1);
-			ft_add_type(token, list);
+			temp[i] = str[i];
+			i++;
 		}
 	}
+	temp[i] = '\0';
+	if (!ft_lex(list, temp))
+		return (0);
+	return (1);
 }
 
 int	ft_check_list(t_data *data)

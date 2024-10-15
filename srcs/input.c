@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 13:47:50 by enarindr          #+#    #+#             */
-/*   Updated: 2024/10/14 06:35:21 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/15 17:17:15 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	ft_take_pipe(char *str, t_data *data)
 	i = 0;
 	start = 0;
 	str = ft_epure_line(str);
+	if (!str)
+		return (0);
 	if (str[0] && str[0] == '|')
 	{
 		ft_exit_pipe(str, data);
@@ -69,6 +71,5 @@ int	ft_get_input(t_data *data)
 	if (!ft_check_list(data))
 		return (1);
 	ft_print_all(data);
-	ft_clear_history(data);
 	return (1);
 }

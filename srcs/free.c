@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 13:35:15 by enarindr          #+#    #+#             */
-/*   Updated: 2024/10/11 16:20:48 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/15 15:54:35 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 int	ft_clear_history(t_data *data)
 {
-	add_history(data->history);
 	ft_free_data(data);
-	rl_on_new_line();
-	rl_replace_line("", 0);
+	// rl_on_new_line();
+	// rl_replace_line("", 0);
 	return (0);
 }
 
@@ -70,8 +69,6 @@ int	ft_free_t_d_list(t_data *data)
 		{
 			if (list->token->cmd)
 				ft_lstclear_2(&(list->token->cmd));
-			if (list->token->heredoc)
-				ft_lstclear_2(&(list->token->heredoc));
 			if (list->token->in)
 				ft_lstclear_2(&(list->token->in));
 			if (list->token->out)

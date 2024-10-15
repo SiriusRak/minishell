@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_all.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 07:13:03 by enarindr          #+#    #+#             */
-/*   Updated: 2024/10/14 06:38:20 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/15 14:04:47 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,20 @@ int		print_child(t_list **lst)
 
 	list = *lst;
 	i = 0;
-	if (list->type == CMD)
-		name = "CMD";
-	else if (list->type == HERE)
-		name = "HEREDOC";
-	else if (list->type == IN)
-		name = "INPUT";
-	else if (list->type == OUT)
-		name = "OUTPUT";
 	while (list)
 	{
+		if (list->type == CMD)
+			name = "CMD";
+		else if (list->type == ARG)
+			name = "ARG";
+		else if (list->type == HERE)
+			name = "HEREDOC";
+		else if (list->type == IN)
+			name = "INPUT";
+		else if (list->type == OUT)
+			name = "OUT";
+		else if (list->type == OUT_2)
+			name = "OUT_2";
 		printf("--------%s[%d]--------\n", name, i);
 		printf("%s\n", list->content);
 		list = list->next;
@@ -53,13 +57,10 @@ int		ft_print_all(t_data *data)
 		printf("\n");
 		if (list->token->cmd)
 			print_child(&(list->token->cmd));
-		if (list->token->heredoc)
-			print_child(&(list->token->heredoc));
 		if (list->token->in)
 			print_child(&(list->token->in));
 		if (list->token->out)
 			print_child(&(list->token->out));
-		printf("\n");
 		printf("\n");
 		list = list->next;
 		pipe++;

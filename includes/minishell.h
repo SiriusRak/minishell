@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/14 20:32:11 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/15 16:56:00 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ typedef struct  s_data	t_data;
 typedef	struct s_token
 {
 	t_list	*cmd;
-	t_list	*heredoc;
 	t_list	*in;
 	t_list	*out;
 	char	*name;
@@ -73,14 +72,21 @@ int		ft_exit(char *str);
 int		ft_free_data(t_data *data);
 int		ft_pipe_error(char *str, int i);
 int		ft_check_list(t_data *data);
+int		ft_lex(t_d_list *list, char *str);
+int		ft_lex_ext(t_d_list *list, char **tab, int i);
 int		ft_pars(t_d_list *list);
+int		ft_pars_ext(char *str, char **tmp, int i, char c);
+int		ft_add_out(t_d_list *list, char *str, int i);
+int		ft_add_in(t_d_list *list, char *str, int i);
+int		ft_add_cmd(t_d_list *list, char *str);
+int		ft_check_error(char *str);
 
 char	*ft_epure_line(char *str);
 char	*ft_epure_redir(char *str);
 char	*ft_arrange_prev_redir(char *str);
 char	*ft_arrange_back_redir(char *str);
-
 char	*ft_epure_space(char *str);
+
 void    ft_exit_1(t_data *data);
 void    ft_exit_2(t_data *data);
 void	ft_exit_pipe(char *str, t_data *data);

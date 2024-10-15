@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 11:52:33 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/11 07:02:00 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/15 13:49:51 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,16 @@ typedef struct s_list	t_list;
 typedef enum e_type
 {
 	CMD,
+	ARG,
 	HERE,
 	IN,
 	OUT,
+	OUT_2,
 }				t_type;
 typedef struct s_list
 {
 	char			*content;
 	t_type			type;
-	char			*value;
 	struct s_list	*next;
 }				t_list;
 

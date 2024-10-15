@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   epure.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 07:12:01 by enarindr          #+#    #+#             */
-/*   Updated: 2024/10/14 20:32:18 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/15 17:16:29 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ char	*ft_epure_line(char *str)
 	len = ft_strlen(str);
 	i = 0;
 	j = 0;
+	if (len == 0)
+	{
+		free(str);
+		return (NULL);
+	}
 	new = ft_calloc(sizeof(char), len + 1);
 	if (!new)
 		return (NULL);
@@ -163,7 +168,7 @@ char	*ft_arrange_back_redir(char *str)
 			i++;
 			if (str[i] == c)
 				i++;
-			if (str[i] != ' ')
+			if (str[i] && str[i] != ' ')
 			{
 				prev = ft_substr(str, 0, i);
 				prev = ft_strjoin_2(prev, ft_strdup(" "));
