@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:02:05 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/14 16:23:48 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/16 17:18:34 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	ft_check_fd_dup(int fd, int dup)
 	if (dup < 0)
 	{
 		perror("dup2");
+		close(fd);
 		// free
 	}
 }
@@ -44,6 +45,25 @@ void    ft_redir(t_list *out, int type)
 	exit(0);
 }
 
+void	ft_redir_input(t_list *in)
+{
+	int	fd;
+
+	while (in)
+	{
+		fd = open((char *)in->content, O_RDONLY);
+		ft_check_fd_dup(fd, 0);
+		if (dup2(fd, STDIN_FILENO) == -1)
+		{
+			perror("Execution error");
+			close(fd);
+			//exit
+		}
+		close(fd);
+		in = in->next;
+	}
+}
+
 int	ft_check_path(t_d_list *list)
 {
 	char	*big;
@@ -54,7 +74,6 @@ int	ft_check_path(t_d_list *list)
 		if (access(big, X_OK) == 0)
 		{
 			list->token->path = ft_strdup(big);
-			// ft_lstadd_front(&(list->token->arg), ft_lstnew(list->token->cmd->content))
 			free(big);
 			return (1);
 		}
