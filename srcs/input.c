@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 15:59:57 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/16 14:18:08 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/16 16:31:11 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,13 @@ void	get_input(t_data *data)
 		// data->list->token->cmd = ft_add_node(data->list->token->cmd, "env");
 		data->list->token->arg = malloc(sizeof(t_list));
 		data->list->token->arg = NULL;
-		data->list->token->arg = ft_add_node(data->list->token->arg, "abc=1234");
-		data->list->token->arg = ft_add_node(data->list->token->arg, "xyz=1234");
+		data->list->token->arg = ft_add_node(data->list->token->arg, "abc");
 		ft_builtin_export(ft_get_allkey(data->list->token->arg), data, ft_lst_to_char(data->list->token->arg));
-		// ft_builtin_export("xyz=", data, "1323sdfdsfsdf");
 		ft_builtin_env(data);
 		printf("-----------------\n\n");
+		data->list->token->arg = NULL;
+		ft_builtin_export(ft_get_allkey(data->list->token->arg), data, ft_lst_to_char(data->list->token->arg));
+		// data->list->token->arg = ft_add_node(data->list->token->arg, "xyz=1234");
 		// ft_builtin_env(data);
 		// ft_execute(data);
 	}

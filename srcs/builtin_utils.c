@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 11:04:22 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/16 14:59:39 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/16 15:32:58 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ char	*ft_get_key(char *content)
 		i++;
 	key = malloc(sizeof(char) * i + 1);
 	ft_strlcpy(key, content, i + 1);
-	i = 0;
 	return (key);
 }
 

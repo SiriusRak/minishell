@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 08:54:36 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/07 16:42:17 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/16 16:33:01 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,24 +86,28 @@ t_list	*ft_duplicate(char **str)
 	return (list);
 }
 
-void	ft_sort_tab(char **tab)
+char	**ft_sort_tab(char **tab)
 {
+	char	*tmp;
 	int		i;
 	int		j;
-	char	*key;
 
-	i = 1;
-	while (i < ft_count_line(tab))
+	i = 0;
+	while (i < ft_count_line(tab) - 1)
 	{
-		key = ft_strdup(tab[i]);
-		j = i - 1;
-		while (j >= 0 && ft_strncmp(tab[j], key, ft_strlen(key)) > 0)
+		j = 0;
+		while (j < ft_count_line(tab) - 1 - i)
 		{
-			tab[j + 1] = tab[j];
-			j = j - 1;
+			if (ft_strncmp(tab[j], tab[j + 1], ft_strlen(tab[j])) > 0)
+			{
+				tmp = ft_strdup(tab[j]);
+				tab[j] = ft_strdup(tab[j + 1]);
+				tab[j + 1] = ft_strdup(tmp);
+			}
+			j++;
 		}
-		tab[j + 1] = key;
 		i++;
 	}
-	free(key);
+	free(tmp);
+	return (tab);
 }

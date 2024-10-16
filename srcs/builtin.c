@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:35:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/14 17:07:07 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/16 15:41:44 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,8 @@ void	ft_builtin_env(t_data *data)
 	tmp = data->env;
 	while (tmp)
 	{
-		printf("%s\n", (char *)tmp->content);
+		if (ft_strchr(tmp->content, '='))
+			printf("%s\n", (char *)tmp->content);
 		tmp = tmp->next;
 	}
 }

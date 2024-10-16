@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:41:09 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/16 14:59:31 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/16 16:32:40 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,22 @@ void	ft_export_no_arg(t_data *data)
 	int		i;
 
 	env = ft_lst_to_char(data->env);
-	ft_sort_tab(env);
+	env = ft_sort_tab(env);
 	i = 0;
 	while (env[i])
 	{
-		printf("export %s\n", env[i]);
+		printf("declare -x %s\n", env[i]);
 		i++;
 	}
+	ft_free_split(env);
 }
-//TAF: export avec variable sans valeur, export multiple arg MAJ
+
 void	ft_builtin_export(char **keys, t_data *data, char **args)
 {
 	t_list	*tmp;
 
 	tmp = data->env;
-	if (!args)
+	if (!args[0])
 	{
 		ft_export_no_arg(data);
 		return ;
