@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:21:42 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/14 16:24:27 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/14 17:12:58 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	ft_child_process(t_data *data, int fd_in, int *pipe_fd, int i)
 	is_cmd = ft_check_cmd(data);
 	if (ft_is_builtin(cmd) && is_cmd)
 	{
-		ft_execute_builtin(data, cmd, arg);
+		ft_execute_builtin(data, cmd);
 		exit(0);
 	}
 	else if (!ft_is_builtin(cmd) && is_cmd)
@@ -97,7 +97,7 @@ void	ft_execute_pipe(t_data *data, int nbr_cmd)
 
 void	ft_execute(t_data *data)
 {
-	char	*arg;
+	char	**arg;
 	int		is_cmd;
 	int		nbr_pipe;
 
@@ -106,14 +106,14 @@ void	ft_execute(t_data *data)
 	{
 		if (data->list->token->out != NULL)
 			ft_redir(data->list->token->out, data->list->token->out->type);
-		arg = ft_strdup(data->list->token->arg->content);
+		arg = ft_lst_to_char(data->list->token->arg);
 		is_cmd = ft_check_cmd(data);
 		if (ft_is_builtin((char *)data->list->token->cmd->content) && is_cmd)
-			ft_execute_builtin(data, data->list->token->cmd->content, arg);
+			ft_execute_builtin(data, data->list->token->cmd->content);
 		else if (!ft_is_builtin((char *)data->list->token->cmd->content) && is_cmd)
 			ft_execute_cmd(data);
 	}
 	else if (nbr_pipe > 0)
 		ft_execute_pipe(data, nbr_pipe + 1);
-	free(arg);
+	ft_free_split(arg);
 }

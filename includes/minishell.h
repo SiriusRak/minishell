@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/14 16:23:41 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/14 17:11:44 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void    ft_redir(t_list *out, int type);
 void    ft_execute(t_data *data);
 void	ft_sort_tab(char **tab);
 void	ft_export_no_arg(t_data *data);
-void	ft_execute_builtin(t_data *data, char *cmd, char *arg);
+void	ft_execute_builtin(t_data *data, char *cmd);
 
 char	**ft_lst_to_char(t_list *list);
 

@@ -6,41 +6,52 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:35:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/27 13:54:43 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/14 17:07:07 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_builtin_echo(char *arg)
+void	ft_builtin_echo(char **arg)
 {
 	int	newline;
 	int	i;
+	int	j;
 
 	i = 0;
 	newline = 1;
-	if (ft_strncmp(arg, "-n ", 3) == 0)
+	while (i < ft_count_line(arg))
 	{
-		newline = 0;
-		i += 3;
-	}
-	while (arg[i] == ' ')
+		j = 0;
+		if (ft_strncmp(arg[0], "-n ", 3) == 0)
+		{
+			newline = 0;
+			j += 3;
+		}
+		while (arg[i][j] == ' ')
+			j++;
+		while (arg[i][j])
+		{
+			printf("%c", arg[i][j]);
+			j++;
+		}
+		if (newline)
+			printf("\n");
 		i++;
-	while (arg[i])
-	{
-		printf("%c", arg[i]);
-		i++;
 	}
-	if (newline)
-		printf("\n");
 }
-void	ft_buitlin_cd(char *arg)
+void	ft_buitlin_cd(char **arg)
 {
-	if (!arg)
-		chdir((getenv("HOME")));
-	else if (chdir(arg) != 0)
+	if (ft_count_line(arg) > 1)
+		perror("too many arg");
+	else
 	{
-		perror(arg);
+		if (!arg[0])
+		chdir((getenv("HOME")));
+		else if (chdir(arg[0]) != 0)
+		{
+			perror(arg[0]);
+		}
 	}
 }
 void	ft_builtin_pwd(void)
@@ -52,14 +63,22 @@ void	ft_builtin_pwd(void)
 	else
 		perror("pwd");
 }
-void	ft_builtin_exit(char *arg)
+void	ft_builtin_exit(char **arg)
 {
-	int	exit_code;
+	int	len;
 
-	exit_code = 0;
-	if (arg)
-		exit_code = ft_atoi(arg);
-	exit(exit_code);
+	len = ft_count_line(arg);
+	printf("exit\n");
+	if (len > 1)
+	{
+		perror("Too many arg");
+		//continue
+	}
+	if (arg[0])
+	{
+		//code
+	}
+	//exit_function
 }
 void	ft_builtin_env(t_data *data)
 {

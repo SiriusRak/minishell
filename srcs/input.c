@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 15:59:57 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/12 12:29:35 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/16 08:31:01 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,14 @@ void	get_input(t_data *data)
 		rl_redisplay();
 	if (data->input)
 	{
+		char *key[] = {"PWD", "PATH", NULL};
 		add_history(data->input);
-		// data->list = malloc(sizeof(t_d_list));
-		// data->list->token = malloc(sizeof(t_token));
-		// data->list->token->cmd = malloc(sizeof(t_list));
-		// data->list->token->cmd = NULL;
-		// data->list->token->cmd = ft_add_node(data->list->token->cmd, "ls");
-		// data->list->token->arg = malloc(sizeof(t_list));
-		// data->list->token->arg = NULL;
-		// ft_lstadd_back(&(data->list->token->arg), ft_lstnew(ft_strdup("-l")));
-		// ft_lstadd_back(&(data->list->token->arg), ft_lstnew(ft_strdup("-a")));
-		// // printf("%s\n", (char *)data->list->token->cmd->content);
-		ft_execute(data);
+		// ft_builtin_export("abc=", data, "1323sdf");
+		// ft_builtin_export("xyz=", data, "1323sdfdsfsdf");
+		ft_builtin_env(data);
+		ft_builtin_unset(data, key);
+		printf("-----------------\n\n");
+		ft_builtin_env(data);
+		// ft_execute(data);
 	}
 }
