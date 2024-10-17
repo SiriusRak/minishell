@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 07:42:56 by enarindr          #+#    #+#             */
-/*   Updated: 2024/10/15 16:46:51 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/17 09:42:27 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,17 @@ int	ft_lex_ext(t_d_list *list, char **tab, int i)
 	if (tab[i + 1])
 	{
 		if (tab[i][0] == '>' && ft_strlen(tab[i]) == 1)
-			error = ft_add_out(list, tab[i + 1], 1);
+			error = ft_add_out(list, tab[i + 1], OUT);
 		else if (tab[i][0] == '>' && tab[i][1] == '>')
-			error = ft_add_out(list, tab[i + 1], 2);
+			error = ft_add_out(list, tab[i + 1], OUT_2);
 		else if (tab[i][0] == '<' && ft_strlen(tab[i]) == 1)
-			error = ft_add_in(list, tab[i + 1], 1);
+			error = ft_add_in(list, tab[i + 1], IN);
 		else if (tab[i][0] == '<' && tab[i][1] == '<')
-			error = ft_add_in(list, tab[i + 1], 2);
+			error = ft_add_in(list, tab[i + 1], HERE);
 		if (error == 1)
 		{
 			while (tab[++i])
-				free(tab[i]);			
+				free(tab[i]);
 		}
 		return (error);
 	}

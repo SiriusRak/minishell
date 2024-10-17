@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/15 16:56:00 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/17 09:48:34 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_d_list
 typedef struct  s_data
 {
 	char		**env;
+	char		**path;
 	char		*input;
 	char		*prompt;
 	char		*history;
@@ -90,14 +91,14 @@ char	*ft_epure_space(char *str);
 void    ft_exit_1(t_data *data);
 void    ft_exit_2(t_data *data);
 void	ft_exit_pipe(char *str, t_data *data);
-void    ft_init(t_data *data);
+void    ft_init(t_data *data, char **env);
 void	ft_add_front_list(t_d_list **list, t_d_list *new);
 void	ft_add_back_list(t_d_list **list, t_d_list *new);
 void	signal_handler(int	sig);
 void	waiting_signal(void);
 void	ft_clear_input(t_data *data);
 
-t_d_list	*ft_newlist(char *content);
+t_d_list	*ft_newlist(char *content, t_data *data);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 13:47:50 by enarindr          #+#    #+#             */
-/*   Updated: 2024/10/15 17:17:15 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/17 09:45:50 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	ft_take_pipe(char *str, t_data *data)
 		ft_exit_pipe(str, data);
 		return (0);
 	}
-	printf("%s\n", str);
 	while (str[i])
 	{
 		if (str[i] == '\'' || str[i] == '\"')

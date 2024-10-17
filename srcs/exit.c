@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 17:07:05 by enarindr          #+#    #+#             */
-/*   Updated: 2024/10/15 15:58:22 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/17 06:58:27 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	ft_exit(char *str)
 void    ft_exit_1(t_data *data)
 {
 	ft_free_tab(data->env);
+	ft_free_tab(data->path);
 	ft_free_data(data);
 	printf("exit\n");
 	clear_history();

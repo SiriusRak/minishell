@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 08:19:47 by enarindr          #+#    #+#             */
-/*   Updated: 2024/10/15 13:32:54 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/17 09:48:08 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_lstfree(t_d_list **list)
 	return (0);
 }
 
-t_d_list	*ft_newlist(char *content)
+t_d_list	*ft_newlist(char *content, t_data *data)
 {
 	t_d_list	*new;
 	t_token		*token;
@@ -38,6 +38,7 @@ t_d_list	*ft_newlist(char *content)
 	if (!new || !token)
 		return (NULL);
 	new->token = token;
+	new->data = data;
 	new->token->name = content;
 	new->token->cmd = NULL;
 	new->token->in = NULL;
@@ -83,7 +84,7 @@ int		ft_add_list(t_data *data, int start, int i, char *str)
 	char	*content;
 
 	content = ft_substr(str, start, i - start);
-	ft_add_back_list(&(data->list), ft_newlist(content));
+	ft_add_back_list(&(data->list), ft_newlist(content, data));
 	return (i);
 
 }

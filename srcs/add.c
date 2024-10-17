@@ -3,100 +3,101 @@
 /*                                                        :::      ::::::::   */
 /*   add.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 12:17:53 by enarindr          #+#    #+#             */
-/*   Updated: 2024/10/16 21:05:30 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/17 14:31:12 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*ft_expand_key(char *str, int start)
+char	*ft_expand_key(t_d_list *list, char *str, int start)
 {
-	
+	char	*key;
+	char	*value;
+	char	**env;
+	int		i;
+
+	i = 0;
+	env = list->data->env;
+	value = NULL;
+	while (ft_isalnum(str[start + i]))
+		i++;
+	key = ft_substr(str, start, i);
+	printf("key---%s\n", key);
+	i = 0;
+	while (env[i] && (ft_strncmp(key, env[i], ft_strlen(key)) != 0))
+		i++;
+	if (env[i] && ft_strncmp(key, env[i], ft_strlen(key)) == 0)
+		value = ft_strdup(env[i + 1]);
+	printf("value---%s\n", value);
+	return (value);
 }
 
-char	*ft_expand(char *str)
+int	ft_expand(t_d_list *list, char **chn, int i)
 {
 	char	*prev;
 	char	*next;
 	char	*value;
-	int		i;
+	char	*str;
 
-	i = 0;
-	while (str[i + 1])
+	str = *chn;
+	if (str[i] == '$' && !ft_isdigit(str[i + 1]) && ft_isalpha(str[i + 1]))
 	{
-		if (str[i] == '$' && str[i + 1] != ' ')
-		{
-			value = ft_expand_key(str, i + 1);
-			prev = ft_substr(str, 0, i + 1);
-			next = ft_substr(str, i, ft_strlen(str) - i);
-			i += ft_strlen(value);
-			prev = ft_strjoin_2(prev, value);
-			free (str);
-			str = ft_strjoin_2(prev, next);
-		}
-		else
+		ft_strlcpy(&(str[i]), &(str[i + 1]), ft_strlen(str) - i + 1);
+		value = ft_expand_key(list, str, i);
+		prev = ft_substr(str, 0, i);
+		while (ft_isalnum(str[i]))
 			i++;
+		next = ft_substr(str, i + 1, ft_strlen(str) - i);
+		i += ft_strlen(value);
+		prev = ft_strjoin_2(prev, value);
+		free (str);
+		*chn = ft_strjoin_2(prev, next);
 	}
-	return(str);	
+	return(i);
 }
 
-char	*ft_clean_quote(char *str)
+char	*ft_clean_quote(t_d_list *list, char *str, int type)
 {
 	int		i;
+	char	*prev;
+	char	*next;
 	char	c;
 
 	i = 0;
-	while (str[i])
+	while (i < (int)ft_strlen(str))
 	{
-		if (str[i] == '\'' || str[i] == '\"')
+		if (str[i] == '\"' || str[i] == '\'')
 		{
-			if (str[i] == '\'')
-				c = '\'';
-			else if (str[i] == '\"')
-				c = '\"';
-			ft_strlcpy(&(str[i]), &(str[i + 1]), ft_strlen(str) + 1);
-			while (str[i] != c)
+			c = str[i];
+			prev = ft_substr(str, 0, i);
+			next = ft_substr(str, i + 1, ft_strlen(str) - i);
+			free (str);
+			str = ft_strjoin_2(prev, next);
+			while (str[i] && str[i] != c)
 			{
-				if (c == '\"' && str[i + 1])
-				{
-					if (str[i] == '$' && str[i + 1] != ' ')
-						str = ft_expand(str);
-				}
+				if (c == '\"' && str[i] == '$' && type != HERE)
+					i = ft_expand(list, &str, i);
 				i++;
 			}
-			ft_strlcpy(&(str[i]), &(str[i + 1]), ft_strlen(str) + 1);
+			if (str[i] == c)
+			{
+				if (!str[i + 1])
+					str[i] = '\0';
+				else
+				{
+					prev = ft_substr(str, 0, i);
+					next = ft_substr(str, i + 1, ft_strlen(str) - i);
+					free (str);
+					str = ft_strjoin_2(prev, next);
+				}
+			}
 		}
+		else if (str[i] && str[i] == '$' && type != HERE)
+			i = ft_expand(list, &str, i);
 		i++;
-	}
-	return(str);
-}
-
-int	is_quote(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '\'')
-			return (1);
-		else if (str[i] == '\"')
-			return (2);
-		i++;
-	}
-	return (0);
-}
-
-char	*ft_clear_word(char *str)
-{
-	if (is_quote(str))
-	{
-		// if (is_quote(str) == 2)
-		// 	str = ft_expand(str);
-		str = ft_clean_quote(str);
 	}
 	return (str);
 }
@@ -107,12 +108,9 @@ int	ft_add_out(t_d_list *list, char *str, int i)
 
 	if (!ft_check_error(str))
 		return (1);
-	str = ft_clear_word(str);
+	str = ft_clean_quote(list, str, i);
 	lst = ft_lstnew(str);
-	if (i == 1)
-		lst->type = OUT;
-	else if (i == 2)
-		lst->type = OUT_2;
+	lst->type = i;
 	ft_lstadd_back(&(list->token->out), lst);
 	return (0);
 }
@@ -120,17 +118,14 @@ int	ft_add_out(t_d_list *list, char *str, int i)
 int	ft_add_in(t_d_list *list, char *str, int i)
 {
 	t_list	*lst;
+
 	if (!ft_check_error(str))
 		return (1);
-	str = ft_clear_word(str);
-	lst = ft_lstnew(str);
-	if (i == 1)
-		lst->type = IN;
-	else if (i == 2)
-	{
-		lst->type = HERE;
+	if (i == HERE)
 		// ft_add_heredok(list, str);
-	}
+	str = ft_clean_quote(list, str, i);
+	lst = ft_lstnew(str);
+	lst->type = i;
 	ft_lstadd_back(&(list->token->in), lst);
 	return (0);
 }
@@ -138,7 +133,7 @@ int	ft_add_in(t_d_list *list, char *str, int i)
 int	ft_add_cmd(t_d_list *list, char *str)
 {
 	t_list	*lst;
-	str = ft_clear_word(str);
+	str = ft_clean_quote(list, str, 0);
 	lst = ft_lstnew(str);
 	if (!list->token->cmd)
 		lst->type = CMD;
