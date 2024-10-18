@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/18 11:58:12 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/18 12:09:21 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ void	waiting_signal(void);
 void	ft_clear_input(t_data *data);
 
 int 	ft_count_line(char **strings);
+int		ft_check_cmd(t_data *data);
+int		ft_dlstsize(t_d_list *lst);
 
 void	ft_free_split(char **strings);
 void    ft_redir(t_list *out);
