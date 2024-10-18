@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:35:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/16 15:41:44 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/18 13:40:30 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,29 +16,21 @@ void	ft_builtin_echo(char **arg)
 {
 	int	newline;
 	int	i;
-	int	j;
 
 	i = 0;
 	newline = 1;
 	while (i < ft_count_line(arg))
 	{
-		j = 0;
-		if (ft_strncmp(arg[0], "-n ", 3) == 0)
-		{
+		if (ft_strncmp(arg[0], "-n", 3) == 0)
 			newline = 0;
-			j += 3;
-		}
-		while (arg[i][j] == ' ')
-			j++;
-		while (arg[i][j])
-		{
-			printf("%c", arg[i][j]);
-			j++;
-		}
-		if (newline)
-			printf("\n");
+		if (newline || (!newline && i != 0))
+			printf("%s", arg[i]);
+		if (i < ft_count_line(arg) - 1 && (newline - i != 0))
+			printf(" ");
 		i++;
 	}
+	if (newline)
+		printf("\n");
 }
 void	ft_buitlin_cd(char **arg)
 {
