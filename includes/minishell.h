@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/18 09:11:53 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/18 09:21:18 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,37 +20,9 @@
 # include <signal.h>
 # include <dirent.h>
 # include "../libft/libft.h"
+# include "struct.h"
 
-// typedef	struct	s_type	t_type;
-typedef struct s_token	t_token;
-typedef struct s_d_list	t_d_list;
-typedef struct  s_data	t_data;
 
-typedef	struct s_token
-{
-	t_list	*cmd;
-	t_list	*in;
-	t_list	*out;
-	char	*name;
-}				t_token;
-
-typedef struct s_d_list
-{
-	struct s_d_list	*prev;
-	t_token			*token;
-	t_data			*data;
-	struct s_d_list	*next;
-}				t_d_list;
-
-typedef struct  s_data
-{
-	char		**env;
-	char		**path;
-	char		*input;
-	char		*prompt;
-	char		*history;
-	t_d_list	*list;
-}				t_data;
 
 /*debug start*/
 int		ft_print_all(t_data *data);
