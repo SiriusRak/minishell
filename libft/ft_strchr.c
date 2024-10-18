@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 11:08:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/10 13:24:47 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/09/20 14:58:54 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,16 @@ char	*ft_strchr(const char *s, int c)
 		i++;
 	}
 	return (NULL);
+}
+void	ft_free_split(char **strings)
+{
+	int	i;
+
+	i = 0;
+	while (strings[i])
+	{
+		free(strings[i]);
+		i++;
+	}
+	free(strings);
 }

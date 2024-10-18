@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   buitlin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/08 15:55:15 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/18 09:13:19 by rdiary           ###   ########.fr       */
+/*   Created: 2024/09/19 13:43:41 by rdiary            #+#    #+#             */
+/*   Updated: 2024/09/20 14:06:14 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "struct.h"
 
-int	main(int ac, char **av, char **env)
-{
-	(void)ac;
-	(void)av;
-	t_data	data;
+#ifndef BUILTIN_H
+# define BUILTIN_H
 
-	waiting_signal();
-	ft_init(&data, env);
-	while (ft_get_input(&data))
-	{
-		if (data.history && ft_strlen(data.history) > 0)
-			add_history(data.history);
-		ft_clear_history(&data);
-		ft_clear_input(&data);
-	}
-	return (0);
-}
+void	ft_builtin_echo(char *arg);
+void	ft_buitlin_cd(char *arg);
+void	ft_builtin_exit(char *arg);
+void	ft_builtin_pwd(void);
+void	ft_builtin_env(t_data *data);
+void    ft_builtin_export(char *key, t_data *data, char *args);
+void    ft_builtin_unset(t_data *data, char *key);
+
+#endif
