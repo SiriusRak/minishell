@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 11:52:33 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/15 13:49:51 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/18 09:38:35 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_list
 	char			*content;
 	t_type			type;
 	struct s_list	*next;
+	int				type;
 }				t_list;
 
 int		ft_isalpha(int c);
@@ -78,6 +79,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size);
 
 t_list	*ft_lstnew(void *content);
 t_list	*ft_lstlast(t_list *lst);
+t_list	*ft_add_node(t_list *head, char *str);
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 void	ft_lstadd_front(t_list **lst, t_list *new);
 void	ft_lstadd_back(t_list **lst, t_list *new);
@@ -85,6 +87,7 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstclear_2(t_list **list);
 void	ft_lstiter(t_list *lst, void (*f)(void *));
+void	ft_lstswap(t_list *a, t_list *b);
 int		ft_lstsize(t_list *lst);
 
 #endif

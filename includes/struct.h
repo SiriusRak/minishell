@@ -6,9 +6,11 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:44:23 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/18 09:20:32 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/18 09:49:03 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../libft/libft.h"
 
 #ifndef STRUCT_H
 # define STRUCT_H
@@ -25,6 +27,7 @@ typedef	struct s_token
 	t_list	*in;
 	t_list	*out;
 	char	*name;
+	char	*path;
 }				t_token;
 
 typedef struct s_d_list
@@ -37,7 +40,7 @@ typedef struct s_d_list
 
 typedef struct  s_data
 {
-	char		**env;
+	t_list		*env;
 	char		**path;
 	char		*input;
 	char		*prompt;
