@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 12:17:53 by enarindr          #+#    #+#             */
-/*   Updated: 2024/10/17 14:31:12 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/18 11:51:32 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ char	*ft_expand_key(t_d_list *list, char *str, int start)
 {
 	char	*key;
 	char	*value;
-	char	**env;
+	char	**tab;
+	t_list	*env;
 	int		i;
 
 	i = 0;
@@ -27,10 +28,15 @@ char	*ft_expand_key(t_d_list *list, char *str, int start)
 	key = ft_substr(str, start, i);
 	printf("key---%s\n", key);
 	i = 0;
-	while (env[i] && (ft_strncmp(key, env[i], ft_strlen(key)) != 0))
-		i++;
-	if (env[i] && ft_strncmp(key, env[i], ft_strlen(key)) == 0)
-		value = ft_strdup(env[i + 1]);
+	while (env && ft_strncmp(key, ft_get_key(env->content), ft_strlen(env->content)) != 0)
+		env = env->next;
+	if (env && ft_strncmp(key, ft_get_key(env->content), ft_strlen(env->content)) == 0)
+	{
+		tab = ft_split(env->content, "=");
+		value = tab[1];
+		free (tab[0]);
+		free (tab);
+	}
 	printf("value---%s\n", value);
 	return (value);
 }
