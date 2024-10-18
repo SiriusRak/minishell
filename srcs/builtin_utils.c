@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 11:04:22 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/16 15:32:58 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/18 10:56:28 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ char	**ft_get_allkey(t_list *list)
 	i = 0;
 	keys = malloc(sizeof(char *) * (ft_lstsize(list) + 1));
 	tmp = list;
+	tmp = tmp->next;
 	while (tmp)
 	{
 		keys[i++] = ft_get_key(tmp->content);
@@ -43,7 +44,7 @@ char	**ft_get_allkey(t_list *list)
 	return (keys);
 }
 
-char	**ft_lst_to_char(t_list *list)
+char	**ft_lst_to_char(t_list *list, int type)
 {
 	char	**tab;
 	int		i;
@@ -56,6 +57,8 @@ char	**ft_lst_to_char(t_list *list)
 		perror("malloc");
 		return (NULL);
 	}
+	if (type == 1)
+		tmp = tmp->next;
 	i = 0;
 	while (tmp)
 	{

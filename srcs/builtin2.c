@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:41:09 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/16 16:32:40 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/18 11:03:59 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_export_no_arg(t_data *data)
 	char	**env;
 	int		i;
 
-	env = ft_lst_to_char(data->env);
+	env = ft_lst_to_char(data->env, 0);
 	env = ft_sort_tab(env);
 	i = 0;
 	while (env[i])
@@ -83,8 +83,8 @@ void	ft_execute_builtin(t_data *data, char *cmd)
 	char	**keys;
 	char	**arg;
 
-	arg = ft_lst_to_char(data->list->token->arg);
-	keys = ft_get_allkey(data->list->token->arg);
+	arg = ft_lst_to_char(data->list->token->cmd, 1);
+	keys = ft_get_allkey(data->list->token->cmd);
 	len = ft_strlen(cmd);
 	if (!ft_strncmp(cmd, "echo", len))
 		ft_builtin_echo(arg);
