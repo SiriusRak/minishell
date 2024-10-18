@@ -6,20 +6,11 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 15:55:15 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/20 15:42:32 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/18 09:13:19 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	ft_init(char **env, t_data *data)
-{
-	char *path;
-
-	data->env = ft_dup(env);
-	path = getenv("PATH");
-	data->path = ft_split(path, ":");
-}
 
 int	main(int ac, char **av, char **env)
 {
@@ -28,9 +19,13 @@ int	main(int ac, char **av, char **env)
 	t_data	data;
 
 	waiting_signal();
-	ft_init(env, &data);
-	while(1)
+	ft_init(&data, env);
+	while (ft_get_input(&data))
 	{
-		get_input(&data);
+		if (data.history && ft_strlen(data.history) > 0)
+			add_history(data.history);
+		ft_clear_history(&data);
+		ft_clear_input(&data);
 	}
+	return (0);
 }

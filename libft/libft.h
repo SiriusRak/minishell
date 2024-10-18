@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 11:52:33 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/16 12:14:03 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/15 13:49:51 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,23 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+
+typedef enum e_type		t_type;
+typedef struct s_list	t_list;
+
+typedef enum e_type
+{
+	CMD,
+	ARG,
+	HERE,
+	IN,
+	OUT,
+	OUT_2,
+}				t_type;
 typedef struct s_list
 {
-	void			*content;
+	char			*content;
+	t_type			type;
 	struct s_list	*next;
 }				t_list;
 
@@ -36,8 +50,11 @@ char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
 char	*ft_strnstr(const char *big, const char *little, size_t len);
 char	*ft_strdup(const char *s);
+char	*ft_strdup_2(char *s);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin_2(char *s1, char *s2);
+char	*ft_strjoin_3(char *s1, char *s2);
 char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char const *s, char *sep);
 char	*ft_itoa(int n);
@@ -66,6 +83,7 @@ void	ft_lstadd_front(t_list **lst, t_list *new);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
+void	ft_lstclear_2(t_list **list);
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 int		ft_lstsize(t_list *lst);
 

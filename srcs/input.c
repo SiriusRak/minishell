@@ -5,72 +5,70 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/08 15:59:57 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/20 16:51:17 by rdiary           ###   ########.fr       */
+/*   Created: 2024/10/11 13:47:50 by enarindr          #+#    #+#             */
+/*   Updated: 2024/10/18 09:13:08 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-// void	ft_tokenisation(t_data *data)
-// {
-// 	char		**tab;
-// 	t_d_list	*list;
-// 	int		i;
-
-// 	i = 0;
-// 	tab = ft_split(data->input, " ");
-// 	list = NULL;
-// 	while (tab[i])
-// 	{
-// 		ft_add_back_list(&list, ft_newlist(tab[i]));
-// 		i++;
-// 	}
-// 	data->tab = tab;
-// }
-
-// void	ft_init_token(t_data *data)
-// {
-// 	t_d_list	*temp;
-
-// 	temp = data->list;
-// 	while (temp)
-// 	{
-// 		if (ft_is_builtin(temp))
-// 			ft_make_build(temp);
-// 		else if (ft_is_cmd(temp))
-// 			ft_make_cmd(temp);
-// 		else if (temp->token->name == "\\")
-// 			ft_make_pipe(temp);
-// 		else if (temp->token->name == ">>")
-// 			ft_make_redir(temp);
-// 	}
-// }
-
-void	parse_input(t_data *data)
+int	ft_take_pipe(char *str, t_data *data)
 {
-	// printf("%ld\n", ft_strlen(data->input));
-	// ft_tokenisation(data);
-	// ft_init_token(data);
+	int	i;
+	int	start;
+
+	i = 0;
+	start = 0;
+	str = ft_epure_line(str);
+	if (!str)
+		return (0);
+	if (str[0] && str[0] == '|')
+	{
+		ft_exit_pipe(str, data);
+		return (0);
+	}
+	while (str[i])
+	{
+		if (str[i] == '\'' || str[i] == '\"')
+		{
+			if (str[i] == '\'')
+				i = ft_find_next_quote(str, i, 1, data);
+			else if (str[i] == '\"')
+				i = ft_find_next_quote(str, i, 2, data);
+			if (!i)
+				return (0);
+		}
+		if (str[i] && str[i] == '|')
+		{
+			if (ft_pipe_error(str, i))
+			{
+				ft_exit_pipe(str, data);
+				return (0);
+			}
+			i = ft_add_list(data, start, i, str);
+			start = i + 1;
+		}
+		i++;
+	}
+	if (start < i)
+		ft_add_list(data, start, i, str);
+	free(str);
+	return (1);
 }
 
-void	get_input(t_data *data)
+int	ft_get_input(t_data *data)
 {
-	data->input = readline("Minishell$ ");
-	if (data->input == NULL)
-		rl_redisplay();
-	if (data->input)
-	{
-		add_history(data->input);
-		parse_input(data);
-		ft_builtin_export("SCV=", data, data->input);
-		ft_builtin_export("xyz=", data, data->input);
-		ft_builtin_env(data);
-		printf("-------------------------\n");
-		ft_builtin_unset(data, "SCV");
-		ft_builtin_unset(data, "xyz");
-		ft_builtin_env(data);
-		ft_free_split(data->env);
-		ft_builtin_exit("0");
-	}
+	char	*rd_line;
+
+	rd_line = readline("MINISHELL $ ");
+	if ((!rd_line) || ft_exit(rd_line))
+		ft_exit_1(data);
+	data->input = ft_strdup(rd_line);
+	data->history = ft_strjoin_2(data->history, ft_strdup(rd_line));
+	if (!ft_take_pipe(rd_line, data))
+		return (1);
+	if (!ft_check_list(data))
+		return (1);
+	ft_print_all(data);
+	return (1);
 }

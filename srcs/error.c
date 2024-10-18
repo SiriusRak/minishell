@@ -1,35 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.c                                           :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/10 11:14:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/11 07:59:29 by enarindr         ###   ########.fr       */
+/*   Created: 2024/10/11 16:57:26 by enarindr          #+#    #+#             */
+/*   Updated: 2024/10/11 17:00:32 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	signal_handler(int	sig)
+int	ft_pipe_error(char *str, int i)
 {
-	if (sig == SIGINT)
-	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
-}
-
-void	interupt ()
-{
-	rl_on_new_line();
-	rl_replace_line("", 0);
-}
-
-void	waiting_signal(void)
-{
-	signal(SIGINT, signal_handler);
+	i++;
+	while (str[i] && ft_iswite_space(str[i]))
+		i++;
+	if (str[i] == '|')
+		return (1);
+	return (0);	
 }
