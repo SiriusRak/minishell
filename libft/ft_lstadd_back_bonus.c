@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 01:09:03 by rdiary            #+#    #+#             */
-/*   Updated: 2024/09/27 12:40:30 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/18 09:37:25 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	if (*lst)
-		ft_lstlast(*lst)->next = new;
-	else
+	if (!(*lst))
 		*lst = new;
+	else
+		ft_lstlast(*lst)->next = new;
 }
 t_list *ft_add_node(t_list *head, char *str)
 {

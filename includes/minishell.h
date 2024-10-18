@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/16 16:26:09 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/18 09:32:02 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
@@ -24,19 +25,20 @@
 # include <sys/wait.h>
 # include "../libft/libft.h"
 # include "struct.h"
-# include "buitlin.h"
 
 int	ft_lstfree(t_d_list **list);
 int	ft_count_line(char **strings);
-int	ft_check_path(t_d_list *list);
-int	ft_dlstsize(t_d_list *lst);
-int	ft_check_cmd(t_data *data);
 
-void	ft_init(char **env, t_data *data);
+void    ft_exit_1(t_data *data);
+void    ft_exit_2(t_data *data);
+void	ft_exit_pipe(char *str, t_data *data);
+void    ft_init(t_data *data, char **env);
 void	ft_add_front_list(t_d_list **list, t_d_list *new);
 void	ft_add_back_list(t_d_list **list, t_d_list *new);
-void	get_input(t_data *data);
+void	signal_handler(int	sig);
 void	waiting_signal(void);
+
+
 void	ft_free_split(char **strings);
 void    ft_redir(t_list *out, int type);
 void    ft_execute(t_data *data);
@@ -47,5 +49,9 @@ void	ft_execute_builtin(t_data *data, char *cmd);
 char	**ft_lst_to_char(t_list *list);
 
 t_list      *ft_duplicate(char **str);
-t_d_list	*ft_newlist(char *content);
+void	ft_clear_input(t_data *data);
+
+t_d_list	*ft_newlist(char *content, t_data *data);
+
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:44:23 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/07 13:58:38 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/18 09:49:03 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 #ifndef STRUCT_H
 # define STRUCT_H
+# include "../libft/libft.h"
 
-typedef	struct	s_type	t_type;
+// typedef	struct	s_type	t_type;
 typedef struct s_token	t_token;
 typedef struct s_d_list	t_d_list;
 typedef struct  s_data	t_data;
@@ -23,12 +24,8 @@ typedef struct  s_data	t_data;
 typedef	struct s_token
 {
 	t_list	*cmd;
-	t_list	*builting;
-	t_list	*arg;
 	t_list	*in;
 	t_list	*out;
-	t_list	*heredoc;
-	t_list	*var;
 	char	*name;
 	char	*path;
 }				t_token;
@@ -37,15 +34,17 @@ typedef struct s_d_list
 {
 	struct s_d_list	*prev;
 	t_token			*token;
+	t_data			*data;
 	struct s_d_list	*next;
 }				t_d_list;
 
 typedef struct  s_data
 {
 	t_list		*env;
-	char		**tab;
+	char		**path;
 	char		*input;
-	char		*sep;
+	char		*prompt;
+	char		*history;
 	t_d_list	*list;
 }				t_data;
 

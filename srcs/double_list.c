@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 08:19:47 by enarindr          #+#    #+#             */
-/*   Updated: 2024/09/27 13:53:59 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/18 09:39:47 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,25 @@ int	ft_lstfree(t_d_list **list)
 	return (0);
 }
 
-// t_d_list	*ft_newlist(char *content)
-// {
-// 	t_d_list	*new;
+t_d_list	*ft_newlist(char *content, t_data *data)
+{
+	t_d_list	*new;
+	t_token		*token;
 
-// 	new = (t_d_list *) malloc(sizeof(t_d_list));
-// 	if (!new)
-// 		return (NULL);
-// 	new->token->name = content;
-// 	new->prev = NULL;
-// 	new->next = NULL;
-// 	return (new);
-// }
+	new = (t_d_list *) malloc(sizeof(t_d_list));
+	token = (t_token *) malloc(sizeof(t_token));
+	if (!new || !token)
+		return (NULL);
+	new->token = token;
+	new->data = data;
+	new->token->name = content;
+	new->token->cmd = NULL;
+	new->token->in = NULL;
+	new->token->out = NULL;
+	new->prev = NULL;
+	new->next = NULL;
+	return (new);
+}
 
 void	ft_add_front_list(t_d_list **list, t_d_list *new)
 {
@@ -60,14 +67,24 @@ void	ft_add_back_list(t_d_list **list, t_d_list *new)
 {
 	t_d_list	*temp;
 
-	if (list && new)
+	if (*list == NULL)
+		*list = new;
+	else 
 	{
-		if (*list == NULL)
-			*list = new;
 		temp = *list;
 		while (temp->next)
 			temp = temp->next;
 		temp->next = new;
 		new->prev = temp;
 	}
+}
+
+int		ft_add_list(t_data *data, int start, int i, char *str)
+{
+	char	*content;
+
+	content = ft_substr(str, start, i - start);
+	ft_add_back_list(&(data->list), ft_newlist(content, data));
+	return (i);
+
 }
