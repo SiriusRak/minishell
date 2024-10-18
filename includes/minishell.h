@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/18 11:45:46 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/18 11:58:12 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,13 @@ void	ft_clear_input(t_data *data);
 int 	ft_count_line(char **strings);
 
 void	ft_free_split(char **strings);
-void    ft_redir(t_list *out, int type);
+void    ft_redir(t_list *out);
 void    ft_execute(t_data *data);
 char	**ft_sort_tab(char **tab);
 void	ft_export_no_arg(t_data *data);
 void	ft_execute_builtin(t_data *data, char *cmd);
 
-char	**ft_lst_to_char(t_list *list);
+char	**ft_lst_to_char(t_list *list, int type);
 
 t_list      *ft_duplicate(char **str);
 t_d_list	*ft_newlist(char *content, t_data *data);

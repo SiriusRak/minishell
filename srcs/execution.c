@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:21:42 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/14 17:12:58 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/18 11:03:11 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	ft_execute_cmd(t_data *data)
 	char	**arg;
 	pid_t	pid;
 
-	env = ft_lst_to_char(data->env);
-	arg = ft_lst_to_char(data->list->token->arg);
+	env = ft_lst_to_char(data->env, 0);
+	arg = ft_lst_to_char(data->list->token->cmd, 1);
 	pid = fork();
 	if (pid == 0)
 	{
@@ -38,7 +38,6 @@ void	ft_execute_cmd(t_data *data)
 void	ft_child_process(t_data *data, int fd_in, int *pipe_fd, int i)
 {
 	char	*cmd;
-	char	*arg;
 	int		is_cmd;
 	
 	dup2(fd_in, STDIN_FILENO);
@@ -46,7 +45,6 @@ void	ft_child_process(t_data *data, int fd_in, int *pipe_fd, int i)
 		dup2(pipe_fd[1], STDOUT_FILENO);
 	close(pipe_fd[0]);
 	cmd = ft_strdup(data->list->token->cmd->content);
-	arg = ft_strdup(data->list->token->arg->content);
 	is_cmd = ft_check_cmd(data);
 	if (ft_is_builtin(cmd) && is_cmd)
 	{
@@ -56,7 +54,6 @@ void	ft_child_process(t_data *data, int fd_in, int *pipe_fd, int i)
 	else if (!ft_is_builtin(cmd) && is_cmd)
 		ft_execute_cmd(data);
 	free(cmd);
-	free(arg);
 }
 
 void	ft_parent_process(int *fd_in, int *pipe_fd)
@@ -105,8 +102,8 @@ void	ft_execute(t_data *data)
 	if (nbr_pipe == 0)
 	{
 		if (data->list->token->out != NULL)
-			ft_redir(data->list->token->out, data->list->token->out->type);
-		arg = ft_lst_to_char(data->list->token->arg);
+			ft_redir(data->list->token->out);
+		arg = ft_lst_to_char(data->list->token->cmd, 1);
 		is_cmd = ft_check_cmd(data);
 		if (ft_is_builtin((char *)data->list->token->cmd->content) && is_cmd)
 			ft_execute_builtin(data, data->list->token->cmd->content);
