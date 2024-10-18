@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/18 11:44:27 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/18 11:45:28 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include <sys/wait.h>
 # include "../libft/libft.h"
 # include "struct.h"
-# include "buitlin.h"
+# include "builtin.h"
 
 int	ft_lstfree(t_d_list **list);
 int	ft_count_line(char **strings);
