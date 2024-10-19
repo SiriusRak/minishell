@@ -6,7 +6,7 @@ SRCS = 	./srcs/print_all.c \
 		./srcs/check.c ./srcs/free.c ./srcs/find.c \
 		./srcs/input.c ./srcs/error.c ./srcs/parsing.c \
 		./srcs/add.c ./srcs/utils.c \
-		./srcs/builtin.c ./srcs/builtin2.c \
+		./srcs/builtin.c ./srcs/builtin2.c  ./srcs/builtin_utils2.c \
 		./srcs/execution.c ./srcs/exec_utils.c ./srcs/builtin_utils.c
 
 LIB = libft

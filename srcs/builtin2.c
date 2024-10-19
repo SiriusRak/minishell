@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:41:09 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/18 11:03:59 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/18 14:37:20 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	ft_execute_builtin(t_data *data, char *cmd)
 	else if (!ft_strncmp(cmd, "unset", len))
 		ft_builtin_unset(data, arg);
 	else if (!ft_strncmp(cmd, "cd", len))
-		ft_buitlin_cd(arg);
+		ft_buitlin_cd(arg, data);
 	else if (!ft_strncmp(cmd, "pwd", len))
 		ft_builtin_pwd();
 	ft_free_split(arg);
