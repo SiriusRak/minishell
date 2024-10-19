@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:21:42 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/18 11:03:11 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/19 14:34:23 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	ft_execute_cmd(t_data *data)
 	pid = fork();
 	if (pid == 0)
 	{
+		if (data->list->token->out != NULL)
+			ft_redir(data->list->token->out);
 		if (execve(data->list->token->path, arg, env) != 0)
 			perror("execve");
 		exit (1);
@@ -101,8 +103,8 @@ void	ft_execute(t_data *data)
 	nbr_pipe = ft_dlstsize(data->list) - 1;
 	if (nbr_pipe == 0)
 	{
-		if (data->list->token->out != NULL)
-			ft_redir(data->list->token->out);
+		// if (data->list->token->out != NULL)
+		// 	ft_redir(data->list->token->out);
 		arg = ft_lst_to_char(data->list->token->cmd, 1);
 		is_cmd = ft_check_cmd(data);
 		if (ft_is_builtin((char *)data->list->token->cmd->content) && is_cmd)
