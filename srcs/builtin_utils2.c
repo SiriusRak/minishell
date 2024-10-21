@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 15:43:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/19 11:30:43 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/21 11:12:30 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,12 @@ void	ft_change_pwd(t_data *data, char **old_pwd, char **pwd, int i)
 	ft_builtin_export(keys, data, values);
 	ft_free_split(keys);
 	ft_free_split(values);
+}
+
+void	ft_restore_fd(int saved_fd)
+{
+	if (dup2(saved_fd, STDOUT_FILENO) == -1)
+		perror("dup2");
+		//exit_free
+	close(saved_fd);
 }

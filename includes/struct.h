@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:44:23 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/18 15:32:57 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/21 10:54:18 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct  s_data
 	char		*history;
 	char		*old_pwd;
 	char		*pwd;
+	int			saved_fd;
 	t_d_list	*list;
 }				t_data;
 

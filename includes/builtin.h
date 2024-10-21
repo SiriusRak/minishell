@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:43:41 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/18 17:04:21 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/21 11:08:49 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #ifndef BUILTIN_H
 # define BUILTIN_H
 
+void	ft_restore_fd(int saved_fd);
 void	ft_builtin_echo(char **arg);
 void	ft_buitlin_cd(char **arg, t_data *data);
 void	ft_builtin_exit(char **arg);

@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/18 12:09:21 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/21 11:01:46 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int		ft_check_cmd(t_data *data);
 int		ft_dlstsize(t_d_list *lst);
 
 void	ft_free_split(char **strings);
-void    ft_redir(t_list *out);
+void    ft_redir(t_data *data, t_list *out);
 void    ft_execute(t_data *data);
 char	**ft_sort_tab(char **tab);
 void	ft_export_no_arg(t_data *data);

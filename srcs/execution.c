@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:21:42 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/19 14:34:23 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/21 11:09:15 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_execute_cmd(t_data *data)
 	if (pid == 0)
 	{
 		if (data->list->token->out != NULL)
-			ft_redir(data->list->token->out);
+			ft_redir(data, data->list->token->out);
 		if (execve(data->list->token->path, arg, env) != 0)
 			perror("execve");
 		exit (1);
