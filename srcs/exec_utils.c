@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:02:05 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/21 11:05:57 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/21 12:41:34 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	ft_redir_input(t_list *in)
 		in = in->next;
 	}
 }
-// bug
+
 int	ft_check_path(t_d_list *list)
 {
 	char	*big;
@@ -83,12 +83,11 @@ int	ft_check_path(t_d_list *list)
 		list->token->path = ft_find_in_path(big);
 		if (list->token->path)
 		{
-			ft_lstadd_front(&(list->token->cmd), ft_lstnew(big));
-			// free(big);
+			free(big);
 			return (1);
 		}
 	}
-	// free(big);
+	free(big);
 	return (0);
 }
 int	ft_check_cmd(t_data *data)
@@ -98,9 +97,9 @@ int	ft_check_cmd(t_data *data)
 	int			checker;
 
 	head = data->list;
-	checker = 0;
 	while (head)
 	{
+		checker = 0;
 		cmd = ft_strdup(head->token->cmd->content);
 		if (ft_is_builtin((char *)head->token->cmd->content))
 			checker = 1;

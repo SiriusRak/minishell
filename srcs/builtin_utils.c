@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 11:04:22 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/18 10:56:28 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/21 11:24:36 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	**ft_lst_to_char(t_list *list, int type)
 	t_list	*tmp;
 
 	tmp = list;
-	tab = malloc ((ft_lstsize(list)) * sizeof(char *));
+	tab = malloc ((ft_lstsize(list) + 1) * sizeof(char *));
 	if (!tab)
 	{
 		perror("malloc");

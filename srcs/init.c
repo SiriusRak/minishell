@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 17:09:48 by enarindr          #+#    #+#             */
-/*   Updated: 2024/10/19 11:11:50 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/21 11:27:50 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,5 @@ void    ft_init(t_data *data, char **env)
     data->env = ft_duplicate(env);
     data->old_pwd = getenv("OLDPWD");
     data->pwd = getenv("PWD");
+    data->saved_fd = -1;
 }

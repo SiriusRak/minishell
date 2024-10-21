@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 15:43:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/21 11:12:30 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/21 11:31:39 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	ft_change_pwd(t_data *data, char **old_pwd, char **pwd, int i)
 	char	**values;
 	char	cwd[1024];
 
-	keys = malloc(sizeof(char *) * 2);
-	values = malloc(sizeof(char *) * 2);
+	keys = malloc(sizeof(char *) * 3);
+	values = malloc(sizeof(char *) * 3);
 	keys[0] = ft_strdup("PWD");
 	keys[1] = ft_strdup("OLDPWD");
 	keys[2] = 0;

@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:35:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/21 08:43:35 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/21 11:35:37 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	ft_buitlin_cd(char **arg, t_data *data)
 		}
 		else if (!ft_strncmp(arg[0], "-", ft_strlen(arg[0])))
 		{
+			printf("%s\n", data->old_pwd);
 			chdir(data->old_pwd);
 			ft_change_pwd(data, &data->old_pwd, &data->pwd, 0);
 		}

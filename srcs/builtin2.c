@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:41:09 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/21 11:11:31 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/21 15:39:40 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	ft_builtin_export(char **keys, t_data *data, char **args)
 	data->env = tmp;
 	ft_addkey(data->env, keys, args);
 }
-
+//taf: invalid read of size
 void	ft_builtin_unset(t_data *data, char **key)
 {
 	t_list	*head;
@@ -60,9 +60,9 @@ void	ft_builtin_unset(t_data *data, char **key)
 	while (data->env)
 	{
 		i = 0;
-		while (i++ < ft_count_line(key))
+		while (i < ft_count_line(key))
 		{
-			if (!ft_strncmp(data->env->content, key[i - 1], ft_strlen(key[i - 1])))
+			if (!ft_strncmp(data->env->content, key[i], ft_strlen(key[i])))
 			{
 				if (prev == NULL)
 					data->env = data->env->next;
@@ -71,6 +71,7 @@ void	ft_builtin_unset(t_data *data, char **key)
 				free(data->env->content);
 				break;
 			}
+			i++;
 		}	
 		prev = data->env;
 		data->env = data->env->next;
@@ -102,7 +103,8 @@ void	ft_execute_builtin(t_data *data, char *cmd)
 		ft_buitlin_cd(arg, data);
 	else if (!ft_strncmp(cmd, "pwd", len))
 		ft_builtin_pwd();
-	ft_restore_fd(data->saved_fd);
+	if (data->saved_fd >= 0)
+		ft_restore_fd(data->saved_fd);
 	ft_free_split(arg);
 	ft_free_split(keys);
 }
