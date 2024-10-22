@@ -6,12 +6,13 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:35:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/21 11:35:37 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/22 16:51:14 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+//taf: gerer -n
 void	ft_builtin_echo(char **arg)
 {
 	int	newline;
