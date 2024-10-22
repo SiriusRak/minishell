@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:41:09 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/21 15:39:40 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/22 13:49:42 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	ft_builtin_export(char **keys, t_data *data, char **args)
 	data->env = tmp;
 	ft_addkey(data->env, keys, args);
 }
-//taf: invalid read of size
+//taf: invalid read of size/unset path
 void	ft_builtin_unset(t_data *data, char **key)
 {
 	t_list	*head;
