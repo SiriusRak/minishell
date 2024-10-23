@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:43:41 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/21 11:08:49 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/23 15:41:04 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ char	*ft_get_key(char *content);
 char	**ft_get_allkey(t_list *list);
 char	*ft_find_in_path(char *cmd);
 int     ft_is_builtin(char *cmd);
+int     ft_check_arg(char *arg, int *newline);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:41:09 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/22 13:49:42 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/23 15:53:07 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,8 @@ void	ft_execute_builtin(t_data *data, char *cmd)
 		ft_buitlin_cd(arg, data);
 	else if (!ft_strncmp(cmd, "pwd", len))
 		ft_builtin_pwd();
-	if (data->saved_fd >= 0)
-		ft_restore_fd(data->saved_fd);
+	// if (data->saved_fd >= 0)
+	// 	ft_restore_fd(data->saved_fd);
 	ft_free_split(arg);
 	ft_free_split(keys);
 }

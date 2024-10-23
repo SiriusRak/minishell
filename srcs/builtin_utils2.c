@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 15:43:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/21 11:31:39 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/23 15:40:44 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,24 @@ void	ft_restore_fd(int saved_fd)
 		perror("dup2");
 		//exit_free
 	close(saved_fd);
+}
+
+int	ft_check_arg(char *arg, int *newline)
+{
+	int	i;
+
+	while (arg && arg[0] == '-' && arg[1] == 'n')
+	{
+		i = 1;
+		while (arg[i] == 'n')
+			i++;
+		if (arg[i] == '\0')
+		{
+			*newline = 0;
+			i++;
+		}
+		else
+			break;
+	}
+	return (i);
 }
