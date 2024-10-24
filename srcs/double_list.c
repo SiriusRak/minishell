@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   double_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 08:19:47 by enarindr          #+#    #+#             */
-/*   Updated: 2024/10/18 09:39:47 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/24 13:33:45 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int		ft_add_list(t_data *data, int start, int i, char *str)
 	char	*content;
 
 	content = ft_substr(str, start, i - start);
-	ft_add_back_list(&(data->list), ft_newlist(content, data));
+	ft_add_back_list(&(data->temp_list), ft_newlist(content, data));
 	return (i);
 
 }

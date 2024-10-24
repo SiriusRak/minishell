@@ -3,19 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 17:07:05 by enarindr          #+#    #+#             */
-/*   Updated: 2024/10/18 11:41:06 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/24 13:47:05 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include <readline/history.h>
+#include <stdio.h>
 
-int		ft_exit_quote(char *str, t_data *data)
+int	ft_exit_quote(char *str, t_data *data)
 {
 	free (str);
-	ft_exit_2(data);
+	printf("**history**: %s\n", data->history);
+	ft_putstr_fd("unclosed quote\n", 2);
+	// ft_exit_2(data);
 	return (0);
 }
 
@@ -26,7 +30,7 @@ int	ft_exit(char *str)
 	if (!(str[0]))
 		return (0);
 	temp = ft_strdup(str);
-	temp = ft_epure_line(temp);
+	temp = ft_epure_line(temp, 0, 0);
 	if (ft_strncmp(temp, "exit", ft_strlen(temp)) == 0)
 	{
 		add_history(str);
@@ -43,16 +47,16 @@ void    ft_exit_1(t_data *data)
 	ft_lstclear_2(&(data->env));
 	ft_free_tab(data->path);
 	ft_free_data(data);
-	printf("exit\n");
+	printf("exitOOO\n");
 	clear_history();
 	exit (1);
 }
 
-void    ft_exit_2(t_data *data)
-{
-	ft_free_data(data);
-	ft_putstr_fd("unclosed quote\n", 2);
-}
+// void    ft_exit_2(t_data *data)
+// {
+// 	// ft_free_data(data);
+// 	(void) data;
+// }
 
 void	ft_exit_pipe(char *str, t_data *data)
 {

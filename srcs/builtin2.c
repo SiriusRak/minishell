@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:41:09 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/24 11:45:35 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/24 13:57:55 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,10 @@ void	ft_execute_builtin(t_data *data, char *cmd)
 	arg = ft_lst_to_char(data->list->token->cmd, 1);
 	keys = ft_get_allkey(data->list->token->cmd);
 	len = ft_strlen(cmd);
+	if (data->list->token->out != NULL)
+			ft_redir(data, data->list->token->out);
+	if (data->list->token->in != NULL)
+			ft_redir_input(data->list->token->in);
 	if (!ft_strncmp(cmd, "echo", len))
 		ft_builtin_echo(arg);
 	else if (!ft_strncmp(cmd, "exit", len))

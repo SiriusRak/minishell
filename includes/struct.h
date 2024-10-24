@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:44:23 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/21 10:54:18 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/24 13:29:55 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 #ifndef STRUCT_H
 # define STRUCT_H
-# include "../libft/libft.h"
 
 // typedef	struct	s_type	t_type;
 typedef struct s_token	t_token;
@@ -42,6 +41,8 @@ typedef struct  s_data
 {
 	t_list		*env;
 	char		**path;
+	pid_t		pid;
+	int			error;
 	char		*input;
 	char		*prompt;
 	char		*history;
@@ -49,6 +50,7 @@ typedef struct  s_data
 	char		*pwd;
 	int			saved_fd;
 	t_d_list	*list;
+	t_d_list	*temp_list;
 }				t_data;
 
 #endif

@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 13:47:50 by enarindr          #+#    #+#             */
-/*   Updated: 2024/10/18 09:40:13 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/24 13:53:53 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include <stdio.h>
+#include <unistd.h>
 
 int	ft_take_pipe(char *str, t_data *data)
 {
@@ -19,7 +21,7 @@ int	ft_take_pipe(char *str, t_data *data)
 
 	i = 0;
 	start = 0;
-	str = ft_epure_line(str);
+	str = ft_epure_line(str, 0, 0);
 	if (!str)
 		return (0);
 	if (str[0] && str[0] == '|')
@@ -31,10 +33,7 @@ int	ft_take_pipe(char *str, t_data *data)
 	{
 		if (str[i] == '\'' || str[i] == '\"')
 		{
-			if (str[i] == '\'')
-				i = ft_find_next_quote(str, i, 1, data);
-			else if (str[i] == '\"')
-				i = ft_find_next_quote(str, i, 2, data);
+			i = ft_find_next_quote(str, i, str[i], data);
 			if (!i)
 				return (0);
 		}
@@ -56,6 +55,13 @@ int	ft_take_pipe(char *str, t_data *data)
 	return (1);
 }
 
+int	ft_end_of_pipe(char *str)
+{
+	if (str[ft_strlen(str) - 1] == '|')
+		return (1);
+	return (0);
+}
+
 int	ft_get_input(t_data *data)
 {
 	char	*rd_line;
@@ -68,7 +74,46 @@ int	ft_get_input(t_data *data)
 	if (!ft_take_pipe(rd_line, data))
 		return (1);
 	if (!ft_check_list(data))
+	{
+		wait(0);
+		waiting_signal(data);
 		return (1);
+	}
+	wait(0);
+	waiting_signal(data);
+	ft_add_back_list(&data->list, data->temp_list);
+	data->temp_list = NULL;
+	while (ft_end_of_pipe(data->input))
+	{
+		data->error = 0;
+		signal_heredoc(data);
+		free(data->input);
+		rd_line = readline("PiPe $ ");
+		if (!rd_line)
+		{
+			ft_putstr_fd("minishell: syntax error: unexpected end of file\n", 2);
+			ft_exit_1(data);
+		}
+		data->input = ft_strdup(rd_line);
+		data->history = ft_strjoin_2(data->history, ft_strdup(rd_line));
+		if (!ft_take_pipe(rd_line, data))
+			return (1);
+		if (!ft_check_list(data))
+		{
+			wait(0);
+			waiting_signal(data);
+			return (1);
+		}
+		wait(0);
+		waiting_signal(data);
+		ft_add_back_list(&data->list, data->temp_list);
+		data->temp_list = NULL;
+		if (data->error == 1)
+			return  (1);
+	}
+	if (data->error == 1)
+		return  (1);
 	ft_print_all(data);
+	ft_execute(data);
 	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 07:20:39 by enarindr          #+#    #+#             */
-/*   Updated: 2024/10/15 16:55:36 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/24 13:17:35 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	ft_check_error(char *str)
 {
+	printf("atoooo\n");
 	if (str[0] == '<' || str[0] == '>')
 	{
 		ft_putstr_fd("MINISHELL: syntax error near unexpected token `", 2);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/22 16:17:38 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/24 13:18:04 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ int		ft_print_all(t_data *data);
 /*debug end*/
 
 int		ft_lstfree(t_d_list **list);
-int		ft_free_t_d_list(t_data *data);
+int		ft_free_t_d_list(t_d_list *lst);
 int     ft_free_tab(char **tab);
 int		ft_iswite_space(char c);
 int		ft_notsep(char	c);
 int		ft_get_input(t_data *data);
 int		ft_add_list(t_data *data, int start, int i, char *str);
-int		ft_find_next_quote(char *str, int start, int type, t_data *data);
-int		ft_find_next_quote_2(char *str, int start, int type);
+int		ft_find_next_quote(char *str, int start, char c, t_data *data);
+int		ft_find_next_quote_2(char *str, int start, char c);
 int		ft_exit_quote(char *str, t_data *data);
 int		ft_get_input(t_data *data);
 int		ft_take_pipe(char *str, t_data *data);
@@ -56,12 +56,18 @@ int		ft_add_out(t_d_list *list, char *str, int i);
 int		ft_add_in(t_d_list *list, char *str, int i);
 int		ft_add_cmd(t_d_list *list, char *str);
 int		ft_check_error(char *str);
+int 	ft_expand(t_d_list *list, char **chn, int i, int quote);
+int	    ft_pars_error(t_list *list);
+int	    ft_all_error(t_d_list *list);
 
-char	*ft_epure_line(char *str);
+char	*ft_epure_line(char *str, int i, int j);
 char	*ft_epure_redir(char *str);
 char	*ft_arrange_prev_redir(char *str);
 char	*ft_arrange_back_redir(char *str);
-char	*ft_epure_space(char *str);
+char	*ft_epure_space(char *str, int i, int j);
+char	*ft_get_value(char *key, t_list *env);
+char	*ft_expand_key(t_d_list *list, char *str, int start);
+char	*ft_expand_here(t_d_list *list, char *ch);
 
 void    ft_exit_1(t_data *data);
 void    ft_exit_2(t_data *data);
@@ -69,9 +75,18 @@ void	ft_exit_pipe(char *str, t_data *data);
 void    ft_init(t_data *data, char **env);
 void	ft_add_front_list(t_d_list **list, t_d_list *new);
 void	ft_add_back_list(t_d_list **list, t_d_list *new);
-void	signal_handler(int	sig);
-void	waiting_signal(void);
+void	signal_handler(int	sig,siginfo_t *info, void *context);
+void	waiting_signal(t_data *data);
+void	signal_heredoc(t_data *data);
+void	handler(int	sig, siginfo_t *info, void *context);
+
+void	waiting_signial_here(t_data *data);
+void	signal_handler_here(int	sig, siginfo_t *info, void *context);
+
 void	ft_clear_input(t_data *data);
+char	*ft_clean_quote(t_d_list *list, char *str, int type);
+
+//****header Diary*****/
 
 int 	ft_count_line(char **strings);
 int		ft_check_cmd(t_data *data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 07:42:56 by enarindr          #+#    #+#             */
-/*   Updated: 2024/10/17 09:42:27 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/24 13:22:37 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	ft_lex_ext(t_d_list *list, char **tab, int i)
 {
 	int	error;
 
+	error = 0;
 	if (tab[i + 1])
 	{
 		if (tab[i][0] == '>' && ft_strlen(tab[i]) == 1)
@@ -35,8 +36,10 @@ int	ft_lex_ext(t_d_list *list, char **tab, int i)
 	}
 	else
 	{
+		wait(NULL);
 		ft_putstr_fd("MINISHELL: syntax error near unexpected\
 token `newline'\n", 2);
+		return  (1);
 	}
 	return (1);
 }
@@ -120,11 +123,11 @@ int	ft_check_list(t_data *data)
 {
 	t_d_list	*list;
 
-	list = data->list;
+	list = data->temp_list;
 	while (list)
 	{
-		list->token->name = ft_epure_line(list->token->name);
-		list->token->name =  ft_epure_space(list->token->name);
+		list->token->name = ft_epure_line(list->token->name, 0, 0);
+		list->token->name =  ft_epure_space(list->token->name, 0, 0);
 		list->token->name = ft_epure_redir(list->token->name);
 		if (!ft_pars(list))
 			return (0);

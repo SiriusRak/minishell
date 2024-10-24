@@ -3,25 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   epure.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 07:12:01 by enarindr          #+#    #+#             */
-/*   Updated: 2024/10/15 17:16:29 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/24 13:18:07 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include <stdio.h>
 
-char	*ft_epure_line(char *str)
+char	*ft_epure_line(char *str, int i, int j)
 {
 	int     len;
-	int     i;
-	int     j;
 	char    *new;
 
 	len = ft_strlen(str);
-	i = 0;
-	j = 0;
 	if (len == 0)
 	{
 		free(str);
@@ -45,36 +42,38 @@ char	*ft_epure_line(char *str)
 	return (new);
 }
 
-char	*ft_epure_space(char *str)
+int		epure_space_ext(char **nw_str, char **sr, int *j, int *i)
 {
 	char	*new_str;
+	char	*str;
 	char	c;
-	int		i;
-	int		j;
 
-	i = 0;
-	j = 0;
+	str = *sr;
+	c = str[(*i)];
+	new_str = *nw_str;
+	new_str[(*j)++] = str[(*i)++];
+	while (str[(*i)] != c)
+		new_str[(*j)++] = str[(*i)++];
+	new_str[(*j)++] = str[(*i)++];
+	if (ft_iswite_space(str[(*i)]))
+	{
+		new_str[(*j)++] = ' ';
+		i++;
+	}
+	return  (0);
+}
+
+char	*ft_epure_space(char *str, int i, int j)
+{
+	char	*new_str;
+
 	new_str = ft_calloc(sizeof(char), ft_strlen(str) + 1);
 	if (!new_str)
 		return (NULL);
 	while (str[i])
 	{
 		if (str[i] == '\'' || str[i] == '\"')
-		{
-			if (str[i] == '\'')
-				c = '\'';
-			else if (str[i] == '\"')
-				c = '\"';
-			new_str[j++] = str[i++];
-			while (str[i] != c)
-				new_str[j++] = str[i++];
-			new_str[j++] = str[i++];
-			if (ft_iswite_space(str[i]))
-			{
-				new_str[j++] = ' ';
-				i++;
-			}
-		}
+			epure_space_ext(&new_str, &str, &j, &i);
 		else if (str[i] && !ft_iswite_space(str[i]))
 		{
 			while (str[i] && !ft_iswite_space(str[i])
@@ -100,39 +99,37 @@ void	ft_clear_input(t_data *data)
 	}
 }
 
+char	*ft_arrange_prev_redir_ext(char *str, int i)
+{
+	char	*prev;
+	char	*next;
+	char	*new;
+
+	prev = ft_substr(str, 0, i);
+	prev = ft_strjoin_2(prev, ft_strdup(" "));
+	next = ft_substr(str, i, ft_strlen(str) - i);
+	free (str);
+	new = ft_strjoin_2(prev, next);
+	return (new);
+}
+
 char	*ft_arrange_prev_redir(char *str)
 {
 	int		i;
-	char	*prev;
-	char	*next;
 	char	c;
 
 	i = 0;
 	while (str[i])
 	{
 		if (str[i] == '\'' || str[i] == '\"')
-		{
-			if (str[i] == '\'')
-				i = ft_find_next_quote_2(str, i, 1);
-			else if (str[i] == '\"')
-				i = ft_find_next_quote_2(str, i, 2);
-		}
+			i = ft_find_next_quote_2(str, i, str[i]);
 		if (str[i] == '<' || str[i] == '>')
 		{
-			if (str[i] == '<')
-				c = '<';
-			else if (str[i] == '>')
-				c = '>';
+			c = str[i];
 			if (i > 0)
 			{
 				if (str[i - 1] != ' ' && str[i - 1] != c)
-				{
-					prev = ft_substr(str, 0, i);
-					prev = ft_strjoin_2(prev, ft_strdup(" "));
-					next = ft_substr(str, i, ft_strlen(str) - i);
-					free (str);
-					str = ft_strjoin_2(prev, next);
-				}
+					str = ft_arrange_prev_redir_ext(str, i);
 			}
 			i++;
 		}
@@ -145,36 +142,21 @@ char	*ft_arrange_prev_redir(char *str)
 char	*ft_arrange_back_redir(char *str)
 {
 	int		i;
-	char	*prev;
-	char	*next;
 	char	c;
 
 	i = 0;
 	while (str[i])
 	{
 		if (str[i] == '\'' || str[i] == '\"')
-		{
-			if (str[i] == '\'')
-				i = ft_find_next_quote_2(str, i, 1);
-			else if (str[i] == '\"')
-				i = ft_find_next_quote_2(str, i, 2);
-		}
+			i = ft_find_next_quote_2(str, i, str[i]);
 		if (str[i] == '<' || str[i] == '>')
 		{
-			if (str[i] == '<')
-				c = '<';
-			else if (str[i] == '>')
-				c = '>';
-			i++;
+			c = str[i++];
 			if (str[i] == c)
 				i++;
 			if (str[i] && str[i] != ' ')
 			{
-				prev = ft_substr(str, 0, i);
-				prev = ft_strjoin_2(prev, ft_strdup(" "));
-				next = ft_substr(str, i, ft_strlen(str) - i);
-				free (str);
-				str = ft_strjoin_2(prev, next);	
+				str = ft_arrange_prev_redir_ext(str, i);
 				i++;
 			}
 		}
@@ -192,5 +174,5 @@ char	*ft_epure_redir(char *str)
 	new = ft_arrange_prev_redir(new);
 	new = ft_arrange_back_redir(new);
 	free (str);
-	return (new);	
+	return (new);
 }

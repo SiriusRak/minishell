@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 17:09:48 by enarindr          #+#    #+#             */
-/*   Updated: 2024/10/21 11:27:50 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/24 13:21:48 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void    ft_init(t_data *data, char **env)
 {
     data->list = NULL;
+    data->temp_list = NULL;
     data->input = NULL;
     data->prompt = NULL;
     data->history = NULL;

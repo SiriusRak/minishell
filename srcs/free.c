@@ -3,20 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42.fr>          +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 13:35:15 by enarindr          #+#    #+#             */
-/*   Updated: 2024/10/15 15:54:35 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/24 13:20:12 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include <time.h>
+
+int	ft_clear_heredoc(t_data *data)
+{
+	t_list	*heredoc;
+
+	if (data->list)
+	{
+		if (data->list->token->in)
+		{
+			heredoc = data->list->token->in;
+			while (heredoc)
+			{
+				if (heredoc->type == HERE)
+					unlink(heredoc->content);
+				heredoc = heredoc->next;
+			}
+		}
+	}
+	return  (0);
+}
 
 int	ft_clear_history(t_data *data)
 {
+	ft_clear_heredoc(data);
 	ft_free_data(data);
-	// rl_on_new_line();
-	// rl_replace_line("", 0);
 	return (0);
 }
 
@@ -25,9 +45,13 @@ int ft_free_tab(char **tab)
 	int	i;
 
 	i = 0;
-	while (tab[i])
-		free(tab[i++]);
-	free (tab);
+	if (tab)
+	{
+		while (tab[i])
+			free(tab[i++]);
+		free (tab);
+		tab = NULL;
+	}
 	return (0);
 }
 
@@ -50,18 +74,23 @@ int	ft_free_data(t_data *data)
 	}
 	if (data->list)
 	{
-		ft_free_t_d_list(data);
+		ft_free_t_d_list(data->list);
 		data->list = NULL;
+	}
+	if (data->temp_list)
+	{
+		ft_free_t_d_list(data->temp_list);
+		data->temp_list = NULL;
 	}
 	return (0);
 }
 
-int	ft_free_t_d_list(t_data *data)
+int	ft_free_t_d_list(t_d_list *lst)
 {
 	t_d_list	*list;
 	t_d_list	*temp;
 
-	list = data->list;
+	list = lst;
 	while (list)
 	{
 		temp = list->next;

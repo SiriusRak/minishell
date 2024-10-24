@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:35:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/24 11:53:39 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/24 13:38:18 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,12 @@ void	ft_buitlin_cd(char **arg, t_data *data)
 		perror("too many arg");
 	else
 	{
-		if (!arg[0] || !ft_strncmp(arg[0], "~", ft_strlen(arg[0])))
-		{
-			chdir((getenv("HOME")));
-			ft_change_pwd(data, &data->pwd, &data->pwd, 1);
-		}
-		else if (!ft_strncmp(arg[0], "-", ft_strlen(arg[0])))
+		// if (!arg[0] || !ft_strncmp(arg[0], "~", ft_strlen(arg[0])))
+		// {
+		// 	chdir((getenv("HOME")));
+		// 	ft_change_pwd(data, &data->pwd, &data->pwd, 1);
+		// }
+		if (!ft_strncmp(arg[0], "-", ft_strlen(arg[0])))
 		{
 			printf("%s\n", data->old_pwd);
 			chdir(data->old_pwd);
