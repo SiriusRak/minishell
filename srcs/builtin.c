@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:35:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/24 13:38:18 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/24 15:39:04 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,6 @@ void	ft_buitlin_cd(char **arg, t_data *data)
 		perror("too many arg");
 	else
 	{
-		// if (!arg[0] || !ft_strncmp(arg[0], "~", ft_strlen(arg[0])))
-		// {
-		// 	chdir((getenv("HOME")));
-		// 	ft_change_pwd(data, &data->pwd, &data->pwd, 1);
-		// }
 		if (!ft_strncmp(arg[0], "-", ft_strlen(arg[0])))
 		{
 			printf("%s\n", data->old_pwd);
