@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:14:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/24 13:22:55 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/24 20:39:23 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ void	handler(int	sig, siginfo_t *info, void *context)
 	if (sig == SIGINT)
 	{
 		data->error = 1;
+		data->error = 130;
 	}
 }
 

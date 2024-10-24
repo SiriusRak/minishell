@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:44:23 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/24 13:29:55 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/24 20:14:27 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct  s_data
 	char		**path;
 	pid_t		pid;
 	int			error;
+	int			return_value;
 	char		*input;
 	char		*prompt;
 	char		*history;
