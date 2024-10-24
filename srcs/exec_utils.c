@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:02:05 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/24 13:46:32 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/24 14:44:17 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int	ft_check_cmd(t_data *data)
 	int			checker;
 
 	head = data->list;
-	while (head)
+	while (head && head->token->cmd)
 	{
 		checker = 0;
 		cmd = ft_strdup(head->token->cmd->content);

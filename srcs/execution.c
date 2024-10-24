@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:21:42 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/24 13:50:58 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/24 14:46:10 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ void	ft_execute(t_data *data)
 
 	nbr_cmd = ft_dlstsize(data->list);
 	is_cmd = ft_check_cmd(data);
-	if (nbr_cmd == 1)
+	if (nbr_cmd == 1 && data->list->token->cmd)
 	{
 		// if (data->list->token->in != NULL)
 		// 	ft_redir_input(data->list->token->in);
