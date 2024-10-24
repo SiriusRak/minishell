@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 11:04:22 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/24 15:54:01 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/24 16:52:38 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ char	*ft_get_key(char *content)
 	while (content[i] && content[i] != '=')
 		i++;
 	key = malloc(sizeof(char) * i + 1);
+	if (!key)
+		return (NULL);
 	ft_strlcpy(key, content, i + 1);
 	return (key);
 }
@@ -33,21 +35,26 @@ char	*ft_get_value(char *key, t_list *env)
 
 	value = NULL;
 	key_2 = ft_get_key(env->content);
-	while (env && ft_strncmp(key, key_2, ft_strlen(key))!= 0)
+	if (key_2)
 	{
-		free (key_2);
-		env = env->next;
-		if (env)
-			key_2 = ft_get_key(env->content);
+		while (env && ft_strncmp(key, key_2, ft_strlen(key))!= 0)
+		{
+			free (key_2);
+			key_2 = NULL;
+			env = env->next;
+			if (env)
+				key_2 = ft_get_key(env->content);
+		}
+		if (env && ft_strncmp(key, key_2, ft_strlen(key))== 0
+			&& ft_strlen(key) == ft_strlen(key_2))
+		{
+			tab = ft_split(env->content, "=");
+			value = ft_strdup(tab[1]);
+			ft_free_tab(tab);
+		}
+		if (key_2)
+			free(key_2);
 	}
-	if (env && ft_strncmp(key, key_2, ft_strlen(key))== 0
-		&& ft_strlen(key) == ft_strlen(key_2))
-	{
-		tab = ft_split(env->content, "=");
-		value = ft_strdup(tab[1]);
-		ft_free_tab(tab);
-	}
-	free(key_2);
 	return (value);
 }
 

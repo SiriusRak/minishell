@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:35:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/24 16:15:08 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/24 16:56:12 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,23 +48,29 @@ void	ft_buitlin_cd(char **arg, t_data *data)
 	else
 	{
 		value = ft_get_value("HOME", data->env);
-		if (!arg[0])
-			chdir(value);
-		else if (!ft_strncmp(arg[0], "-", ft_strlen(arg[0])))
+		if (value)
 		{
-			printf("%s\n", data->old_pwd);
-			chdir(data->old_pwd);
-			ft_change_pwd(data, &data->old_pwd, &data->pwd, 0);
+			if (!arg[0] && value)
+				chdir(value);
+			else if (!ft_strncmp(arg[0], "-", ft_strlen(arg[0])))
+			{
+				printf("%s\n", data->old_pwd);
+				chdir(data->old_pwd);
+				ft_change_pwd(data, &data->old_pwd, &data->pwd, 0);
+			}
+			else
+			{
+				data->old_pwd = ft_strdup(data->pwd);
+				if (chdir(arg[0]) == 0)
+					ft_change_pwd(data, &data->old_pwd, &data->pwd, 1);
+				else
+					perror(arg[0]);
+			}
+			if (value)
+				free(value);
 		}
 		else
-		{
-			data->old_pwd = ft_strdup(data->pwd);
-			if (chdir(arg[0]) == 0)
-				ft_change_pwd(data, &data->old_pwd, &data->pwd, 1);
-			else
-				perror(arg[0]);
-		}
-		free(value);
+			ft_putstr_fd("minishell: cd: HOME not set\n", 2);
 	}
 }
 void	ft_builtin_pwd(void)
