@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:41:09 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/24 13:57:55 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/24 16:07:41 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,36 +48,34 @@ void	ft_builtin_export(char **keys, t_data *data, char **args)
 	data->env = tmp;
 	ft_addkey(data->env, keys, args);
 }
-//taf: invalid read of size/unset path
+
+//taf: unset path
 void	ft_builtin_unset(t_data *data, char **key)
 {
-	t_list	*head;
+	t_list	*curr;
 	t_list	*prev;
 	int		i;
 
-	head = data->env;
+	curr = data->env;
 	prev = NULL;
-	while (data->env)
+	while (curr)
 	{
 		i = 0;
 		while (i < ft_count_line(key))
 		{
-			if (!ft_strncmp(data->env->content, key[i], ft_strlen(key[i])))
-			{
-				if (prev == NULL)
-					data->env = data->env->next;
-				else
-					prev->next = data->env->next;
-				free(data->env->content);
+			if (ft_manage_unset(key[i], curr, prev, data))
 				break;
-			}
 			i++;
-		}	
-		prev = data->env;
-		data->env = data->env->next;
+		}
+		if (!i || i == ft_count_line(key))
+		{
+			prev = curr;
+			curr = curr->next;
+		}
 	}
-	data->env = head;
 }
+
+
 void	ft_execute_builtin(t_data *data, char *cmd)
 {
 	int		len;

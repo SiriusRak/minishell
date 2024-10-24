@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:43:41 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/24 13:26:34 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/24 16:06:07 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ char	**ft_get_allkey(t_list *list);
 char	*ft_find_in_path(char *cmd);
 int     ft_is_builtin(char *cmd);
 int     ft_check_arg(char *arg, int *newline);
+int	    ft_manage_unset(char *key, t_list *curr, t_list *prev, t_data *data);
 
 #endif

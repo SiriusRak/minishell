@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 11:04:22 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/24 13:31:49 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/24 15:54:01 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ void	ft_addkey(t_list *list, char **keys, char **args)
 	i = 0;
 	while (i < ft_count_line(keys))
 	{
+		printf("%s\n", args[i]);
 		is_exist = 0;
 		while (list)
 		{
@@ -130,7 +131,7 @@ void	ft_addkey(t_list *list, char **keys, char **args)
 		}
 		list = tmp;
 		if (!is_exist)
-			ft_lstadd_back(&list, ft_lstnew(args[i]));
+			ft_lstadd_back(&list, ft_lstnew(ft_strdup(args[i])));
 		i++;
 	}
 }
