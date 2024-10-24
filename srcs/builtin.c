@@ -6,13 +6,12 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:35:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/23 15:54:28 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/24 11:53:39 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-//taf: gerer -n
 void	ft_builtin_echo(char **arg)
 {
 	int	newline;
@@ -20,16 +19,20 @@ void	ft_builtin_echo(char **arg)
 
 	i = 0;
 	newline = 1;
-	while (i < ft_count_line(arg))
+	while (ft_strncmp(arg[i], "-n", 2) == 0 && i < ft_count_line(arg))
 	{
-		while (ft_strncmp(arg[i], "-n", 3) == 0 && i < ft_count_line(arg))
+		if (arg[i][2] == '\0' || arg[i][2] == 'n')
 		{
 			newline = 0;
 			i++;
 		}
-		if (i < ft_count_line(arg))
-			printf("%s", arg[i]);
-		if (i < ft_count_line(arg) - 1)
+		else
+			break;
+	}
+	while (i < ft_count_line(arg))
+	{
+		printf("%s", arg[i]);
+		if (i + 1 < ft_count_line(arg))
 			printf(" ");
 		i++;
 	}

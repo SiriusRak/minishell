@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:21:42 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/22 16:20:35 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/24 11:45:47 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,20 +121,19 @@ void	ft_execute_pipe(t_data *data, int nbr_cmd)
 
 void	ft_execute(t_data *data)
 {
-	char	**arg;
 	int		is_cmd;
 	int		nbr_cmd;
 
 	nbr_cmd = ft_dlstsize(data->list);
 	is_cmd = ft_check_cmd(data);
-	if (nbr_cmd == 0)
+	if (nbr_cmd == 1)
 	{
-		arg = ft_lst_to_char(data->list->token->cmd, 1);
+		if (data->list->token->out != NULL)
+			ft_redir(data, data->list->token->out);
 		if (ft_is_builtin((char *)data->list->token->cmd->content) && is_cmd)
 			ft_execute_builtin(data, data->list->token->cmd->content);
 		else if (!ft_is_builtin((char *)data->list->token->cmd->content) && is_cmd)
 			ft_execute_cmd(data);
-		ft_free_split(arg);
 	}
 	else if (nbr_cmd > 0 && is_cmd)
 		ft_execute_pipe(data, nbr_cmd);

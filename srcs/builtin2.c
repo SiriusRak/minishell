@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:41:09 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/23 15:53:07 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/24 11:45:35 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,6 @@ void	ft_execute_builtin(t_data *data, char *cmd)
 	char	**keys;
 	char	**arg;
 
-	if (data->list->token->out != NULL)
-			ft_redir(data, data->list->token->out);
 	arg = ft_lst_to_char(data->list->token->cmd, 1);
 	keys = ft_get_allkey(data->list->token->cmd);
 	len = ft_strlen(cmd);
@@ -103,8 +101,8 @@ void	ft_execute_builtin(t_data *data, char *cmd)
 		ft_buitlin_cd(arg, data);
 	else if (!ft_strncmp(cmd, "pwd", len))
 		ft_builtin_pwd();
-	// if (data->saved_fd >= 0)
-	// 	ft_restore_fd(data->saved_fd);
+	if (data->saved_fd >= 0)
+		ft_restore_fd(data->saved_fd);
 	ft_free_split(arg);
 	ft_free_split(keys);
 }
