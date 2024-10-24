@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:35:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/24 15:39:04 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/24 16:15:08 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,16 @@ void	ft_builtin_echo(char **arg)
 }
 void	ft_buitlin_cd(char **arg, t_data *data)
 {
+	char	*value;
+
 	if (ft_count_line(arg) > 1)
 		perror("too many arg");
 	else
 	{
-		if (!ft_strncmp(arg[0], "-", ft_strlen(arg[0])))
+		value = ft_get_value("HOME", data->env);
+		if (!arg[0])
+			chdir(value);
+		else if (!ft_strncmp(arg[0], "-", ft_strlen(arg[0])))
 		{
 			printf("%s\n", data->old_pwd);
 			chdir(data->old_pwd);
@@ -59,6 +64,7 @@ void	ft_buitlin_cd(char **arg, t_data *data)
 			else
 				perror(arg[0]);
 		}
+		free(value);
 	}
 }
 void	ft_builtin_pwd(void)

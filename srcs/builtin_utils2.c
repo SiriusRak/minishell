@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 15:43:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/23 15:40:44 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/24 16:11:34 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,23 @@ int	ft_check_arg(char *arg, int *newline)
 			break;
 	}
 	return (i);
+}
+
+int	ft_manage_unset(char *key, t_list *curr, t_list *prev, t_data *data)
+{
+	t_list	*tmp;
+
+	if (!ft_strncmp(curr->content, key, ft_strlen(key)))
+	{
+		tmp = curr->next;
+		if (prev == NULL)
+			data->env = curr->next;
+		else
+			prev->next = curr->next;
+		free(curr->content);
+		// free(curr);
+		curr = tmp;
+		return (1);
+	}
+	return (0);
 }
