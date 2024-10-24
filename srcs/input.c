@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 13:47:50 by enarindr          #+#    #+#             */
-/*   Updated: 2024/10/24 13:53:53 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/24 15:03:29 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,7 @@ int	ft_get_input(t_data *data)
 	if (!ft_take_pipe(rd_line, data))
 		return (1);
 	if (!ft_check_list(data))
-	{
-		wait(0);
-		waiting_signal(data);
 		return (1);
-	}
-	wait(0);
-	waiting_signal(data);
 	ft_add_back_list(&data->list, data->temp_list);
 	data->temp_list = NULL;
 	while (ft_end_of_pipe(data->input))
@@ -99,13 +93,7 @@ int	ft_get_input(t_data *data)
 		if (!ft_take_pipe(rd_line, data))
 			return (1);
 		if (!ft_check_list(data))
-		{
-			wait(0);
-			waiting_signal(data);
 			return (1);
-		}
-		wait(0);
-		waiting_signal(data);
 		ft_add_back_list(&data->list, data->temp_list);
 		data->temp_list = NULL;
 		if (data->error == 1)

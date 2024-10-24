@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 07:42:56 by enarindr          #+#    #+#             */
-/*   Updated: 2024/10/24 13:22:37 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/24 14:58:07 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,13 @@ int	ft_check_list(t_data *data)
 		list->token->name =  ft_epure_space(list->token->name, 0, 0);
 		list->token->name = ft_epure_redir(list->token->name);
 		if (!ft_pars(list))
+		{
+			wait(0);
+			waiting_signal(data);
 			return (0);
+		}
+		wait(0);
+		waiting_signal(data);
 		list = list->next;
 	}
 	return (1);
