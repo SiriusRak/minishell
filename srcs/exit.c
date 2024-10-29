@@ -47,7 +47,7 @@ void    ft_exit_1(t_data *data)
 	ft_lstclear_2(&(data->env));
 	ft_free_tab(data->path);
 	ft_free_data(data);
-	printf("exitOOO\n");
+	printf("exit\n");
 	clear_history();
 	exit (1);
 }

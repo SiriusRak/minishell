@@ -46,12 +46,12 @@ void	waiting_signal(t_data *data)
 {
 	struct sigaction	sa;
 
+	(void) data;
 	sa.sa_sigaction = signal_handler;
 	sa.sa_flags = SA_RESTART | SA_SIGINFO;
 	sigemptyset((&sa.sa_mask));
 	signal(SIGQUIT, SIG_IGN);
 	sigaction(SIGINT, &sa, NULL);
-	signal_handler(0, NULL,   data);
 }
 
 void	signal_handler_here(int	sig, siginfo_t *info, void *context)
@@ -108,10 +108,11 @@ void	waiting_signial_here(t_data *data)
 	// signal_handler_here(0, NULL, data);
 	struct sigaction	s_sigaction;
 
+	(void) data;
 	s_sigaction.sa_sigaction = signal_handler_here;
 	s_sigaction.sa_flags = SA_RESTART | SA_SIGINFO;
 	sigemptyset((&s_sigaction.sa_mask));
 	signal(SIGQUIT, SIG_IGN);
-	sigaction(SIGINT, &s_sigaction, NULL);
 	signal_handler_here(0, NULL,  data);
-} 
+	sigaction(SIGINT, &s_sigaction, NULL);
+}

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include <time.h>
 
 int	ft_lstfree(t_d_list **list)
 {
@@ -40,6 +41,7 @@ t_d_list	*ft_newlist(char *content, t_data *data)
 	new->token = token;
 	new->data = data;
 	new->token->name = content;
+	new->token->path = NULL;
 	new->token->cmd = NULL;
 	new->token->in = NULL;
 	new->token->out = NULL;

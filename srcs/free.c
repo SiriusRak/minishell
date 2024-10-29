@@ -104,6 +104,8 @@ int	ft_free_t_d_list(t_d_list *lst)
 				ft_lstclear_2(&(list->token->out));
 			if (list->token->name)
 				free (list->token->name);
+			if (list->token->path)
+				free (list->token->path);
 			free(list->token);
 		}
 		free (list);

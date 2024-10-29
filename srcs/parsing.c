@@ -14,7 +14,8 @@
 
 int	ft_lex_ext(t_d_list *list, char **tab, int i)
 {
-	int	error;
+	int		error;
+	int		signal_return;
 
 	error = 0;
 	if (tab[i + 1])
@@ -36,7 +37,7 @@ int	ft_lex_ext(t_d_list *list, char **tab, int i)
 	}
 	else
 	{
-		wait(NULL);
+		waitpid(0, &signal_return, 0);
 		ft_putstr_fd("MINISHELL: syntax error near unexpected\
 token `newline'\n", 2);
 		return  (1);
@@ -122,6 +123,7 @@ int	ft_pars(t_d_list *list)
 int	ft_check_list(t_data *data)
 {
 	t_d_list	*list;
+	int			signal_value;
 
 	list = data->temp_list;
 	while (list)
@@ -131,9 +133,9 @@ int	ft_check_list(t_data *data)
 		list->token->name = ft_epure_redir(list->token->name);
 		if (!ft_pars(list))
 		{
-			wait(0);
+			waitpid(0, &signal_value, 0);
 			waiting_signal(data);
-			return (0);
+			return (signal_value);
 		}
 		wait(0);
 		waiting_signal(data);

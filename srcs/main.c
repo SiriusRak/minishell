@@ -22,7 +22,7 @@ int	main(int ac, char **av, char **env)
 	waiting_signal(&data);
 	ft_init(&data, env);
 	data.error = 0;
-	return_value = 0
+	return_value = 0;
 	while (1)
 	{
 		return_value = ft_get_input(&data);

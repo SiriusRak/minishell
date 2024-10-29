@@ -65,6 +65,7 @@ int	ft_end_of_pipe(char *str)
 int	ft_get_input(t_data *data)
 {
 	char	*rd_line;
+	// int		return_value;
 
 	rd_line = readline("MINISHELL $ ");
 	if ((!rd_line) || ft_exit(rd_line))
@@ -72,9 +73,9 @@ int	ft_get_input(t_data *data)
 	data->input = ft_strdup(rd_line);
 	data->history = ft_strjoin_2(data->history, ft_strdup(rd_line));
 	if (!ft_take_pipe(rd_line, data))
-		return (1);
+		return (2);
 	if (!ft_check_list(data))
-		return (1);
+		return (2);
 	ft_add_back_list(&data->list, data->temp_list);
 	data->temp_list = NULL;
 	while (ft_end_of_pipe(data->input))
@@ -91,17 +92,17 @@ int	ft_get_input(t_data *data)
 		data->input = ft_strdup(rd_line);
 		data->history = ft_strjoin_2(data->history, ft_strdup(rd_line));
 		if (!ft_take_pipe(rd_line, data))
-			return (1);
+			return (2);
 		if (!ft_check_list(data))
-			return (1);
+			return (2);
 		ft_add_back_list(&data->list, data->temp_list);
 		data->temp_list = NULL;
 		if (data->error == 1)
-			return  (1);
+			return  (2);
 	}
 	if (data->error == 1)
 		return  (1);
 	ft_print_all(data);
 	ft_execute(data);
-	return (1);
+	return (0);
 }
