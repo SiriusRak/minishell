@@ -26,7 +26,10 @@ char	*ft_expand_key(t_d_list *list, char *str, int start)
 	key = ft_substr(str, start, i);
 	printf("key---%s\n", key);
 	i = 0;
-	value = ft_get_value(key, env);
+	if (key[0] == '?' && ft_strlen(key) == 1)
+		value = ft_strdup(ft_itoa(list->data->return_value));
+	else
+		value = ft_get_value(key, env);
 	free (key);
 	return (value);
 }
@@ -45,13 +48,24 @@ int	ft_expand(t_d_list *list, char **chn, int i, int quote)
 		|| str[i + 1] == '/') && i == 0)
 	{
 		prev = ft_substr(str, 0, i);
+		i++;
 		next = ft_substr(str, i + 1, ft_strlen(str));	
 		free (str);
 		*chn = ft_strjoin_2(prev, ft_strdup("$HOME"));
 		*chn = ft_strjoin_2(*chn, next);
 		return (i);
 	}
-	if (str[i] && str[i] == '$' && str[i + 1] &&
+	if (str[i + 1] == '?')
+	{
+		prev = ft_substr(str, 0, i);
+		value = ft_strdup(ft_itoa(list->data->return_value));
+		i++;
+		next = ft_substr(str, i + 1, ft_strlen(str));
+		prev = ft_strjoin_2(prev, value);
+		free(str);
+		*chn = ft_strjoin_2(prev, next);
+	}
+	else if (str[i] && str[i] == '$' && str[i + 1] &&
 		!ft_isdigit(str[i + 1]) && str[i + 1] != ' ' && str[i + 1] != '~'
 		&& ft_isalpha(str[i + 1]))
 	{

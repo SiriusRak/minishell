@@ -63,7 +63,6 @@ void	signal_handler_here(int	sig, siginfo_t *info, void *context)
 	{
 		data = (t_data *) context;
 	}
-	// data->pid = info->si_pid;
 	if (sig == SIGINT)
 	{
 		write(2, "\n", 1);

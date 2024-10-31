@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include <csignal>
+#include <stdio.h>
 
 int	ft_lex_ext(t_d_list *list, char **tab, int i)
 {
@@ -134,10 +136,17 @@ int	ft_check_list(t_data *data)
 		if (!ft_pars(list))
 		{
 			waitpid(0, &signal_value, 0);
+			if (signal_value == SIGINT);
+				data->return_value = SIGINT + 128;
 			waiting_signal(data);
-			return (signal_value);
+			return (0);
 		}
-		wait(0);
+		waitpid(0, &signal_value, 0);
+		if (signal_value == SIGINT)
+		{
+			data->return_value = SIGINT + 128;
+			return  (0);
+		}
 		waiting_signal(data);
 		list = list->next;
 	}

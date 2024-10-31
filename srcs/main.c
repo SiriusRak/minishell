@@ -14,7 +14,6 @@
 
 int	main(int ac, char **av, char **env)
 {
-	int		return_value;
 	t_data	data;
 
 	(void)ac;
@@ -22,11 +21,9 @@ int	main(int ac, char **av, char **env)
 	waiting_signal(&data);
 	ft_init(&data, env);
 	data.error = 0;
-	return_value = 0;
 	while (1)
 	{
-		return_value = ft_get_input(&data);
-		data.return_value = return_value;
+		ft_get_input(&data);
 		if (data.history && ft_strlen(data.history) > 0)
 			add_history(data.history);
 		ft_clear_history(&data);

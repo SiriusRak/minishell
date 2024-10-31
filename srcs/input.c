@@ -75,7 +75,10 @@ int	ft_get_input(t_data *data)
 	if (!ft_take_pipe(rd_line, data))
 		return (2);
 	if (!ft_check_list(data))
+	{
+		data->return_value = 2;
 		return (2);
+	}
 	ft_add_back_list(&data->list, data->temp_list);
 	data->temp_list = NULL;
 	while (ft_end_of_pipe(data->input))
@@ -98,10 +101,10 @@ int	ft_get_input(t_data *data)
 		ft_add_back_list(&data->list, data->temp_list);
 		data->temp_list = NULL;
 		if (data->error == 1)
-			return  (2);
+			return  (130);
 	}
 	if (data->error == 1)
-		return  (1);
+		return  (130);
 	ft_print_all(data);
 	ft_execute(data);
 	return (0);

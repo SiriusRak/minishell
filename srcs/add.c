@@ -55,7 +55,10 @@ int	ft_add_out(t_d_list *list, char *str, int i)
 	t_list	*lst;
 
 	if (!ft_check_error(str))
+	{
+		list->data->return_value = 2;
 		return (1);
+	}
 	str = ft_clean_quote(list, str, i);
 	lst = ft_lstnew(str);
 	lst->type = i;

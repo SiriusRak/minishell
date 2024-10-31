@@ -14,7 +14,6 @@
 
 int	ft_check_error(char *str)
 {
-	printf("atoooo\n");
 	if (str[0] == '<' || str[0] == '>')
 	{
 		ft_putstr_fd("MINISHELL: syntax error near unexpected token `", 2);
