@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 13:47:50 by enarindr          #+#    #+#             */
-/*   Updated: 2024/10/24 16:46:53 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/05 19:13:45 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ int	ft_end_of_pipe(char *str)
 int	ft_get_input(t_data *data)
 {
 	char	*rd_line;
-	// int		return_value;
 
 	rd_line = readline("MINISHELL $ ");
 	if ((!rd_line) || ft_exit(rd_line))
@@ -73,7 +72,10 @@ int	ft_get_input(t_data *data)
 	data->input = ft_strdup(rd_line);
 	data->history = ft_strjoin_2(data->history, ft_strdup(rd_line));
 	if (!ft_take_pipe(rd_line, data))
+	{
+		data->return_value = 2;
 		return (2);
+	}
 	if (!ft_check_list(data))
 	{
 		data->return_value = 2;
@@ -84,7 +86,7 @@ int	ft_get_input(t_data *data)
 	while (ft_end_of_pipe(data->input))
 	{
 		data->error = 0;
-		signal_heredoc(data);
+		// signal_heredoc(data);
 		free(data->input);
 		rd_line = readline("PiPe $ ");
 		if (!rd_line)
@@ -93,6 +95,7 @@ int	ft_get_input(t_data *data)
 			ft_exit_1(data);
 		}
 		data->input = ft_strdup(rd_line);
+		data->history = ft_strjoin_2(data->history, ft_strdup(" "));
 		data->history = ft_strjoin_2(data->history, ft_strdup(rd_line));
 		if (!ft_take_pipe(rd_line, data))
 			return (2);
@@ -104,7 +107,10 @@ int	ft_get_input(t_data *data)
 			return  (130);
 	}
 	if (data->error == 1)
+	{
+		data->return_value = 130;
 		return  (130);
+	}
 	ft_print_all(data);
 	ft_execute(data);
 	return (0);

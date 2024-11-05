@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 07:42:56 by enarindr          #+#    #+#             */
-/*   Updated: 2024/10/24 14:58:07 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/05 18:09:17 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include <csignal>
-#include <stdio.h>
 
 int	ft_lex_ext(t_d_list *list, char **tab, int i)
 {
@@ -136,7 +134,7 @@ int	ft_check_list(t_data *data)
 		if (!ft_pars(list))
 		{
 			waitpid(0, &signal_value, 0);
-			if (signal_value == SIGINT);
+			if (signal_value == SIGINT)
 				data->return_value = SIGINT + 128;
 			waiting_signal(data);
 			return (0);
