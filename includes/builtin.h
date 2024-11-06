@@ -15,10 +15,10 @@
 #ifndef BUILTIN_H
 # define BUILTIN_H
 
-// void	ft_restore_fd(int saved_fd);
+void	ft_restore_fd(int saved_fd);
 void	ft_builtin_echo(char **arg);
-void	ft_buitlin_cd(char **arg);
-void	ft_builtin_exit(char **arg);
+void	ft_buitlin_cd(char **arg, t_data *data);
+void	ft_builtin_exit(t_data *data, char **arg);
 void	ft_builtin_pwd(void);
 void	ft_builtin_env(t_data *data);
 void    ft_builtin_export(char **key, t_data *data, char **args);
@@ -32,5 +32,6 @@ char	*ft_find_in_path(char *cmd);
 int     ft_is_builtin(char *cmd);
 int     ft_check_arg(char *arg, int *newline);
 int	    ft_manage_unset(char *key, t_list *curr, t_list *prev, t_data *data);
+int		ft_check_num(char *arg);
 
 #endif

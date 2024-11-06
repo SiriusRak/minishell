@@ -95,8 +95,8 @@ int		ft_check_cmd(t_data *data);
 int		ft_dlstsize(t_d_list *lst);
 
 void	ft_free_split(char **strings);
-void    ft_redir(t_list *out);
-// void	ft_redir_input(t_list *in);
+void    ft_redir(t_data *data, t_list *out);
+void	ft_redir_input(t_list *in);
 void    ft_execute(t_data *data);
 char	**ft_sort_tab(char **tab);
 void	ft_export_no_arg(t_data *data);

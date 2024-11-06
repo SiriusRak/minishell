@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:02:05 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/24 11:04:43 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/10/28 13:42:31 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,11 @@ void	ft_check_fd_dup(int fd, int dup)
 	}
 }
 
-void    ft_redir(t_list *out)
+void    ft_redir(t_data *data, t_list *out)
 {
 	int	fd;
 
+	data->saved_fd = dup(STDOUT_FILENO);
 	while (out)
 	{
 		if (out->type == OUT)
@@ -42,7 +43,6 @@ void    ft_redir(t_list *out)
 	}
 	ft_check_fd_dup(0, dup2(fd, STDOUT_FILENO));
 	close(fd);
-	exit(0);
 }
 
 void	ft_redir_input(t_list *in)
@@ -63,34 +63,35 @@ void	ft_redir_input(t_list *in)
 		in = in->next;
 	}
 }
-// bug
+
 int	ft_check_path(t_d_list *list)
 {
 	char	*big;
+	char	*path;
 
 	big = ft_strdup(list->token->cmd->content);
-	if (ft_strnstr(big, "/bin/", 5))
+	if (!ft_strncmp(big, "/bin/", 5) || access(big, X_OK) == 0)
 	{
-		if (access(big, X_OK) == 0)
-		{
-			list->token->path = ft_strdup(big);
-			// free(big);
-			return (1);
-		}
+		list->token->path = ft_strdup(big);
+		free(big);
+		return (1);
 	}
 	else
 	{
-		list->token->path = ft_find_in_path(big);
-		if (list->token->path)
+		path = ft_find_in_path(big);
+		if (path)
 		{
-			ft_lstadd_front(&(list->token->cmd), ft_lstnew(big));
-			// free(big);
+			list->token->path = ft_strdup(path);
+			free(big);
+			free(path);
 			return (1);
 		}
 	}
-	// free(big);
+	free(big);
+	free(path);
 	return (0);
 }
+
 int	ft_check_cmd(t_data *data)
 {
 	t_d_list	*head;
@@ -98,9 +99,9 @@ int	ft_check_cmd(t_data *data)
 	int			checker;
 
 	head = data->list;
-	checker = 0;
-	while (head)
+	while (head && head->token->cmd)
 	{
+		checker = 0;
 		cmd = ft_strdup(head->token->cmd->content);
 		if (ft_is_builtin((char *)head->token->cmd->content))
 			checker = 1;
