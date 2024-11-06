@@ -100,7 +100,9 @@ void	fork_heredoc(t_d_list *list, char *str, char c)
 		ft_add_file(here,str);
 		list->data->history = ft_strjoin_2(list->data->history, here);
 	}
-	exit(0);
+	ft_clear_history(list->data);
+	ft_clear_input(list->data);
+	ft_exit_child(list->data);
 }
 
 int	ft_add_in(t_d_list *list, char *str, int i)

@@ -1,6 +1,7 @@
 NAME = minishell
 
 SRCS = 	./srcs/print_all.c \
+		./get_next_line/get_next_line_utils.c ./get_next_line/get_next_line.c \
 		./srcs/main.c ./srcs/signal.c ./srcs/exit.c \
 		./srcs/double_list.c ./srcs/init.c ./srcs/epure.c \
 		./srcs/check.c ./srcs/free.c ./srcs/find.c \

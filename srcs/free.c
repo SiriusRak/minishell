@@ -72,15 +72,15 @@ int	ft_free_data(t_data *data)
 		free(data->prompt);
 		data->prompt = NULL;
 	}
+	// if (data->temp_list)
+	// {
+	// 	ft_free_t_d_list(data->temp_list);
+	// 	data->temp_list = NULL;
+	// }
 	if (data->list)
 	{
 		ft_free_t_d_list(data->list);
 		data->list = NULL;
-	}
-	if (data->temp_list)
-	{
-		ft_free_t_d_list(data->temp_list);
-		data->temp_list = NULL;
 	}
 	return (0);
 }

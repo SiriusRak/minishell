@@ -65,6 +65,7 @@ void	signal_handler_here(int	sig, siginfo_t *info, void *context)
 		write(2, "\n", 1);
 		ft_lstclear_2(&(data->env));
 		ft_free_tab(data->path);
+		ft_clear_input(data);
 		ft_free_data(data);
 		clear_history();
 		exit (130);
@@ -82,7 +83,6 @@ void	handler(int	sig, siginfo_t *info, void *context)
 	}
 	if (sig == SIGINT)
 	{
-		data->return_value = 130;
 		data->error = 1;
 	}
 }

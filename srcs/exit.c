@@ -52,6 +52,15 @@ void    ft_exit_1(t_data *data)
 	exit (1);
 }
 
+void	ft_exit_child(t_data *data)
+{
+	ft_lstclear_2(&(data->env));
+	ft_free_tab(data->path);
+	ft_free_data(data);
+	clear_history();
+	exit (0);
+}
+
 // void    ft_exit_2(t_data *data)
 // {
 // 	// ft_free_data(data);

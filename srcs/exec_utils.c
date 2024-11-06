@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:02:05 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/24 14:44:17 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/24 11:04:43 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,10 @@ void	ft_check_fd_dup(int fd, int dup)
 	}
 }
 
-void    ft_redir(t_data *data, t_list *out)
+void    ft_redir(t_list *out)
 {
 	int	fd;
 
-	data->saved_fd = dup(STDOUT_FILENO);
 	while (out)
 	{
 		if (out->type == OUT)
@@ -43,6 +42,7 @@ void    ft_redir(t_data *data, t_list *out)
 	}
 	ft_check_fd_dup(0, dup2(fd, STDOUT_FILENO));
 	close(fd);
+	exit(0);
 }
 
 void	ft_redir_input(t_list *in)
@@ -63,7 +63,7 @@ void	ft_redir_input(t_list *in)
 		in = in->next;
 	}
 }
-
+// bug
 int	ft_check_path(t_d_list *list)
 {
 	char	*big;
@@ -74,7 +74,7 @@ int	ft_check_path(t_d_list *list)
 		if (access(big, X_OK) == 0)
 		{
 			list->token->path = ft_strdup(big);
-			free(big);
+			// free(big);
 			return (1);
 		}
 	}
@@ -83,11 +83,12 @@ int	ft_check_path(t_d_list *list)
 		list->token->path = ft_find_in_path(big);
 		if (list->token->path)
 		{
-			free(big);
+			ft_lstadd_front(&(list->token->cmd), ft_lstnew(big));
+			// free(big);
 			return (1);
 		}
 	}
-	free(big);
+	// free(big);
 	return (0);
 }
 int	ft_check_cmd(t_data *data)
@@ -97,9 +98,9 @@ int	ft_check_cmd(t_data *data)
 	int			checker;
 
 	head = data->list;
-	while (head && head->token->cmd)
+	checker = 0;
+	while (head)
 	{
-		checker = 0;
 		cmd = ft_strdup(head->token->cmd->content);
 		if (ft_is_builtin((char *)head->token->cmd->content))
 			checker = 1;

@@ -11,7 +11,9 @@
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include <readline/readline.h>
 #include <stdio.h>
+#include <time.h>
 #include <unistd.h>
 
 int	ft_take_pipe(char *str, t_data *data)
@@ -62,12 +64,60 @@ int	ft_end_of_pipe(char *str)
 	return (0);
 }
 
+char	*take_script(int fd)
+{
+	char	*str;
+	char	*temp;
+
+	str = NULL;
+	temp = get_next_line(fd);
+	str = ft_strjoin_2(str, temp);
+	while (temp) 
+	{
+		temp = get_next_line(fd);
+		str = ft_strjoin_2(str, temp);
+	}
+	return (str);
+}
+
 int	ft_get_input(t_data *data)
 {
 	char	*rd_line;
+	int		fd[2];
+	int		pid;
 
-	rd_line = readline("MINISHELL $ ");
-	if ((!rd_line) || ft_exit(rd_line))
+	if (pipe(fd) == -1)
+		return 2;
+	pid = fork();
+	if (pid == 0)
+	{
+		ft_clear_history(data);
+		ft_clear_input(data);
+		close(fd[0]);
+		waiting_signial_here(data);
+		// rl_replace_line("", 0);
+		// rl_on_new_line();
+		// rl_redisplay();
+		rd_line = readline("MINISHELL $ ");
+		if (!rd_line)
+			rd_line = ft_strdup("exit");
+		write(fd[1], rd_line, ft_strlen(rd_line));
+		close(fd[1]);
+		free (rd_line);
+		ft_exit_child(data);
+	}
+	signal_heredoc(data);
+	close(fd[1]);
+	wait(0);
+	if (data->error == 1)
+	{
+		data->return_value = 130;
+		return (130);
+	}
+	waiting_signal(data);
+	rd_line = take_script(fd[0]);
+	close(fd[0]);
+	if (ft_exit(rd_line))
 		ft_exit_1(data);
 	data->input = ft_strdup(rd_line);
 	data->history = ft_strjoin_2(data->history, ft_strdup(rd_line));
@@ -82,36 +132,57 @@ int	ft_get_input(t_data *data)
 		return (2);
 	}
 	ft_add_back_list(&data->list, data->temp_list);
-	data->temp_list = NULL;
-	while (ft_end_of_pipe(data->input))
-	{
-		data->error = 0;
-		// signal_heredoc(data);
-		free(data->input);
-		rd_line = readline("PiPe $ ");
-		if (!rd_line)
-		{
-			ft_putstr_fd("minishell: syntax error: unexpected end of file\n", 2);
-			ft_exit_1(data);
-		}
-		data->input = ft_strdup(rd_line);
-		data->history = ft_strjoin_2(data->history, ft_strdup(" "));
-		data->history = ft_strjoin_2(data->history, ft_strdup(rd_line));
-		if (!ft_take_pipe(rd_line, data))
-			return (2);
-		if (!ft_check_list(data))
-			return (2);
-		ft_add_back_list(&data->list, data->temp_list);
-		data->temp_list = NULL;
-		if (data->error == 1)
-			return  (130);
-	}
+	// while (ft_end_of_pipe(data->input))
+	// {
+	// 	data->error = 0;
+	// 	ft_clear_input(data);
+	// 	if (pipe(fd) == -1)
+	// 		return 2;
+	// 	pid = fork();
+	// 	if (pid == 0)
+	// 	{
+	// 		close(fd[0]);
+	// 		waiting_signial_here(data);
+	// 		rd_line = readline("PiPe $ ");
+	// 		if (!rd_line)
+	// 		{
+	// 			ft_putstr_fd("minishell: syntax error: unexpected end of file\n", 2);
+	// 			close(fd[1]);
+	// 			ft_exit_1(data);
+	// 		}
+	// 		write(fd[1], rd_line, ft_strlen(rd_line));
+	// 		close(fd[1]);
+	// 		free (rd_line);
+	// 		ft_exit_child(data);
+	// 	}
+	// 	signal_heredoc(data);
+	// 	close(fd[1]);
+	// 	wait(0);
+	// 	if (data->error == 1)
+	// 	{
+	// 		data->return_value = 130;
+	// 		return (130);
+	// 	}
+	// 	waiting_signal(data);
+	// 	rd_line = take_script(fd[0]);
+	// 	close (fd[0]);
+	// 	data->input = ft_strdup(rd_line);
+	// 	data->history = ft_strjoin_2(data->history, ft_strdup(" "));
+	// 	data->history = ft_strjoin_2(data->history, ft_strdup(rd_line));
+	// 	if (!ft_take_pipe(rd_line, data))
+	// 		return (2);
+	// 	if (!ft_check_list(data))
+	// 		return (2);
+	// 	ft_add_back_list(&data->list, data->temp_list);
+	// 	data->temp_list = NULL;
+	// }
 	if (data->error == 1)
 	{
 		data->return_value = 130;
-		return  (130);
+		return (130);
 	}
-	ft_print_all(data);
+	// ft_print_all(data);
 	ft_execute(data);
+	wait(0);
 	return (0);
 }

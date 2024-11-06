@@ -24,6 +24,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include "../libft/libft.h"
+# include "../get_next_line/get_next_line.h"
 # include "builtin.h"
 # include "struct.h"
 
@@ -70,6 +71,7 @@ char	*ft_expand_key(t_d_list *list, char *str, int start);
 char	*ft_expand_here(t_d_list *list, char *ch);
 
 void    ft_exit_1(t_data *data);
+void	ft_exit_child(t_data *data);
 void    ft_exit_2(t_data *data);
 void	ft_exit_pipe(char *str, t_data *data);
 void    ft_init(t_data *data, char **env);
@@ -93,8 +95,8 @@ int		ft_check_cmd(t_data *data);
 int		ft_dlstsize(t_d_list *lst);
 
 void	ft_free_split(char **strings);
-void    ft_redir(t_data *data, t_list *out);
-void	ft_redir_input(t_list *in);
+void    ft_redir(t_list *out);
+// void	ft_redir_input(t_list *in);
 void    ft_execute(t_data *data);
 char	**ft_sort_tab(char **tab);
 void	ft_export_no_arg(t_data *data);

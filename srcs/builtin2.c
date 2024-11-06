@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:41:09 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/24 16:07:41 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/18 11:03:59 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,33 +49,34 @@ void	ft_builtin_export(char **keys, t_data *data, char **args)
 	ft_addkey(data->env, keys, args);
 }
 
-//taf: unset path
 void	ft_builtin_unset(t_data *data, char **key)
 {
-	t_list	*curr;
+	t_list	*head;
 	t_list	*prev;
 	int		i;
 
-	curr = data->env;
+	head = data->env;
 	prev = NULL;
-	while (curr)
+	while (data->env)
 	{
 		i = 0;
-		while (i < ft_count_line(key))
+		while (i++ < ft_count_line(key))
 		{
-			if (ft_manage_unset(key[i], curr, prev, data))
+			if (!ft_strncmp(data->env->content, key[i - 1], ft_strlen(key[i - 1])))
+			{
+				if (prev == NULL)
+					data->env = data->env->next;
+				else
+					prev->next = data->env->next;
+				free(data->env->content);
 				break;
-			i++;
-		}
-		if (!i || i == ft_count_line(key))
-		{
-			prev = curr;
-			curr = curr->next;
-		}
+			}
+		}	
+		prev = data->env;
+		data->env = data->env->next;
 	}
+	data->env = head;
 }
-
-
 void	ft_execute_builtin(t_data *data, char *cmd)
 {
 	int		len;
@@ -85,10 +86,6 @@ void	ft_execute_builtin(t_data *data, char *cmd)
 	arg = ft_lst_to_char(data->list->token->cmd, 1);
 	keys = ft_get_allkey(data->list->token->cmd);
 	len = ft_strlen(cmd);
-	if (data->list->token->out != NULL)
-			ft_redir(data, data->list->token->out);
-	if (data->list->token->in != NULL)
-			ft_redir_input(data->list->token->in);
 	if (!ft_strncmp(cmd, "echo", len))
 		ft_builtin_echo(arg);
 	else if (!ft_strncmp(cmd, "exit", len))
@@ -100,11 +97,9 @@ void	ft_execute_builtin(t_data *data, char *cmd)
 	else if (!ft_strncmp(cmd, "unset", len))
 		ft_builtin_unset(data, arg);
 	else if (!ft_strncmp(cmd, "cd", len))
-		ft_buitlin_cd(arg, data);
+		ft_buitlin_cd(arg);
 	else if (!ft_strncmp(cmd, "pwd", len))
 		ft_builtin_pwd();
-	if (data->saved_fd >= 0)
-		ft_restore_fd(data->saved_fd);
 	ft_free_split(arg);
 	ft_free_split(keys);
 }

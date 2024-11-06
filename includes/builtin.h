@@ -15,9 +15,9 @@
 #ifndef BUILTIN_H
 # define BUILTIN_H
 
-void	ft_restore_fd(int saved_fd);
+// void	ft_restore_fd(int saved_fd);
 void	ft_builtin_echo(char **arg);
-void	ft_buitlin_cd(char **arg, t_data *data);
+void	ft_buitlin_cd(char **arg);
 void	ft_builtin_exit(char **arg);
 void	ft_builtin_pwd(void);
 void	ft_builtin_env(t_data *data);

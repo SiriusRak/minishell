@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:35:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/24 16:56:12 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/10/16 15:41:44 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,61 +16,42 @@ void	ft_builtin_echo(char **arg)
 {
 	int	newline;
 	int	i;
+	int	j;
 
 	i = 0;
 	newline = 1;
-	while (ft_strncmp(arg[i], "-n", 2) == 0 && i < ft_count_line(arg))
-	{
-		if (arg[i][2] == '\0' || arg[i][2] == 'n')
-		{
-			newline = 0;
-			i++;
-		}
-		else
-			break;
-	}
 	while (i < ft_count_line(arg))
 	{
-		printf("%s", arg[i]);
-		if (i + 1 < ft_count_line(arg))
-			printf(" ");
+		j = 0;
+		if (ft_strncmp(arg[0], "-n ", 3) == 0)
+		{
+			newline = 0;
+			j += 3;
+		}
+		while (arg[i][j] == ' ')
+			j++;
+		while (arg[i][j])
+		{
+			printf("%c", arg[i][j]);
+			j++;
+		}
+		if (newline)
+			printf("\n");
 		i++;
 	}
-	if (newline)
-		printf("\n");
 }
-void	ft_buitlin_cd(char **arg, t_data *data)
+void	ft_buitlin_cd(char **arg)
 {
-	char	*value;
-
 	if (ft_count_line(arg) > 1)
 		perror("too many arg");
 	else
 	{
-		value = ft_get_value("HOME", data->env);
-		if (value)
+		if (!arg[0])
+		chdir((getenv("HOME")));
+		else if (chdir(arg[0]) != 0)
 		{
-			if (!arg[0] && value)
-				chdir(value);
-			else if (!ft_strncmp(arg[0], "-", ft_strlen(arg[0])))
-			{
-				printf("%s\n", data->old_pwd);
-				chdir(data->old_pwd);
-				ft_change_pwd(data, &data->old_pwd, &data->pwd, 0);
-			}
-			else
-			{
-				data->old_pwd = ft_strdup(data->pwd);
-				if (chdir(arg[0]) == 0)
-					ft_change_pwd(data, &data->old_pwd, &data->pwd, 1);
-				else
-					perror(arg[0]);
-			}
-			if (value)
-				free(value);
+			perror(arg[0]);
 		}
-		else
-			ft_putstr_fd("minishell: cd: HOME not set\n", 2);
 	}
 }
 void	ft_builtin_pwd(void)

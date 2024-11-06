@@ -123,7 +123,6 @@ int	ft_pars(t_d_list *list)
 int	ft_check_list(t_data *data)
 {
 	t_d_list	*list;
-	int			signal_value;
 
 	list = data->temp_list;
 	while (list)
@@ -133,18 +132,11 @@ int	ft_check_list(t_data *data)
 		list->token->name = ft_epure_redir(list->token->name);
 		if (!ft_pars(list))
 		{
-			waitpid(0, &signal_value, 0);
-			if (signal_value == SIGINT)
-				data->return_value = SIGINT + 128;
+			wait(0);
 			waiting_signal(data);
 			return (0);
 		}
-		waitpid(0, &signal_value, 0);
-		if (signal_value == SIGINT)
-		{
-			data->return_value = SIGINT + 128;
-			return  (0);
-		}
+		wait(0);
 		waiting_signal(data);
 		list = list->next;
 	}
