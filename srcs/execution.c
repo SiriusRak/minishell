@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:21:42 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/29 12:56:59 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/07 20:16:07 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,16 +130,16 @@ void	ft_execute(t_data *data)
 {
 	int		is_cmd;
 	int		nbr_cmd;
-	char	*value;
+	// char	*value;
 
-	value = ft_get_value("PATH", data->env);
-	if (value)
-	{
-		data->path = ft_split(value, ":");
-		free(value);
-	}
-	else
-		data->path = NULL;
+	// value = ft_get_value("PATH", data->env);
+	// if (value)
+	// {
+	// 	data->path = ft_split(value, ":");
+	// 	free(value);
+	// }
+	// else
+	// 	data->path = NULL;
 	nbr_cmd = ft_dlstsize(data->list);
 	is_cmd = ft_check_cmd(data);
 	if (nbr_cmd == 1 && data->list->token->cmd)

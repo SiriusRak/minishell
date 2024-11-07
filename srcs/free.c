@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 13:35:15 by enarindr          #+#    #+#             */
-/*   Updated: 2024/10/24 15:03:16 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/07 20:29:48 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,17 @@ int	ft_clear_heredoc(t_data *data)
 
 	if (data->list)
 	{
-		if (data->list->token->in)
+		if (data->list->token)
 		{
-			heredoc = data->list->token->in;
-			while (heredoc)
+			if (data->list->token->in)
 			{
-				if (heredoc->type == HERE)
-					unlink(heredoc->content);
-				heredoc = heredoc->next;
+				heredoc = data->list->token->in;
+				while (heredoc)
+				{
+					if (heredoc->type == HERE)
+						unlink(heredoc->content);
+					heredoc = heredoc->next;
+				}
 			}
 		}
 	}
@@ -81,6 +84,7 @@ int	ft_free_data(t_data *data)
 	{
 		ft_free_t_d_list(data->list);
 		data->list = NULL;
+		data->temp_list = NULL;
 	}
 	return (0);
 }

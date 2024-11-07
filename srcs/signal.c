@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:14:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/05 19:18:30 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/11/07 20:24:45 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	signal_handler_here(int	sig, siginfo_t *info, void *context)
 		write(2, "\n", 1);
 		ft_lstclear_2(&(data->env));
 		ft_free_tab(data->path);
+		ft_clear_history(data);
 		ft_clear_input(data);
 		ft_free_data(data);
 		clear_history();
@@ -74,13 +75,10 @@ void	signal_handler_here(int	sig, siginfo_t *info, void *context)
 
 void	handler(int	sig, siginfo_t *info, void *context)
 {
-	static t_data	*data;
+	t_data	*data;
 
 	(void) info;
-	if (data == NULL)
-	{
-		data = (t_data *) context;
-	}
+	data = (t_data *) context;
 	if (sig == SIGINT)
 	{
 		data->error = 1;

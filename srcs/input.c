@@ -6,15 +6,12 @@
 /*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 13:47:50 by enarindr          #+#    #+#             */
-/*   Updated: 2024/11/05 19:13:45 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/11/07 20:33:46 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include <readline/readline.h>
-#include <stdio.h>
-#include <time.h>
-#include <unistd.h>
+#include <sys/wait.h>
 
 int	ft_take_pipe(char *str, t_data *data)
 {
@@ -89,10 +86,9 @@ int	ft_get_input(t_data *data)
 	if (pipe(fd) == -1)
 		return 2;
 	pid = fork();
+	signal(SIGINT, SIG_IGN);
 	if (pid == 0)
 	{
-		ft_clear_history(data);
-		ft_clear_input(data);
 		close(fd[0]);
 		waiting_signial_here(data);
 		// rl_replace_line("", 0);

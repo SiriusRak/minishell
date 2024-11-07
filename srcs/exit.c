@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 17:07:05 by enarindr          #+#    #+#             */
-/*   Updated: 2024/10/24 13:47:05 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/11/07 20:42:21 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void    ft_exit_1(t_data *data)
 void	ft_exit_child(t_data *data)
 {
 	ft_lstclear_2(&(data->env));
+	ft_clear_history(data);
 	ft_free_tab(data->path);
 	ft_free_data(data);
 	clear_history();
