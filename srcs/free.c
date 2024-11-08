@@ -114,6 +114,7 @@ int	ft_free_t_d_list(t_d_list *lst)
 		}
 		free (list);
 		list = temp;
+		temp = NULL;
 	}
 	return (0);
 }

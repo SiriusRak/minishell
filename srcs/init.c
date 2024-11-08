@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
 #include <time.h>
 
 void    ft_init(t_data *data, char **env)
@@ -21,6 +22,7 @@ void    ft_init(t_data *data, char **env)
     data->prompt = NULL;
     data->history = NULL;
     data->path = ft_split(getenv("PATH"), ":");
+    data->signal = malloc(sizeof(t_signal) * 1);
     data->env = ft_duplicate(env);
     data->old_pwd = getenv("OLDPWD");
     data->pwd = getenv("PWD");

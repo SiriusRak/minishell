@@ -34,9 +34,8 @@ char	*ft_add_heredoc(t_d_list *list, char *str, int c)
 		temp = ft_expand_here(list, temp);
 	while (temp != NULL && (ft_strncmp(temp, str, ft_strlen(str)) != 0
 		|| ft_strlen(temp) != ft_strlen(str)))
-	{
-		if (i > 0)
-			here = ft_strjoin_2(here, ft_strdup("\n"));
+	{	
+		temp = ft_strjoin_2(temp, ft_strdup("\n"));
 		here = ft_strjoin_2(here, temp);
 		temp = readline("here > ");
 		if (!temp)

@@ -11,7 +11,9 @@
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include <sys/wait.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 int	ft_take_pipe(char *str, t_data *data)
 {
@@ -80,39 +82,44 @@ char	*take_script(int fd)
 int	ft_get_input(t_data *data)
 {
 	char	*rd_line;
-	int		fd[2];
-	int		pid;
 
-	if (pipe(fd) == -1)
+	if (pipe(data->signal->fd) == -1)
 		return 2;
-	pid = fork();
 	signal(SIGINT, SIG_IGN);
-	if (pid == 0)
+	data->signal->pid = fork();
+	if (data->signal->pid == 0)
 	{
-		close(fd[0]);
 		waiting_signial_here(data);
-		// rl_replace_line("", 0);
-		// rl_on_new_line();
-		// rl_redisplay();
+		close((data->signal->fd)[0]);
 		rd_line = readline("MINISHELL $ ");
 		if (!rd_line)
 			rd_line = ft_strdup("exit");
-		write(fd[1], rd_line, ft_strlen(rd_line));
-		close(fd[1]);
+		write((data->signal->fd)[1], rd_line, ft_strlen(rd_line));
+		close((data->signal->fd)[1]);
 		free (rd_line);
 		ft_exit_child(data);
 	}
 	signal_heredoc(data);
-	close(fd[1]);
-	wait(0);
+	waitpid(data->signal->pid, &(data->signal->stats), 0);
+	// if (WIFEXITED(data->signal->stats))
+	// 	data->return_value = WEXITSTATUS(data->signal->stats);
+	// if (WIFSIGNALED(data->signal->stats))
+	// {
+	// 	data->return_value = WTERMSIG(data->signal->stats) + 128;
+	// 	data->error = 1;
+	// }
+	close((data->signal->fd)[1]);
 	if (data->error == 1)
 	{
 		data->return_value = 130;
 		return (130);
 	}
+	signal(SIGINT, SIG_IGN);
 	waiting_signal(data);
-	rd_line = take_script(fd[0]);
-	close(fd[0]);
+	rd_line = take_script((data->signal->fd)[0]);
+	if (!rd_line)
+		return (0);
+	close((data->signal->fd)[0]);
 	if (ft_exit(rd_line))
 		ft_exit_1(data);
 	data->input = ft_strdup(rd_line);
@@ -122,12 +129,20 @@ int	ft_get_input(t_data *data)
 		data->return_value = 2;
 		return (2);
 	}
+	printf("HEOOO\n");
 	if (!ft_check_list(data))
 	{
 		data->return_value = 2;
 		return (2);
 	}
 	ft_add_back_list(&data->list, data->temp_list);
+	data->temp_list = NULL;
+	if (data->error == 1)
+	{
+		printf("atooo----\n");
+		data->return_value = 130;
+		return (130);
+	}
 	// while (ft_end_of_pipe(data->input))
 	// {
 	// 	data->error = 0;
@@ -135,6 +150,7 @@ int	ft_get_input(t_data *data)
 	// 	if (pipe(fd) == -1)
 	// 		return 2;
 	// 	pid = fork();
+	// 	signal(SIGINT, SIG_IGN);
 	// 	if (pid == 0)
 	// 	{
 	// 		close(fd[0]);
@@ -154,13 +170,16 @@ int	ft_get_input(t_data *data)
 	// 	signal_heredoc(data);
 	// 	close(fd[1]);
 	// 	wait(0);
+	// 	waiting_signal(data);
+	// 	ft_clear_input(data);
 	// 	if (data->error == 1)
 	// 	{
 	// 		data->return_value = 130;
 	// 		return (130);
 	// 	}
-	// 	waiting_signal(data);
 	// 	rd_line = take_script(fd[0]);
+	// 	if (!rd_line)
+	// 		continue;
 	// 	close (fd[0]);
 	// 	data->input = ft_strdup(rd_line);
 	// 	data->history = ft_strjoin_2(data->history, ft_strdup(" "));
@@ -171,14 +190,13 @@ int	ft_get_input(t_data *data)
 	// 		return (2);
 	// 	ft_add_back_list(&data->list, data->temp_list);
 	// 	data->temp_list = NULL;
+	// 	if (data->error == 1)
+	// 	{
+	// 		data->return_value = 130;
+	// 		return (130);
+	// 	}
 	// }
-	if (data->error == 1)
-	{
-		data->return_value = 130;
-		return (130);
-	}
-	// ft_print_all(data);
-	ft_execute(data);
-	wait(0);
+	ft_print_all(data);
+	// ft_execute(data);
 	return (0);
 }

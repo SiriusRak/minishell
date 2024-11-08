@@ -19,6 +19,7 @@
 typedef struct s_token	t_token;
 typedef struct s_d_list	t_d_list;
 typedef struct  s_data	t_data;
+typedef struct s_signal t_signal;
 
 typedef	struct s_token
 {
@@ -28,6 +29,13 @@ typedef	struct s_token
 	char	*name;
 	char	*path;
 }				t_token;
+
+typedef struct s_signal
+{
+	int		pid;
+	int		fd[2];
+	int		stats;
+}				t_signal;
 
 typedef struct s_d_list
 {
@@ -50,6 +58,7 @@ typedef struct  s_data
 	char		*old_pwd;
 	char		*pwd;
 	int			saved_fd;
+	t_signal	*signal;
 	t_d_list	*list;
 	t_d_list	*temp_list;
 }				t_data;

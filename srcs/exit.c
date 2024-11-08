@@ -49,6 +49,7 @@ void    ft_exit_1(t_data *data)
 	ft_free_data(data);
 	printf("exit\n");
 	clear_history();
+	free (data->signal);
 	exit (1);
 }
 
@@ -59,6 +60,7 @@ void	ft_exit_child(t_data *data)
 	ft_free_tab(data->path);
 	ft_free_data(data);
 	clear_history();
+	free (data->signal);
 	exit (0);
 }
 

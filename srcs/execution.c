@@ -144,8 +144,8 @@ void	ft_execute(t_data *data)
 	is_cmd = ft_check_cmd(data);
 	if (nbr_cmd == 1 && data->list->token->cmd)
 	{
-		// if (data->list->token->in != NULL)
-		// 	ft_redir_input(data->list->token->in);
+		if (data->list->token->in != NULL)
+			ft_redir_input(data->list->token->in);
 		if (ft_is_builtin((char *)data->list->token->cmd->content) && is_cmd)
 			ft_execute_builtin(data, data->list->token->cmd->content);
 		else if (!ft_is_builtin((char *)data->list->token->cmd->content) && is_cmd)

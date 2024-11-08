@@ -133,10 +133,12 @@ int	ft_check_list(t_data *data)
 		if (!ft_pars(list))
 		{
 			wait(0);
+			signal(SIGINT, SIG_DFL);
 			waiting_signal(data);
 			return (0);
 		}
 		wait(0);
+		signal(SIGINT, SIG_DFL);
 		waiting_signal(data);
 		list = list->next;
 	}
