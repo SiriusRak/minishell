@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:21:42 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/11 17:56:12 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/11/11 21:09:01 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include <signal.h>
+#include <stdio.h>
 
 void	ft_execute_cmd(t_data *data)
 {
@@ -30,14 +31,11 @@ void	ft_execute_cmd(t_data *data)
 	if (data->signal->pid == 0)
 	{
 		waiting_signial_here(data);
-		// signal(SIGQUIT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		if (data->list->token->out != NULL)
 			ft_redir(data, data->list->token->out);
 		if (execve(data->list->token->path, arg, env) != 0)
-		{
 			perror("execve");
-		}
-		printf("EEEEEE\n");
 		ft_exit_child(data);
 	}
 	signal_heredoc(data);

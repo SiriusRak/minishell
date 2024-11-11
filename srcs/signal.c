@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:14:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/11 17:55:01 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/11/11 21:06:05 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	handler(int	sig, siginfo_t *info, void *context)
 	if (sig == SIGINT || sig == SIGQUIT)
 	{
 		data->error = 1;
-		if (sig == SIGQUIT && ft_dlstsize(data->list) == 1)
+		if (sig == SIGQUIT)
 			printf("Quit (core dumped)\n");
 		else if (sig == SIGINT || sig == SIGQUIT)
 			printf("\n");

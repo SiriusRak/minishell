@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pre_treat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 07:48:43 by enarindr          #+#    #+#             */
-/*   Updated: 2024/11/11 12:26:24 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/11/11 21:24:33 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

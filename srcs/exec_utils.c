@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:02:05 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/28 13:42:31 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/11 20:59:07 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void    ft_redir(t_data *data, t_list *out)
 		out = out->next;
 	}
 	ft_check_fd_dup(0, dup2(fd, STDOUT_FILENO));
-	close(fd);
+	if (fd != 0)
+		close(fd);
 }
 
 void	ft_redir_input(t_list *in)
@@ -56,10 +57,12 @@ void	ft_redir_input(t_list *in)
 		if (dup2(fd, STDIN_FILENO) == -1)
 		{
 			perror("Execution error");
-			close(fd);
+			if (fd != 0)
+				close(fd);
 			//exit
 		}
-		close(fd);
+		if (fd != 0)
+			close(fd);
 		in = in->next;
 	}
 }
@@ -109,7 +112,7 @@ int	ft_check_cmd(t_data *data)
 			checker = 1;
 		else
 		{
-			perror("cmd");
+			perror(head->token->cmd->content);
 			return (0);
 		}
 		head = head->next;
