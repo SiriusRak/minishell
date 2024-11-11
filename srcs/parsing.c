@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 07:42:56 by enarindr          #+#    #+#             */
-/*   Updated: 2024/11/05 18:09:17 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/11/11 12:30:34 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include <stdio.h>
+#include <time.h>
 
 int	ft_lex_ext(t_d_list *list, char **tab, int i)
 {
 	int		error;
-	int		signal_return;
 
 	error = 0;
 	if (tab[i + 1])
@@ -30,6 +31,7 @@ int	ft_lex_ext(t_d_list *list, char **tab, int i)
 			error = ft_add_in(list, tab[i + 1], HERE);
 		if (error == 1)
 		{
+			list->data->return_value = 2;
 			while (tab[++i])
 				free(tab[i]);
 		}
@@ -37,12 +39,12 @@ int	ft_lex_ext(t_d_list *list, char **tab, int i)
 	}
 	else
 	{
-		waitpid(0, &signal_return, 0);
 		ft_putstr_fd("MINISHELL: syntax error near unexpected\
 token `newline'\n", 2);
+		list->data->return_value = 2;
 		return  (1);
 	}
-	return (1);
+	return (0);
 }
 
 int	ft_lex(t_d_list *list, char *str)
@@ -120,6 +122,29 @@ int	ft_pars(t_d_list *list)
 	return (1);
 }
 
+int	ft_clean_list(t_d_list *list)
+{
+	list->token->name = ft_epure_line(list->token->name, 0, 0);
+	list->token->name =  ft_epure_space(list->token->name, 0, 0);
+	list->token->name = ft_epure_redir(list->token->name);
+	return  (0);
+}
+
+int	ft_check_list_ext(t_data *data)
+{
+	if (data->is_heredoc)
+	{
+		check_after_child(data);
+		if (ft_chek_sig(data))
+		{
+			ft_free_t_d_list(data->temp_list);
+			data->temp_list = NULL;
+			return (0);
+		}
+	}
+	return  (1);
+}
+
 int	ft_check_list(t_data *data)
 {
 	t_d_list	*list;
@@ -127,19 +152,18 @@ int	ft_check_list(t_data *data)
 	list = data->temp_list;
 	while (list)
 	{
-		list->token->name = ft_epure_line(list->token->name, 0, 0);
-		list->token->name =  ft_epure_space(list->token->name, 0, 0);
-		list->token->name = ft_epure_redir(list->token->name);
+		data->is_heredoc = 0;
+		ft_clean_list(list);
 		if (!ft_pars(list))
 		{
-			wait(0);
-			signal(SIGINT, SIG_DFL);
-			waiting_signal(data);
+			ft_free_t_d_list(data->temp_list);
+			data->temp_list = NULL;
+			if (!ft_check_list_ext(data))
+				return (0);
 			return (0);
 		}
-		wait(0);
-		signal(SIGINT, SIG_DFL);
-		waiting_signal(data);
+		if (!ft_check_list_ext(data))
+			return (0);
 		list = list->next;
 	}
 	return (1);

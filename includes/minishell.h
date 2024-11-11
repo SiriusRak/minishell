@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/24 13:18:04 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/11/11 11:22:49 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,11 @@ int		ft_check_error(char *str);
 int 	ft_expand(t_d_list *list, char **chn, int i, int quote);
 int	    ft_pars_error(t_list *list);
 int	    ft_all_error(t_d_list *list);
+int 	ft_readline(t_data *data);
+int	    ft_chek_sig(t_data *data);
+int 	ft_pipe(t_data *data);
+int     pre_treat(t_data *data, int i);
+int 	check_after_child(t_data *data);
 
 char	*ft_epure_line(char *str, int i, int j);
 char	*ft_epure_redir(char *str);
@@ -69,6 +74,8 @@ char	*ft_epure_space(char *str, int i, int j);
 char	*ft_get_value(char *key, t_list *env);
 char	*ft_expand_key(t_d_list *list, char *str, int start);
 char	*ft_expand_here(t_d_list *list, char *ch);
+char	*ft_clean_quote(t_d_list *list, char *str, int type);
+char	*take_script(int fd);
 
 void    ft_exit_1(t_data *data);
 void	ft_exit_child(t_data *data);
@@ -86,7 +93,6 @@ void	waiting_signial_here(t_data *data);
 void	signal_handler_here(int	sig, siginfo_t *info, void *context);
 
 void	ft_clear_input(t_data *data);
-char	*ft_clean_quote(t_d_list *list, char *str, int type);
 
 //****header Diary*****/
 

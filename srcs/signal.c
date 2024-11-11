@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:14:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/07 20:24:45 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/11/11 17:55:01 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include <signal.h>
+#include <stdio.h>
+#include <time.h>
 
 void	signal_handler(int	sig, siginfo_t *info, void *context)
 {
@@ -50,6 +53,35 @@ void	waiting_signal(t_data *data)
 	handler(0, NULL,  data);
 }
 
+void	handler(int	sig, siginfo_t *info, void *context)
+{
+	t_data	*data;
+
+	(void) info;
+	data = (t_data *) context;
+	if (sig == SIGINT || sig == SIGQUIT)
+	{
+		data->error = 1;
+		if (sig == SIGQUIT && ft_dlstsize(data->list) == 1)
+			printf("Quit (core dumped)\n");
+		else if (sig == SIGINT || sig == SIGQUIT)
+			printf("\n");
+	}
+}
+
+void	signal_heredoc(t_data *data)
+{
+	struct sigaction	s_sigaction;
+
+	s_sigaction.sa_sigaction = handler;
+	s_sigaction.sa_flags = SA_RESTART | SA_SIGINFO;
+	sigemptyset((&s_sigaction.sa_mask));
+	// signal(SIGQUIT, SIG_IGN);
+	sigaction(SIGINT, &s_sigaction, NULL);
+	sigaction(SIGQUIT, &s_sigaction, NULL);
+	handler(0, NULL,  data);
+}
+
 void	signal_handler_here(int	sig, siginfo_t *info, void *context)
 {
 	static t_data	*data;
@@ -69,32 +101,8 @@ void	signal_handler_here(int	sig, siginfo_t *info, void *context)
 		ft_clear_input(data);
 		ft_free_data(data);
 		clear_history();
-		exit (130);
+		exit(sig + 128);
 	}
-}
-
-void	handler(int	sig, siginfo_t *info, void *context)
-{
-	t_data	*data;
-
-	(void) info;
-	data = (t_data *) context;
-	if (sig == SIGINT)
-	{
-		data->error = 1;
-	}
-}
-
-void	signal_heredoc(t_data *data)
-{
-	struct sigaction	s_sigaction;
-
-	s_sigaction.sa_sigaction = handler;
-	s_sigaction.sa_flags = SA_RESTART | SA_SIGINFO;
-	sigemptyset((&s_sigaction.sa_mask));
-	signal(SIGQUIT, SIG_IGN);
-	sigaction(SIGINT, &s_sigaction, NULL);
-	handler(0, NULL,  data);
 }
 
 void	waiting_signial_here(t_data *data)

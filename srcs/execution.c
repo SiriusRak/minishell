@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:21:42 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/07 20:16:07 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/11/11 17:56:12 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include <signal.h>
 
 void	ft_execute_cmd(t_data *data)
 {
 	char	**env;
 	char	**arg;
-	pid_t	pid;
 
 	if (!data->path)
 	{
@@ -26,20 +26,22 @@ void	ft_execute_cmd(t_data *data)
 	env = ft_lst_to_char(data->env, 0);
 	arg = ft_lst_to_char(data->list->token->cmd, 0);
 	signal(SIGINT, SIG_IGN);
-	pid = fork();
-	if (pid == 0)
+	data->signal->pid = fork();
+	if (data->signal->pid == 0)
 	{
-		// signal_heredoc(data);
+		waiting_signial_here(data);
+		// signal(SIGQUIT, SIG_DFL);
 		if (data->list->token->out != NULL)
 			ft_redir(data, data->list->token->out);
 		if (execve(data->list->token->path, arg, env) != 0)
+		{
 			perror("execve");
-		exit (1);
+		}
+		printf("EEEEEE\n");
+		ft_exit_child(data);
 	}
-	else if (pid > 0)
-		wait(NULL);
-	else
-		perror("fork");
+	signal_heredoc(data);
+	check_after_child(data);
 	waiting_signal(data);
 	ft_free_split(env);
 	ft_free_split(arg);

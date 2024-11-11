@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 12:17:53 by enarindr          #+#    #+#             */
-/*   Updated: 2024/10/24 13:28:04 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/11/11 15:01:45 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ int	ft_add_in(t_d_list *list, char *str, int i)
 {
 	t_list	*lst;
 	int		c;
-	int		pid;
 
 	if (!ft_check_error(str))
 		return (1);
@@ -117,10 +116,10 @@ int	ft_add_in(t_d_list *list, char *str, int i)
 	if (i == HERE)
 	{
 		signal(SIGINT, SIG_IGN);
-		pid = fork();
-		if (pid == 0)
+		list->data->is_heredoc = 1;
+		list->data->signal->pid = fork();
+		if (list->data->signal->pid == 0)
 			fork_heredoc(list, str, c);
-		signal_heredoc(list->data);
 	}
 	lst = ft_lstnew(str);
 	lst->type = i;

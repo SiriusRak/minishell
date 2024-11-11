@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 17:09:48 by enarindr          #+#    #+#             */
-/*   Updated: 2024/11/07 20:16:18 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/11/11 09:17:12 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
