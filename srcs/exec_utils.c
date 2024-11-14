@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:02:05 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/11 20:59:07 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/11/14 16:34:20 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include <fcntl.h>
 
 void	ft_check_fd_dup(int fd, int dup)
 {
@@ -113,6 +114,7 @@ int	ft_check_cmd(t_data *data)
 		else
 		{
 			perror(head->token->cmd->content);
+			free (cmd);
 			return (0);
 		}
 		head = head->next;

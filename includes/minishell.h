@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/11 11:22:49 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/11/14 11:52:55 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ void	handler(int	sig, siginfo_t *info, void *context);
 
 void	waiting_signial_here(t_data *data);
 void	signal_handler_here(int	sig, siginfo_t *info, void *context);
+void	signal_handler_cmd(int	sig, siginfo_t *info, void *context);
+void	waiting_signial_cmd(t_data *data);
 
 void	ft_clear_input(t_data *data);
 

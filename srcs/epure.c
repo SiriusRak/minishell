@@ -3,15 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   epure.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 07:12:01 by enarindr          #+#    #+#             */
-/*   Updated: 2024/10/24 13:18:07 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/11/14 13:26:51 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include <stdio.h>
+
+int	ft_epure_ext(char *new, int len)
+{
+	while (new[len] && ft_iswite_space(new[len]) && len > 0)
+	{
+		new[len] = '\0';
+		len--;
+	}
+	return (0);
+}
 
 char	*ft_epure_line(char *str, int i, int j)
 {
@@ -33,11 +43,8 @@ char	*ft_epure_line(char *str, int i, int j)
 		new[j++] = str[i++];
 	new[j] = '\0';
 	len = ft_strlen(new) - 1;
-	while (ft_iswite_space(new[len]) && len > 0)
-	{
-		new[len] = '\0';
-		len--;
-	}
+	if (len > 0)
+		ft_epure_ext(new, len);
 	free(str);
 	return (new);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 14:06:54 by enarindr          #+#    #+#             */
-/*   Updated: 2024/10/24 13:19:41 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/11/14 08:06:23 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,75 +33,105 @@ char	*ft_expand_key(t_d_list *list, char *str, int start)
 	free (key);
 	return (value);
 }
+int	ft_expand_1(char **chn, int i, char *str)
+{
+	char	*prev;
+	char	*next;
 
-int	ft_expand(t_d_list *list, char **chn, int i, int quote)
+	prev = ft_substr(str, 0, i);
+	i++;
+	next = ft_substr(str, i + 1, ft_strlen(str));	
+	free (str);
+	*chn = ft_strjoin_2(prev, ft_strdup("$HOME"));
+	*chn = ft_strjoin_2(*chn, next);
+	return (i);
+}
+
+int	ft_expand_2(t_d_list *list, char **chn, int i, char *str)
 {
 	char	*prev;
 	char	*next;
 	char	*value;
-	char	*str;
+	int		j;
+	
+	prev = ft_substr(str, 0, i);
+	value = ft_expand_key(list, str, i + 1);
+	j = ft_strlen(value);
+	i++;
+	while (str[i] && ft_isalnum(str[i]))
+		i++;
+	next = ft_substr(str, i, ft_strlen(str));	
+	prev = ft_strjoin_2(prev, value);
+	free (str);
+	*chn = ft_strjoin_2(prev,next);
+	return(j);
+}
+
+int	ft_expand_3(t_d_list *list, char **chn, int i, char *str)
+{
+	char	*prev;
+	char	*next;
+	char	*value;
 	int		j;
 
+	prev = ft_substr(str, 0, i);
+	value = ft_itoa(list->data->pid);
+	j = ft_strlen(value);
+	i += 2;
+	next = ft_substr(str, i, ft_strlen(str));	
+	prev = ft_strjoin_2(prev, value);
+	free (str);
+	*chn = ft_strjoin_2(prev,next);
+	return(j);
+}
+
+int	ft_expand_4(char **chn, int i, char *str)
+{
+	char	*prev;
+	char	*next;
+
+	prev = ft_substr(str, 0, i);
+	next = ft_substr(str, i + 1, ft_strlen(str));
+	free (str);
+	*chn = ft_strjoin_2(prev, next);
+	return(0);
+}
+
+int	ft_expand_return(t_d_list *list, char **chn, char *str, int i)
+{
+	char	*prev;
+	char	*next;
+	char	*value;
+
+	prev = ft_substr(str, 0, i);
+	value = ft_strdup(ft_itoa(list->data->return_value));
+	i++;
+	next = ft_substr(str, i + 1, ft_strlen(str));
+	prev = ft_strjoin_2(prev, value);
+	free(str);
+	*chn = ft_strjoin_2(prev, next);
+	return (i);
+}
+
+int	ft_expand(t_d_list *list, char **chn, int i, int quote)
+{
+	char	*str;
+
 	str = *chn;
-	j = 0;
 	if (str[i] == '~' && (!str[i + 1]
 		|| str[i + 1] == '/') && i == 0)
-	{
-		prev = ft_substr(str, 0, i);
-		i++;
-		next = ft_substr(str, i + 1, ft_strlen(str));	
-		free (str);
-		*chn = ft_strjoin_2(prev, ft_strdup("$HOME"));
-		*chn = ft_strjoin_2(*chn, next);
-		return (i);
-	}
+		return (ft_expand_1(chn, i, str));
 	if (str[i + 1] == '?')
-	{
-		prev = ft_substr(str, 0, i);
-		value = ft_strdup(ft_itoa(list->data->return_value));
-		i++;
-		next = ft_substr(str, i + 1, ft_strlen(str));
-		prev = ft_strjoin_2(prev, value);
-		free(str);
-		*chn = ft_strjoin_2(prev, next);
-	}
+		i = ft_expand_return(list, chn, str, i);
 	else if (str[i] && str[i] == '$' && str[i + 1] &&
 		!ft_isdigit(str[i + 1]) && str[i + 1] != ' ' && str[i + 1] != '~'
 		&& ft_isalpha(str[i + 1]))
-	{
-		prev = ft_substr(str, 0, i);
-		value = ft_expand_key(list, str, i + 1);
-		j = ft_strlen(value);
-		i++;
-		while (str[i] && ft_isalnum(str[i]))
-			i++;
-		next = ft_substr(str, i, ft_strlen(str));	
-		prev = ft_strjoin_2(prev, value);
-		free (str);
-		*chn = ft_strjoin_2(prev,next);
-		return(j);
-	}
+		return (ft_expand_2(list, chn, i, str));
 	else if (str[i + 1] == '$')
-	{
-		prev = ft_substr(str, 0, i);
-		value = ft_itoa(list->data->pid);
-		j = ft_strlen(value);
-		i += 2;
-		next = ft_substr(str, i, ft_strlen(str));	
-		prev = ft_strjoin_2(prev, value);
-		free (str);
-		*chn = ft_strjoin_2(prev,next);
-		return(j);
-	}
+		ft_expand_3(list, chn, i, str);
 	else if (str[i + 1] && (ft_isalnum(str[i + 1])
 		|| str[i + 1] == '\"' || str[i + 1] == '\'') && quote == 0)
-	{
-		prev = ft_substr(str, 0, i);
-		next = ft_substr(str, i + 1, ft_strlen(str));
-		free (str);
-		*chn = ft_strjoin_2(prev, next);
-		return(0);
-	}
+		return (ft_expand_4(chn, i, str));
 	return (1);
 }
 

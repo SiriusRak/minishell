@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pre_treat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 07:48:43 by enarindr          #+#    #+#             */
-/*   Updated: 2024/11/11 21:24:33 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/11/14 17:22:02 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include <readline/readline.h>
+#include <stdio.h>
 
 int	ft_readline(t_data *data)
 {
@@ -31,7 +33,7 @@ int	ft_readline(t_data *data)
 int	ft_chek_sig(t_data *data)
 {
 	if (data->error == 1)
-		return (130);
+		return (1);
 	return (0);
 }
 

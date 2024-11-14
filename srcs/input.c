@@ -6,12 +6,14 @@
 /*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 13:47:50 by enarindr          #+#    #+#             */
-/*   Updated: 2024/11/11 17:59:56 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/11/14 17:24:32 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 int	ft_take_pipe_ext(t_data *data, int i, char *str, int *start)
 {
@@ -86,20 +88,6 @@ char	*take_script(int fd)
 	return (str);
 }
 
-int	check_after_child(t_data *data)
-{
-	waitpid(data->signal->pid, &(data->signal->stats), 0);
-	if (WIFEXITED(data->signal->stats))
-	{	
-		if (WEXITSTATUS(data->signal->stats) > 128)
-		{
-			data->return_value = WEXITSTATUS(data->signal->stats);
-			data->error = 1;
-		}
-	}
-	return  (0);
-}
-
 int	ft_end_pipe(t_data *data)
 {
 	int	i;
@@ -134,15 +122,19 @@ int	ft_get_input(t_data *data)
 	if (data->signal->pid == 0)
 		ft_readline(data);
 	check_after_child(data);
-	if (ft_chek_sig(data))
-		return (130);
 	close((data->signal->fd)[1]);
-	waiting_signal(data);
+	if (ft_chek_sig(data))
+	{
+		rl_on_new_line();   // Indiquer que la ligne a changé
+		rl_replace_line("", 0); // Effacer la ligne courante
+		// rl_redisplay();     // Réafficher le prompt
+		return (130);
+	}
 	if (pre_treat(data, 0))
 		return (2);
 	if (ft_end_pipe(data))
 		return (2);
-	ft_print_all(data);
+	// ft_print_all(data);
 	ft_execute(data);
 	return (0);
 }

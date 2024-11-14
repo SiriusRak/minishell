@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:21:42 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/11 21:09:01 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/11/14 16:11:07 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include <signal.h>
 #include <stdio.h>
+#include <unistd.h>
 
 void	ft_execute_cmd(t_data *data)
 {
@@ -27,11 +28,11 @@ void	ft_execute_cmd(t_data *data)
 	env = ft_lst_to_char(data->env, 0);
 	arg = ft_lst_to_char(data->list->token->cmd, 0);
 	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	data->signal->pid = fork();
 	if (data->signal->pid == 0)
 	{
-		waiting_signial_here(data);
-		signal(SIGQUIT, SIG_DFL);
+		waiting_signial_cmd(data);
 		if (data->list->token->out != NULL)
 			ft_redir(data, data->list->token->out);
 		if (execve(data->list->token->path, arg, env) != 0)
@@ -40,7 +41,9 @@ void	ft_execute_cmd(t_data *data)
 	}
 	signal_heredoc(data);
 	check_after_child(data);
-	waiting_signal(data);
+	wait(0);
+	if (ft_chek_sig(data))
+		return ;
 	ft_free_split(env);
 	ft_free_split(arg);
 }
@@ -101,12 +104,12 @@ void	ft_execute_pipe(t_data *data, int nbr_cmd)
 			if (ft_is_builtin(data->list->token->cmd->content))
 			{
 				ft_execute_builtin(data, data->list->token->cmd->content);
-				exit(0);
+				ft_exit_child(data);
 			}
 			else
 			{
 				ft_execute_cmd(data);
-				exit(0);
+				ft_exit_child(data);
 			}
 		}
 		else if (pid != 0)
@@ -150,6 +153,8 @@ void	ft_execute(t_data *data)
 			ft_execute_builtin(data, data->list->token->cmd->content);
 		else if (!ft_is_builtin((char *)data->list->token->cmd->content) && is_cmd)
 			ft_execute_cmd(data);
+		close (STDIN_FILENO);
+		open ("/dev/tty", O_RDONLY);
 	}
 	else if (nbr_cmd > 0 && is_cmd)
 		ft_execute_pipe(data, nbr_cmd);
