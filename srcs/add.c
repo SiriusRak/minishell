@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   add.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 12:17:53 by enarindr          #+#    #+#             */
-/*   Updated: 2024/11/11 15:01:45 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/11/15 10:51:56 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include <stdio.h>
 
 void	write_error(char *str)
 {
@@ -30,18 +31,16 @@ char	*ft_add_heredoc(t_d_list *list, char *str, int c)
 	i = 0;
 	here = NULL;
 	temp = readline("here > ");
-	if (temp && c == 0)
-		temp = ft_expand_here(list, temp);
 	while (temp != NULL && (ft_strncmp(temp, str, ft_strlen(str)) != 0
-		|| ft_strlen(temp) != ft_strlen(str)))
+		|| ft_strncmp(temp, str, ft_strlen(temp)) != 0))
 	{	
+		if (temp && c == 0)
+			temp = ft_expand_here(list, temp);
 		temp = ft_strjoin_2(temp, ft_strdup("\n"));
 		here = ft_strjoin_2(here, temp);
 		temp = readline("here > ");
 		if (!temp)
 			write_error(str);
-		if (temp && c == 0)
-			temp = ft_expand_here(list, temp);
 		i++;
 	}
 	if (temp)

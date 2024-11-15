@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 13:47:50 by enarindr          #+#    #+#             */
-/*   Updated: 2024/11/14 17:24:32 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/11/15 18:10:49 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,12 +124,7 @@ int	ft_get_input(t_data *data)
 	check_after_child(data);
 	close((data->signal->fd)[1]);
 	if (ft_chek_sig(data))
-	{
-		rl_on_new_line();   // Indiquer que la ligne a changé
-		rl_replace_line("", 0); // Effacer la ligne courante
-		// rl_redisplay();     // Réafficher le prompt
 		return (130);
-	}
 	if (pre_treat(data, 0))
 		return (2);
 	if (ft_end_pipe(data))

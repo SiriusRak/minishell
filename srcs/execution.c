@@ -3,17 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:21:42 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/14 16:11:07 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/11/15 20:03:25 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include <signal.h>
-#include <stdio.h>
-#include <unistd.h>
 
 void	ft_execute_cmd(t_data *data)
 {
@@ -26,9 +23,9 @@ void	ft_execute_cmd(t_data *data)
 		return ;
 	}
 	env = ft_lst_to_char(data->env, 0);
+	if (ft_strncmp(data->list->token->cmd->content, "clear", 5) == 0)
+		printf ("\n");
 	arg = ft_lst_to_char(data->list->token->cmd, 0);
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
 	data->signal->pid = fork();
 	if (data->signal->pid == 0)
 	{
@@ -83,9 +80,11 @@ void	ft_execute_pipe(t_data *data, int nbr_cmd)
 	int		pipe_fd[2];
 	int		fd_in;
 	pid_t	pid;
+	t_d_list *lst;
 
 	i = 0;
 	fd_in = 0;
+	lst = data->list;
 	while (i < nbr_cmd)
 	{
 		pipe(pipe_fd);
@@ -104,11 +103,13 @@ void	ft_execute_pipe(t_data *data, int nbr_cmd)
 			if (ft_is_builtin(data->list->token->cmd->content))
 			{
 				ft_execute_builtin(data, data->list->token->cmd->content);
+				data->list = lst;
 				ft_exit_child(data);
 			}
 			else
 			{
 				ft_execute_cmd(data);
+				data->list = lst;
 				ft_exit_child(data);
 			}
 		}
@@ -127,6 +128,7 @@ void	ft_execute_pipe(t_data *data, int nbr_cmd)
 		wait(NULL);
 	if (fd_in != 0)
 		close(fd_in);
+	data->list = lst;
 }
 
 void	ft_execute(t_data *data)

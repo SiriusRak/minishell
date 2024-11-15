@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 15:43:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/29 13:18:01 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/15 16:55:43 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ void	ft_change_pwd(t_data *data, char **old_pwd, char **pwd, int i)
 	keys[2] = 0;
 	if (i == 0)
 	{
-		values[0] = ft_strjoin("PWD=", *old_pwd);
-		values[1] = ft_strjoin("OLDPWD=", *pwd);
+		values[0] = ft_strjoin_2(ft_strdup("PWD="), *old_pwd);
+		values[1] = ft_strjoin_2(ft_strdup("OLDPWD="), *pwd);
 	}
 	else
 	{
 		values[0] = ft_strjoin("PWD=", getcwd(cwd, sizeof(cwd)));
-		values[1] = ft_strjoin("OLDPWD=", *old_pwd);
+		values[1] = ft_strjoin_2(ft_strdup("OLDPWD="), *old_pwd);
 	}
 	*old_pwd = ft_substr(values[1], 7, ft_strlen(values[1]) - 7);
 	*pwd = ft_substr(values[0], 4, ft_strlen(values[0]) - 4);

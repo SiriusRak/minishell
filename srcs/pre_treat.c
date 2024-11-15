@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pre_treat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 07:48:43 by enarindr          #+#    #+#             */
-/*   Updated: 2024/11/14 17:22:02 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/11/15 18:31:41 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ int	ft_readline(t_data *data)
 int	ft_chek_sig(t_data *data)
 {
 	if (data->error == 1)
+	{
+		printf("\n");
 		return (1);
+	}
 	return (0);
 }
 
@@ -79,6 +82,7 @@ int pre_treat(t_data *data, int i)
 	if (!ft_check_list(data))
 		return (2);
 	ft_add_back_list(&data->list, data->temp_list);
+	// free (data->temp_list);
 	data->temp_list = NULL;
 	return (0);
 }

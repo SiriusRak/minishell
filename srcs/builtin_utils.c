@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 11:04:22 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/24 16:52:38 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/15 10:47:57 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ char	*ft_get_value(char *key, t_list *env)
 	key_2 = ft_get_key(env->content);
 	if (key_2)
 	{
-		while (env && ft_strncmp(key, key_2, ft_strlen(key))!= 0)
+		while (env && (ft_strncmp(key, key_2, ft_strlen(key))!= 0
+			|| ft_strncmp(key, key_2, ft_strlen(key_2))!= 0))
 		{
 			free (key_2);
 			key_2 = NULL;

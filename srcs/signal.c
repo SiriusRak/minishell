@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:14:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/14 13:16:32 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/11/15 20:07:26 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,6 @@ void	signal_handler_here(int	sig, siginfo_t *info, void *context)
 	}
 	if (sig == SIGINT)
 	{
-		write(2, "\n", 1);
 		ft_lstclear_2(&(data->env));
 		ft_free_tab(data->path);
 		ft_clear_history(data);

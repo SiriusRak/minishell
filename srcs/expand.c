@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 14:06:54 by enarindr          #+#    #+#             */
-/*   Updated: 2024/11/14 08:06:23 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/11/15 16:42:28 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include <stdio.h>
+#include <time.h>
 
 char	*ft_expand_key(t_d_list *list, char *str, int start)
 {
@@ -24,7 +26,6 @@ char	*ft_expand_key(t_d_list *list, char *str, int start)
 	while (ft_isalnum(str[start + i]))
 		i++;
 	key = ft_substr(str, start, i);
-	printf("key---%s\n", key);
 	i = 0;
 	if (key[0] == '?' && ft_strlen(key) == 1)
 		value = ft_strdup(ft_itoa(list->data->return_value));
@@ -40,11 +41,14 @@ int	ft_expand_1(char **chn, int i, char *str)
 
 	prev = ft_substr(str, 0, i);
 	i++;
-	next = ft_substr(str, i + 1, ft_strlen(str));	
-	free (str);
+	if (str[i])
+		next = ft_substr(str, i, ft_strlen(str));
+	else
+		next = NULL;
+	free (*chn);
 	*chn = ft_strjoin_2(prev, ft_strdup("$HOME"));
 	*chn = ft_strjoin_2(*chn, next);
-	return (i);
+	return (i - 1);
 }
 
 int	ft_expand_2(t_d_list *list, char **chn, int i, char *str)
@@ -53,16 +57,19 @@ int	ft_expand_2(t_d_list *list, char **chn, int i, char *str)
 	char	*next;
 	char	*value;
 	int		j;
-	
+
 	prev = ft_substr(str, 0, i);
 	value = ft_expand_key(list, str, i + 1);
 	j = ft_strlen(value);
 	i++;
 	while (str[i] && ft_isalnum(str[i]))
 		i++;
-	next = ft_substr(str, i, ft_strlen(str));	
+	if (str[i])
+		next = ft_substr(str, i, ft_strlen(str));
+	else
+		next = NULL;
 	prev = ft_strjoin_2(prev, value);
-	free (str);
+	free (*chn);
 	*chn = ft_strjoin_2(prev,next);
 	return(j);
 }
@@ -121,6 +128,7 @@ int	ft_expand(t_d_list *list, char **chn, int i, int quote)
 	if (str[i] == '~' && (!str[i + 1]
 		|| str[i + 1] == '/') && i == 0)
 		return (ft_expand_1(chn, i, str));
+	str = *chn;
 	if (str[i + 1] == '?')
 		i = ft_expand_return(list, chn, str, i);
 	else if (str[i] && str[i] == '$' && str[i + 1] &&
@@ -184,7 +192,10 @@ char	*ft_clean_quote(t_d_list *list, char *str, int type)
 			{
 				quote = 1;
 				prev = ft_substr(str, 0, i);
-				next = ft_substr(str, i + 1, ft_strlen(str));
+				if (str[i + 1])
+					next = ft_substr(str, i + 1, ft_strlen(str));
+				else
+					next = NULL;
 				free (str);
 				str = ft_strjoin_2(prev, next);
 			}
