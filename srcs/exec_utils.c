@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:02:05 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/14 16:34:20 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/11/19 13:45:09 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	ft_check_path(t_d_list *list)
 	char	*path;
 
 	big = ft_strdup(list->token->cmd->content);
-	if (!ft_strncmp(big, "/bin/", 5) || access(big, X_OK) == 0)
+	if (!ft_strncmp(big, "/bin/", 5) || access(big, F_OK) == 0)
 	{
 		list->token->path = ft_strdup(big);
 		free(big);
@@ -96,7 +96,7 @@ int	ft_check_path(t_d_list *list)
 	return (0);
 }
 
-int	ft_check_cmd(t_data *data)
+int	ft_check_cmd(t_data *data, int is_dir)
 {
 	t_d_list	*head;
 	char		*cmd;
@@ -113,7 +113,8 @@ int	ft_check_cmd(t_data *data)
 			checker = 1;
 		else
 		{
-			perror(head->token->cmd->content);
+			if (!is_dir)
+				printf("minishell: %s: command not found\n", cmd);
 			free (cmd);
 			return (0);
 		}

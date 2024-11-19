@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/14 11:52:55 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/11/19 12:58:08 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <dirent.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
 # include "../libft/libft.h"
 # include "../get_next_line/get_next_line.h"
 # include "builtin.h"
@@ -99,8 +100,9 @@ void	ft_clear_input(t_data *data);
 //****header Diary*****/
 
 int 	ft_count_line(char **strings);
-int		ft_check_cmd(t_data *data);
+int		ft_check_cmd(t_data *data, int is_dir);
 int		ft_dlstsize(t_d_list *lst);
+int	    ft_isfile_isdir(char *cmd);
 
 void	ft_free_split(char **strings);
 void    ft_redir(t_data *data, t_list *out);

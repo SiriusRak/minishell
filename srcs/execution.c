@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:21:42 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/15 20:03:25 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/11/19 13:17:58 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,19 +135,12 @@ void	ft_execute(t_data *data)
 {
 	int		is_cmd;
 	int		nbr_cmd;
-	// char	*value;
+	int		is_dir;
 
-	// value = ft_get_value("PATH", data->env);
-	// if (value)
-	// {
-	// 	data->path = ft_split(value, ":");
-	// 	free(value);
-	// }
-	// else
-	// 	data->path = NULL;
 	nbr_cmd = ft_dlstsize(data->list);
-	is_cmd = ft_check_cmd(data);
-	if (nbr_cmd == 1 && data->list->token->cmd)
+	is_dir = ft_isfile_isdir(data->list->token->cmd->content);
+	is_cmd = ft_check_cmd(data, is_dir);
+	if (nbr_cmd == 1 && data->list->token->cmd && !is_dir)
 	{
 		if (data->list->token->in != NULL)
 			ft_redir_input(data->list->token->in);
@@ -158,6 +151,6 @@ void	ft_execute(t_data *data)
 		close (STDIN_FILENO);
 		open ("/dev/tty", O_RDONLY);
 	}
-	else if (nbr_cmd > 0 && is_cmd)
+	else if (nbr_cmd > 0 && is_cmd && !is_dir)
 		ft_execute_pipe(data, nbr_cmd);
 }
