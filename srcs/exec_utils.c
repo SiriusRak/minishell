@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:02:05 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/19 13:45:09 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/22 12:22:36 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,10 +116,10 @@ int	ft_check_cmd(t_data *data, int is_dir)
 			if (!is_dir)
 				printf("minishell: %s: command not found\n", cmd);
 			free (cmd);
-			return (0);
+			return (127);
 		}
 		head = head->next;
 		free(cmd);
 	}
-	return (1);
+	return (0);
 }

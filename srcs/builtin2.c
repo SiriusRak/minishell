@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:41:09 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/14 15:18:09 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/11/22 12:25:43 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_export_no_arg(t_data *data)
 	ft_free_split(env);
 }
 
-void	ft_builtin_export(char **keys, t_data *data, char **args)
+int	ft_builtin_export(char **keys, t_data *data, char **args)
 {
 	t_list	*tmp;
 
@@ -36,7 +36,7 @@ void	ft_builtin_export(char **keys, t_data *data, char **args)
 	if (!args[0] || args[0][0] == ' ' || args[0][0] == '\0')
 	{
 		ft_export_no_arg(data);
-		return ;
+		return (0);
 	}
 	while (data->env)
 	{
@@ -47,9 +47,10 @@ void	ft_builtin_export(char **keys, t_data *data, char **args)
 	}
 	data->env = tmp;
 	ft_addkey(data->env, keys, args);
+	return (0);
 }
 
-void	ft_builtin_unset(t_data *data, char **key)
+int	ft_builtin_unset(t_data *data, char **key)
 {
 	t_list	*curr;
 	t_list	*prev;
@@ -72,6 +73,7 @@ void	ft_builtin_unset(t_data *data, char **key)
 			curr = curr->next;
 		}
 	}
+	return (0);
 }
 
 
@@ -89,19 +91,19 @@ void	ft_execute_builtin(t_data *data, char *cmd)
 	if (data->list->token->in != NULL)
 			ft_redir_input(data->list->token->in);
 	if (!ft_strncmp(cmd, "echo", len))
-		ft_builtin_echo(arg);
+		data->return_value = ft_builtin_echo(arg);
 	else if (!ft_strncmp(cmd, "exit", len))
-		ft_builtin_exit(data, arg);
+		data->return_value = ft_builtin_exit(data, arg);
 	else if (!ft_strncmp(cmd, "env", len))
-		ft_builtin_env(data);
+		data->return_value = ft_builtin_env(data);
 	else if (!ft_strncmp(cmd, "export", len))
-		ft_builtin_export(keys, data, arg);
+		data->return_value = ft_builtin_export(keys, data, arg);
 	else if (!ft_strncmp(cmd, "unset", len))
-		ft_builtin_unset(data, arg);
+		data->return_value = ft_builtin_unset(data, arg);
 	else if (!ft_strncmp(cmd, "cd", len))
-		ft_buitlin_cd(arg, data);
+		data->return_value = ft_buitlin_cd(arg, data);
 	else if (!ft_strncmp(cmd, "pwd", len))
-		ft_builtin_pwd();
+		data->return_value = ft_builtin_pwd();
 	if (data->saved_fd >= 0)
 		ft_restore_fd(data->saved_fd);
 	ft_free_split(arg);

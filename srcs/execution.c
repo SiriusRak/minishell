@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:21:42 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/19 13:17:58 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/22 12:24:07 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ void	ft_execute(t_data *data)
 	nbr_cmd = ft_dlstsize(data->list);
 	is_dir = ft_isfile_isdir(data->list->token->cmd->content);
 	is_cmd = ft_check_cmd(data, is_dir);
+	data->return_value = ft_check_cmd(data, is_dir);
 	if (nbr_cmd == 1 && data->list->token->cmd && !is_dir)
 	{
 		if (data->list->token->in != NULL)

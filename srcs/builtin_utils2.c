@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 15:43:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/15 16:55:43 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/11/22 12:18:45 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ int	ft_manage_unset(char *key, t_list *curr, t_list *prev, t_data *data)
 		else
 			prev->next = curr->next;
 		free(curr->content);
-		// free(curr);
 		curr = tmp;
 		return (1);
 	}
