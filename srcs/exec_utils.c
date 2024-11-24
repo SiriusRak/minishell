@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:02:05 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/22 12:22:36 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/24 10:11:50 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	ft_check_path(t_d_list *list)
 	char	*path;
 
 	big = ft_strdup(list->token->cmd->content);
-	if (!ft_strncmp(big, "/bin/", 5) || access(big, F_OK) == 0)
+	if (!ft_strncmp(big, "/bin/", 5) || access(big, X_OK) == 0)
 	{
 		list->token->path = ft_strdup(big);
 		free(big);

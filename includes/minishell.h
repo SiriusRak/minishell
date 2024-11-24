@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/19 12:58:08 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/24 11:08:05 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	ft_clear_input(t_data *data);
 int 	ft_count_line(char **strings);
 int		ft_check_cmd(t_data *data, int is_dir);
 int		ft_dlstsize(t_d_list *lst);
-int	    ft_isfile_isdir(char *cmd);
+int	    ft_isdir(t_data *data);
 
 void	ft_free_split(char **strings);
 void    ft_redir(t_data *data, t_list *out);

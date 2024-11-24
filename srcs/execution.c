@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:21:42 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/22 12:24:07 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/24 11:36:30 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	ft_parent_process(int *fd_in, int *pipe_fd)
 	*fd_in = pipe_fd[0];
 }
 
-void	ft_execute_pipe(t_data *data, int nbr_cmd)
+void	ft_execute_pipe(t_data *data, int nbr_cmd, int is_dir)
 {
 	int		i;
 	int		pipe_fd[2];
@@ -108,6 +108,7 @@ void	ft_execute_pipe(t_data *data, int nbr_cmd)
 			}
 			else
 			{
+				printf("Ato\n");
 				ft_execute_cmd(data);
 				data->list = lst;
 				ft_exit_child(data);
@@ -138,20 +139,20 @@ void	ft_execute(t_data *data)
 	int		is_dir;
 
 	nbr_cmd = ft_dlstsize(data->list);
-	is_dir = ft_isfile_isdir(data->list->token->cmd->content);
+	is_dir = ft_isdir(data);
 	is_cmd = ft_check_cmd(data, is_dir);
 	data->return_value = ft_check_cmd(data, is_dir);
 	if (nbr_cmd == 1 && data->list->token->cmd && !is_dir)
 	{
 		if (data->list->token->in != NULL)
 			ft_redir_input(data->list->token->in);
-		if (ft_is_builtin((char *)data->list->token->cmd->content) && is_cmd)
+		if (ft_is_builtin((char *)data->list->token->cmd->content) && !is_cmd)
 			ft_execute_builtin(data, data->list->token->cmd->content);
-		else if (!ft_is_builtin((char *)data->list->token->cmd->content) && is_cmd)
+		else if (!ft_is_builtin((char *)data->list->token->cmd->content) && !is_cmd)
 			ft_execute_cmd(data);
 		close (STDIN_FILENO);
 		open ("/dev/tty", O_RDONLY);
 	}
-	else if (nbr_cmd > 0 && is_cmd && !is_dir)
+	else if (nbr_cmd > 0 && !is_cmd && !is_dir)
 		ft_execute_pipe(data, nbr_cmd);
 }
