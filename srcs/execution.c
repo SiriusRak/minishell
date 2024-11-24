@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:21:42 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/24 11:36:30 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/24 12:52:47 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	ft_parent_process(int *fd_in, int *pipe_fd)
 	*fd_in = pipe_fd[0];
 }
 
-void	ft_execute_pipe(t_data *data, int nbr_cmd, int is_dir)
+void	ft_execute_pipe(t_data *data, int nbr_cmd)
 {
 	int		i;
 	int		pipe_fd[2];
