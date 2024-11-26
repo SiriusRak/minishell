@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:21:42 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/26 13:38:32 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/26 16:58:55 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,11 @@ void	ft_execute_pipe(t_data *data, int nbr_cmd)
 				ft_redir_input(data->list->token->in);
 			check.is_dir = ft_isdir(data->list->token->cmd->content);
 			check.is_cmd = ft_check_cmd(data, check.is_dir, 1);
-			dup2(fd_in, STDIN_FILENO);
+			if (fd_in != 0)
+			{
+				dup2(fd_in, STDIN_FILENO);
+				close(fd_in);
+			}
 			if (i < nbr_cmd - 1)
 				dup2(pipe_fd[1], STDOUT_FILENO);
 			close(pipe_fd[0]);
