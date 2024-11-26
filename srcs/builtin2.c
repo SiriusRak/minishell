@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:41:09 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/22 12:25:43 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/26 14:28:06 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ int	ft_builtin_export(char **keys, t_data *data, char **args)
 	}
 	data->env = tmp;
 	ft_addkey(data->env, keys, args);
+	if (!ft_check_allkey(keys))
+		return (1);
 	return (0);
 }
 

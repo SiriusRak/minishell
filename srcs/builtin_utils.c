@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 11:04:22 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/15 10:47:57 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/11/26 15:31:08 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,6 @@ void	ft_addkey(t_list *list, char **keys, char **args)
 	i = 0;
 	while (i < ft_count_line(keys))
 	{
-		printf("%s\n", args[i]);
 		is_exist = 0;
 		while (list)
 		{
@@ -138,8 +137,12 @@ void	ft_addkey(t_list *list, char **keys, char **args)
 			list = list->next;
 		}
 		list = tmp;
-		if (!is_exist)
+		if (!is_exist && ft_check_key(keys[i]) == 1)
 			ft_lstadd_back(&list, ft_lstnew(ft_strdup(args[i])));
+		if (ft_check_key(keys[i]) == 0)
+			printf("minishell : export: `%s': not a valid identifier\n", keys[i]);
+		else if (ft_check_key(keys[i]) == -1)
+			printf("minishell: export: -%c: invalid option\n", keys[i][1]);
 		i++;
 	}
 }

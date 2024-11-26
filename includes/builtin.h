@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:43:41 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/22 11:45:29 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/26 14:27:17 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,7 @@ int		ft_is_builtin(char *cmd);
 int		ft_check_arg(char *arg, int *newline);
 int		ft_manage_unset(char *key, t_list *curr, t_list *prev, t_data *data);
 int		ft_check_num(char *arg);
+int     ft_check_key(char *key);
+int     ft_check_allkey(char **keys);
 
 #endif
