@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 12:17:53 by enarindr          #+#    #+#             */
-/*   Updated: 2024/11/15 10:51:56 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/11/26 11:20:39 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	fork_heredoc(t_d_list *list, char *str, char c)
 	}
 	ft_clear_history(list->data);
 	ft_clear_input(list->data);
-	ft_exit_child(list->data);
+	ft_exit_child(list->data, 0);
 }
 
 int	ft_add_in(t_d_list *list, char *str, int i)

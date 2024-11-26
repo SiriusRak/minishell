@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:02:05 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/24 10:11:50 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/26 11:22:12 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,30 +96,27 @@ int	ft_check_path(t_d_list *list)
 	return (0);
 }
 
-int	ft_check_cmd(t_data *data, int is_dir)
+int	ft_check_cmd(t_data *data, int is_dir, int c)
 {
-	t_d_list	*head;
 	char		*cmd;
 	int			checker;
 
-	head = data->list;
-	while (head && head->token->cmd)
-	{
 		checker = 0;
-		cmd = ft_strdup(head->token->cmd->content);
-		if (ft_is_builtin((char *)head->token->cmd->content))
+		cmd = ft_strdup(data->list->token->cmd->content);
+		if (ft_is_builtin((char *)data->list->token->cmd->content))
 			checker = 1;
-		else if (ft_check_path(head) && checker == 0)
+		else if (ft_check_path(data->list) && checker == 0)
 			checker = 1;
 		else
 		{
 			if (!is_dir)
-				printf("minishell: %s: command not found\n", cmd);
+				ft_putstr_fd("minishell: command not found\n", 2);
 			free (cmd);
-			return (127);
+			if (!c)
+				return (127);
+			else
+				ft_exit_child(data, 127);
 		}
-		head = head->next;
 		free(cmd);
-	}
 	return (0);
 }

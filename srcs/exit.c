@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 17:07:05 by enarindr          #+#    #+#             */
-/*   Updated: 2024/11/15 17:13:06 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/11/26 11:19:53 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void    ft_exit_1(t_data *data)
 	exit (1);
 }
 
-void	ft_exit_child(t_data *data)
+void	ft_exit_child(t_data *data, int exit_code)
 {
 	ft_lstclear_2(&(data->env));
 	ft_clear_history(data);
@@ -61,7 +61,7 @@ void	ft_exit_child(t_data *data)
 	ft_free_data(data);
 	clear_history();
 	free (data->signal);
-	exit (0);
+	exit (exit_code);
 }
 
 void	ft_exit_pipe(char *str, t_data *data)

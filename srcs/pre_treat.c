@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pre_treat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 07:48:43 by enarindr          #+#    #+#             */
-/*   Updated: 2024/11/15 18:31:41 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/11/26 11:21:16 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_readline(t_data *data)
 	write((data->signal->fd)[1], rd_line, ft_strlen(rd_line));
 	close((data->signal->fd)[1]);
 	free (rd_line);
-	ft_exit_child(data);
+	ft_exit_child(data, 0);
     return (0);
 }
 
@@ -56,7 +56,7 @@ int	ft_pipe(t_data *data)
 	write((data->signal->fd)[1], rd_line, ft_strlen(rd_line));
 	close((data->signal->fd)[1]);
 	free (rd_line);
-	ft_exit_child(data);
+	ft_exit_child(data, 0);
     return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/24 11:08:05 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/26 11:20:16 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char	*ft_clean_quote(t_d_list *list, char *str, int type);
 char	*take_script(int fd);
 
 void    ft_exit_1(t_data *data);
-void	ft_exit_child(t_data *data);
+void	ft_exit_child(t_data *data, int exit_code);
 void    ft_exit_2(t_data *data);
 void	ft_exit_pipe(char *str, t_data *data);
 void    ft_init(t_data *data, char **env);
@@ -100,9 +100,9 @@ void	ft_clear_input(t_data *data);
 //****header Diary*****/
 
 int 	ft_count_line(char **strings);
-int		ft_check_cmd(t_data *data, int is_dir);
+int		ft_check_cmd(t_data *data, int is_dir, int c);
 int		ft_dlstsize(t_d_list *lst);
-int	    ft_isdir(t_data *data);
+int	    ft_isdir(char *cmd);
 
 void	ft_free_split(char **strings);
 void    ft_redir(t_data *data, t_list *out);
