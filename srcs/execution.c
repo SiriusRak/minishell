@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:21:42 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/26 13:23:19 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/26 13:38:32 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	ft_parent_process(int *fd_in, int *pipe_fd)
 	close(pipe_fd[1]);
 	*fd_in = pipe_fd[0];
 }
-
+//TAF: Valeur de retour signal en pipe
 void	ft_execute_pipe(t_data *data, int nbr_cmd)
 {
 	int		i;
