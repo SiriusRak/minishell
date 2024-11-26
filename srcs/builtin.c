@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:35:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/24 09:36:14 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/26 12:23:15 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	ft_builtin_echo(char **arg)
 	}
 	while (i < ft_count_line(arg))
 	{
-		printf("%d %s", i,arg[i]);
+		printf("%s",arg[i]);
 		if (i + 1 < ft_count_line(arg))
 			printf(" ");
 		i++;
