@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:02:05 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/26 12:26:38 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/26 13:33:58 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,10 +115,7 @@ int	ft_check_cmd(t_data *data, int is_dir, int c)
 			if (!c)
 				return (127);
 			else
-			{
-				data->return_value = 127;
 				ft_exit_child(data, 127);
-			}
 		}
 		free(cmd);
 	return (0);
