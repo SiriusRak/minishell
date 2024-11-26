@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:41:09 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/26 14:28:06 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/26 17:07:11 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	ft_execute_builtin(t_data *data, char *cmd)
 	keys = ft_get_allkey(data->list->token->cmd);
 	len = ft_strlen(cmd);
 	if (data->list->token->out != NULL)
-			ft_redir(data, data->list->token->out);
+			ft_redir(data, data->list->token->out, 0);
 	if (data->list->token->in != NULL)
 			ft_redir_input(data->list->token->in);
 	if (!ft_strncmp(cmd, "echo", len))

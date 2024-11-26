@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:02:05 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/26 16:46:47 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/26 17:06:45 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,12 @@ void	ft_check_fd_dup(int fd, int dup)
 	}
 }
 
-void    ft_redir(t_data *data, t_list *out)
+void    ft_redir(t_data *data, t_list *out, int i)
 {
 	int	fd;
 
-	data->saved_fd = dup(STDOUT_FILENO);
+	if (i == 0)
+		data->saved_fd = dup(STDOUT_FILENO);
 	while (out)
 	{
 		if (out->type == OUT)

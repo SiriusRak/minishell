@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:21:42 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/26 16:58:55 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/26 17:09:29 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ void	ft_execute_cmd(t_data *data)
 	if (data->signal->pid == 0)
 	{
 		waiting_signial_cmd(data);
-		if (data->list->token->out != NULL)
-			ft_redir(data, data->list->token->out);
 		if (execve(data->list->token->path, arg, env) != 0)
 			perror("execve");
 		ft_exit_child(data, 0);
@@ -92,7 +90,7 @@ void	ft_execute_pipe(t_data *data, int nbr_cmd)
 		if (data->pid == 0)
 		{
 			if (data->list->token->out != NULL)
-				ft_redir(data, data->list->token->out);
+				ft_redir(data, data->list->token->out, 1);
 			if (data->list->token->in != NULL)
 				ft_redir_input(data->list->token->in);
 			check.is_dir = ft_isdir(data->list->token->cmd->content);
@@ -155,6 +153,8 @@ void	ft_execute(t_data *data)
 		is_dir = ft_isdir(data->list->token->cmd->content);
 		is_cmd = ft_check_cmd(data, is_dir, 0);
 		data->return_value = is_cmd;
+		if (data->list->token->out != NULL)
+			ft_redir(data, data->list->token->out, 0);
 		if (data->list->token->in != NULL)
 			ft_redir_input(data->list->token->in);
 		if (ft_is_builtin((char *)data->list->token->cmd->content) && !is_cmd)
