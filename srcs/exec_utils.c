@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:02:05 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/28 15:17:26 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/28 15:47:42 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,9 @@ int	ft_check_fd_dup(int fd, int dup, char *s)
 void   ft_redir(t_data *data, t_list *out, int i)
 {
 	int	fd;
+	t_list *tmp;
 
+	tmp = out;
 	if (i == 0)
 		data->saved_fd = dup(STDOUT_FILENO);
 	while (out)
@@ -47,9 +49,10 @@ void   ft_redir(t_data *data, t_list *out, int i)
 		else if (out->type == OUT_2)
 			fd = open((char *)out->content, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		data->return_value = ft_check_fd_dup(fd, 0, (char *)out->content);
+		tmp = out;
 		out = out->next;
 	}
-	data->return_value = ft_check_fd_dup(0, dup2(fd, STDOUT_FILENO), out->content);
+		data->return_value = ft_check_fd_dup(0, dup2(fd, STDOUT_FILENO), (char *)tmp->content);
 	if (fd != 0)
 		close(fd);
 }
