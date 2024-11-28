@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 15:43:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/22 12:18:45 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/28 16:55:21 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ void	ft_change_pwd(t_data *data, char **old_pwd, char **pwd, int i)
 	ft_free_split(values);
 }
 
-void	ft_restore_fd(int saved_fd)
+void	ft_restore_fd(t_data *data, int saved_fd)
 {
 	if (dup2(saved_fd, STDOUT_FILENO) == -1)
 		perror("dup2");
-		//exit_free
 	close(saved_fd);
+	data->saved_fd = -1;
 }
 
 int	ft_check_arg(char *arg, int *newline)

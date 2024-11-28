@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 17:07:05 by enarindr          #+#    #+#             */
-/*   Updated: 2024/11/26 11:19:53 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/28 16:14:17 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void    ft_exit_1(t_data *data)
 	ft_lstclear_2(&(data->env));
 	ft_free_tab(data->path);
 	ft_free_data(data);
-	printf("exit\n");
 	clear_history();
 	free (data->signal);
 	exit (1);

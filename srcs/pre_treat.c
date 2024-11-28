@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 07:48:43 by enarindr          #+#    #+#             */
-/*   Updated: 2024/11/26 11:21:16 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/28 15:54:36 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ int pre_treat(t_data *data, int i)
 	if (!rd_line)
 		return (2);
 	close((data->signal->fd)[0]);
-	if (ft_exit(rd_line))
-		ft_exit_1(data);
+	// if (ft_exit(rd_line))
+	// 	ft_exit_1(data);
 	data->input = ft_strdup(rd_line);
 	if (i == 1)
 		data->history = ft_strjoin_2(data->history, ft_strdup(" "));

@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:35:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/26 12:23:15 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/28 16:13:47 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	ft_builtin_exit(t_data *data, char **arg)
 	}
 	if (len == 1 && !ft_check_num(arg[0]))
 		ft_putstr_fd("minishell: numeric argument required\n", 2);
-	else
+	else if (len == 1 && ft_check_num(arg[0]))
 		return (ft_atoi(arg[0]));
 	ft_exit_1(data);
 	return (0);

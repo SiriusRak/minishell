@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:21:42 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/28 15:40:15 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/28 16:56:01 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	ft_execute_cmd(t_data *data)
 	signal_heredoc(data);
 	check_after_child(data);
 	wait(0);
+	if (data->saved_fd > 0)
+		ft_restore_fd(data, data->saved_fd);
 	if (ft_chek_sig(data))
 		return ;
 	ft_free_split(env);
@@ -85,6 +87,7 @@ void	ft_execute_pipe(t_data *data, int nbr_cmd)
 	lst = data->list;
 	while (i < nbr_cmd)
 	{
+		printf("AAAAA+%d\n", data->saved_fd);
 		pipe(pipe_fd);
 		data->pid = fork();
 		if (data->pid == 0)

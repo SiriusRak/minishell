@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:02:05 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/28 15:49:07 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/28 16:55:52 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_check_fd_dup(int fd, int dup, char *s)
 	}
 	if (dup < 0)
 	{
-		perror("dup2");
+		perror("Eto hafa");
 		close(fd);
 		return (1);
 	}
@@ -37,9 +37,7 @@ int	ft_check_fd_dup(int fd, int dup, char *s)
 void   ft_redir(t_data *data, t_list *out, int i)
 {
 	int	fd;
-	t_list *tmp;
 
-	tmp = out;
 	if (i == 0)
 		data->saved_fd = dup(STDOUT_FILENO);
 	while (out)
@@ -49,10 +47,11 @@ void   ft_redir(t_data *data, t_list *out, int i)
 		else if (out->type == OUT_2)
 			fd = open((char *)out->content, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		data->return_value = ft_check_fd_dup(fd, 0, (char *)out->content);
-		tmp = out;
+		if (out->next)
+			close(fd);
 		out = out->next;
 	}
-	data->return_value = ft_check_fd_dup(0, dup2(fd, STDOUT_FILENO), (char *)tmp->content);
+	ft_check_fd_dup(0, dup2(fd, STDOUT_FILENO), "test");
 	if (fd != 0)
 		close(fd);
 }

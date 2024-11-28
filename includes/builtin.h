@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:43:41 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/26 14:27:17 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/28 16:48:39 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #ifndef BUILTIN_H
 # define BUILTIN_H
 
-void	ft_restore_fd(int saved_fd);
+void	ft_restore_fd(t_data *data, int saved_fd);
 void	ft_key_isexist(t_list *list, char **keys, char **args);
 void	ft_addkey(t_list *list, char **keys, char **args);
 void	ft_change_pwd(t_data *data, char **old_pwd, char **pwd, int i);

@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:41:09 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/26 17:07:11 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/28 16:55:42 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,26 +88,22 @@ void	ft_execute_builtin(t_data *data, char *cmd)
 	arg = ft_lst_to_char(data->list->token->cmd, 1);
 	keys = ft_get_allkey(data->list->token->cmd);
 	len = ft_strlen(cmd);
-	if (data->list->token->out != NULL)
-			ft_redir(data, data->list->token->out, 0);
-	if (data->list->token->in != NULL)
-			ft_redir_input(data->list->token->in);
-	if (!ft_strncmp(cmd, "echo", len))
+	if (!ft_strncmp(cmd, "echo", len) && len == 4)
 		data->return_value = ft_builtin_echo(arg);
-	else if (!ft_strncmp(cmd, "exit", len))
+	else if (!ft_strncmp(cmd, "exit", len) && len == 4)
 		data->return_value = ft_builtin_exit(data, arg);
-	else if (!ft_strncmp(cmd, "env", len))
+	else if (!ft_strncmp(cmd, "env", len) && len == 3)
 		data->return_value = ft_builtin_env(data);
-	else if (!ft_strncmp(cmd, "export", len))
+	else if (!ft_strncmp(cmd, "export", len) && len == 6)
 		data->return_value = ft_builtin_export(keys, data, arg);
-	else if (!ft_strncmp(cmd, "unset", len))
+	else if (!ft_strncmp(cmd, "unset", len) && len == 5)
 		data->return_value = ft_builtin_unset(data, arg);
-	else if (!ft_strncmp(cmd, "cd", len))
+	else if (!ft_strncmp(cmd, "cd", len) && len == 2)
 		data->return_value = ft_buitlin_cd(arg, data);
-	else if (!ft_strncmp(cmd, "pwd", len))
+	else if (!ft_strncmp(cmd, "pwd", len) && len == 3)
 		data->return_value = ft_builtin_pwd();
 	if (data->saved_fd >= 0)
-		ft_restore_fd(data->saved_fd);
+		ft_restore_fd(data, data->saved_fd);
 	ft_free_split(arg);
 	ft_free_split(keys);
 }
