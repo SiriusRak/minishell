@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:35:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/28 16:13:47 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/28 17:09:51 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,14 +103,17 @@ int	ft_builtin_exit(t_data *data, char **arg)
 	printf("exit\n");
 	if (len > 1)
 	{
-		ft_putstr_fd("minishell: too many arguments\n", 2);
-		return(1);
+		ft_print_error("exit", "too many arguments\n");
+		return (1);
 	}
 	if (len == 1 && !ft_check_num(arg[0]))
-		ft_putstr_fd("minishell: numeric argument required\n", 2);
+	{
+		ft_print_error(arg[0], "numeric argument required\n");
+		ft_exit_1(data, 255);
+	}
 	else if (len == 1 && ft_check_num(arg[0]))
-		return (ft_atoi(arg[0]));
-	ft_exit_1(data);
+		ft_exit_1(data, ft_atoi(arg[0]));
+	ft_exit_1(data, data->return_value);
 	return (0);
 }
 int	ft_builtin_env(t_data *data)

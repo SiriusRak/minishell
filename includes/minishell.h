@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/28 14:58:03 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/28 17:00:29 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char	*ft_expand_here(t_d_list *list, char *ch);
 char	*ft_clean_quote(t_d_list *list, char *str, int type);
 char	*take_script(int fd);
 
-void    ft_exit_1(t_data *data);
+void    ft_exit_1(t_data *data, int exit_code);
 void	ft_exit_child(t_data *data, int exit_code);
 void    ft_exit_2(t_data *data);
 void	ft_exit_pipe(char *str, t_data *data);
