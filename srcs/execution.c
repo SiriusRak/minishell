@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:21:42 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/26 17:09:29 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/28 11:41:26 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,9 @@ void	ft_execute(t_data *data)
 		if (data->list->token->out != NULL)
 			ft_redir(data, data->list->token->out, 0);
 		if (data->list->token->in != NULL)
-			ft_redir_input(data->list->token->in);
+			data->return_value = ft_redir_input(data->list->token->in);
+		if (data->return_value)
+			return ;
 		if (ft_is_builtin((char *)data->list->token->cmd->content) && !is_cmd)
 			ft_execute_builtin(data, data->list->token->cmd->content);
 		else if (!ft_is_builtin((char *)data->list->token->cmd->content) && !is_cmd)

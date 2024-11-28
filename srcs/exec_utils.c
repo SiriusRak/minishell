@@ -6,29 +6,36 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:02:05 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/26 17:06:45 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/28 15:10:03 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include <fcntl.h>
 
-void	ft_check_fd_dup(int fd, int dup)
+int	ft_check_fd_dup(int fd, int dup, char *s)
 {
 	if (fd < 0)
 	{
-		perror("open");
-		// free
+		if (errno == EACCES)
+			ft_print_error(s, "Permission denied\n");
+		else if (errno == EBADF)
+			ft_print_error(s, "Bad file descriptor\n");
+		else if (errno == ENOENT)
+			ft_print_error(s, "No such file or directory\n");
+		return (1);
 	}
 	if (dup < 0)
 	{
 		perror("dup2");
 		close(fd);
 		// free
+		return (1);
 	}
+	return (0);
 }
 
-void    ft_redir(t_data *data, t_list *out, int i)
+void   ft_redir(t_data *data, t_list *out, int i)
 {
 	int	fd;
 
@@ -40,25 +47,26 @@ void    ft_redir(t_data *data, t_list *out, int i)
 			fd = open((char *)out->content, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		else if (out->type == OUT_2)
 			fd = open((char *)out->content, O_WRONLY | O_CREAT | O_APPEND, 0644);
-		ft_check_fd_dup(fd, 0);
+		data->return_value = ft_check_fd_dup(fd, 0, (char *)out->content);
 		out = out->next;
 	}
-	ft_check_fd_dup(0, dup2(fd, STDOUT_FILENO));
+	data->return_value = ft_check_fd_dup(0, dup2(fd, STDOUT_FILENO), out->content);
 	if (fd != 0)
 		close(fd);
 }
 
-void	ft_redir_input(t_list *in)
+int	ft_redir_input(t_list *in)
 {
 	int	fd;
 
 	while (in)
 	{
 		fd = open((char *)in->content, O_RDONLY);
-		ft_check_fd_dup(fd, 0);
+		if (ft_check_fd_dup(fd, 0, (char *)in->content))
+			return (1);
 		if (dup2(fd, STDIN_FILENO) == -1)
 		{
-			perror("Execution error");
+			perror("Dup");
 			if (fd != 0)
 				close(fd);
 			//exit
@@ -67,6 +75,7 @@ void	ft_redir_input(t_list *in)
 			close(fd);
 		in = in->next;
 	}
+	return (0);
 }
 
 int	ft_check_path(t_d_list *list)

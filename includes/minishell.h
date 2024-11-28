@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/26 17:07:01 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/28 14:58:03 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <errno.h>
 # include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -106,11 +107,12 @@ int	    ft_isdir(char *cmd);
 
 void	ft_free_split(char **strings);
 void    ft_redir(t_data *data, t_list *out, int i);
-void	ft_redir_input(t_list *in);
+int     ft_redir_input(t_list *in);
 void    ft_execute(t_data *data);
 char	**ft_sort_tab(char **tab);
 void	ft_export_no_arg(t_data *data);
 void	ft_execute_builtin(t_data *data, char *cmd);
+void	ft_print_error(char *cmd, char *message);
 
 char	**ft_lst_to_char(t_list *list, int type);
 

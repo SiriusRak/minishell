@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 13:48:21 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/26 15:16:56 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/28 14:59:50 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,12 @@ int	ft_check_allkey(char **keys)
 		i++;
 	}
 	return (1);
+}
+
+void	ft_print_error(char *cmd, char *message)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(cmd, 2);
+	ft_putstr_fd(": ", 2);
+	ft_putstr_fd(message, 2);
 }
