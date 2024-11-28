@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:02:05 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/28 15:10:03 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/28 15:16:55 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	ft_check_fd_dup(int fd, int dup, char *s)
 	{
 		perror("dup2");
 		close(fd);
-		// free
 		return (1);
 	}
 	return (0);
