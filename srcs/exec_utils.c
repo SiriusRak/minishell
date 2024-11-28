@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:02:05 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/28 15:16:55 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/28 15:17:26 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	ft_redir_input(t_list *in)
 			perror("Dup");
 			if (fd != 0)
 				close(fd);
-			//exit
+			return (1);
 		}
 		if (fd != 0)
 			close(fd);
