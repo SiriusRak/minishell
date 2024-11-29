@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:41:09 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/29 08:27:39 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/29 10:11:04 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	ft_execute_builtin(t_data *data, char *cmd)
 	else if (!ft_strncmp(cmd, "cd", len) && len == 2)
 		data->return_value = ft_buitlin_cd(arg, data);
 	else if (!ft_strncmp(cmd, "pwd", len) && len == 3)
-		data->return_value = ft_builtin_pwd();
+		data->return_value = ft_builtin_pwd(data);
 	if (data->saved_fd >= 0)
 		ft_restore_fd(data, data->saved_fd);
 	ft_free_split(arg);

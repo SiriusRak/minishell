@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 13:35:15 by enarindr          #+#    #+#             */
-/*   Updated: 2024/11/07 20:29:48 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/11/29 10:06:04 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,6 @@ int	ft_free_data(t_data *data)
 		free(data->prompt);
 		data->prompt = NULL;
 	}
-	// if (data->temp_list)
-	// {
-	// 	ft_free_t_d_list(data->temp_list);
-	// 	data->temp_list = NULL;
-	// }
 	if (data->list)
 	{
 		ft_free_t_d_list(data->list);

@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:35:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/28 17:09:51 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/29 10:38:47 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,12 @@ int	ft_builtin_echo(char **arg)
 int	ft_buitlin_cd(char **arg, t_data *data)
 {
 	char	*value;
+	char	*old_pwd;
+	char	*pwd;
 
 	if (ft_count_line(arg) > 1)
 	{
-		perror("too many arg");
+		ft_print_error("cd", "too many arguments\n");
 		return (1);
 	}
 	else
@@ -54,22 +56,25 @@ int	ft_buitlin_cd(char **arg, t_data *data)
 		value = ft_get_value("HOME", data->env);
 		if (value)
 		{
+			pwd = ft_get_value("PWD", data->env);
 			if (!arg[0] && value)
 				chdir(value);
 			else if (!ft_strncmp(arg[0], "-", ft_strlen(arg[0])))
 			{
-				printf("%s\n", data->old_pwd);
-				chdir(data->old_pwd);
-				ft_change_pwd(data, &data->old_pwd, &data->pwd, 0);
+				old_pwd = ft_get_value("OLDPWD", data->env);
+				printf("%s\n", old_pwd);
+				chdir(old_pwd);
+				ft_change_pwd(data, &old_pwd, &pwd, 0);
 			}
 			else
 			{
-				data->old_pwd = ft_strdup(data->pwd);
+				old_pwd = ft_strdup(pwd);
 				if (chdir(arg[0]) == 0)
-					ft_change_pwd(data, &data->old_pwd, &data->pwd, 1);
+					ft_change_pwd(data, &old_pwd, &pwd, 1);
 				else
 				{
-					perror(arg[0]);
+					ft_putstr_fd("cd: ", 2);
+					ft_print_error(arg[0], "No such file or directory\n");
 					return (1);
 				}
 			}
@@ -81,20 +86,25 @@ int	ft_buitlin_cd(char **arg, t_data *data)
 	}
 	return (0);
 }
-int	ft_builtin_pwd(void)
+int	ft_builtin_pwd(t_data *data)
 {
-	char	cwd[1024];
+	// char	cwd[1024];
 
-	if (getcwd(cwd, sizeof(cwd)) != NULL)
-		printf("%s\n", cwd);
-	else
-	{
-		perror("pwd");
-		return (1);
-	}
+	// if (getcwd(cwd, sizeof(cwd)) != NULL)
+	// 	printf("%s\n", cwd);
+	// else
+	// {
+	// 	perror("pwd");
+	// 	return (1);
+	// }
+	char *pwd;
+
+	pwd = ft_get_value("PWD", data->env);
+	printf("%s\n", pwd);
+	free(pwd);
 	return (0);
 }
-// mbola misy tsy mety kely ny exit sy free
+
 int	ft_builtin_exit(t_data *data, char **arg)
 {
 	int	len;
