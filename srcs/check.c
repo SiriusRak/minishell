@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 07:20:39 by enarindr          #+#    #+#             */
-/*   Updated: 2024/10/24 13:17:35 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/11/14 11:52:47 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	ft_check_error(char *str)
 {
-	printf("atoooo\n");
 	if (str[0] == '<' || str[0] == '>')
 	{
 		ft_putstr_fd("MINISHELL: syntax error near unexpected token `", 2);
@@ -57,4 +56,23 @@ int	ft_end_pip(char *str)
 	if (str[ft_strlen(str) - 1] == '|')
 		return (1);
 	return (0);
+}
+
+int	check_after_child(t_data *data)
+{
+	waitpid(data->signal->pid, &(data->signal->stats), 0);
+	if (WIFEXITED(data->signal->stats))
+	{	
+		if (WEXITSTATUS(data->signal->stats) > 128)
+		{
+			data->return_value = WEXITSTATUS(data->signal->stats);
+			data->error = 1;
+		}
+	}
+	if (WIFSIGNALED(data->signal->stats))
+	{
+		data->return_value = WTERMSIG(data->signal->stats) + 128;
+		data->error = 1;
+	}
+	return  (0);
 }

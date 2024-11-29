@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 15:43:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/24 16:11:34 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/28 16:55:21 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ void	ft_change_pwd(t_data *data, char **old_pwd, char **pwd, int i)
 	keys[2] = 0;
 	if (i == 0)
 	{
-		values[0] = ft_strjoin("PWD=", *old_pwd);
-		values[1] = ft_strjoin("OLDPWD=", *pwd);
+		values[0] = ft_strjoin_2(ft_strdup("PWD="), *old_pwd);
+		values[1] = ft_strjoin_2(ft_strdup("OLDPWD="), *pwd);
 	}
 	else
 	{
 		values[0] = ft_strjoin("PWD=", getcwd(cwd, sizeof(cwd)));
-		values[1] = ft_strjoin("OLDPWD=", *old_pwd);
+		values[1] = ft_strjoin_2(ft_strdup("OLDPWD="), *old_pwd);
 	}
 	*old_pwd = ft_substr(values[1], 7, ft_strlen(values[1]) - 7);
 	*pwd = ft_substr(values[0], 4, ft_strlen(values[0]) - 4);
@@ -41,12 +41,12 @@ void	ft_change_pwd(t_data *data, char **old_pwd, char **pwd, int i)
 	ft_free_split(values);
 }
 
-void	ft_restore_fd(int saved_fd)
+void	ft_restore_fd(t_data *data, int saved_fd)
 {
 	if (dup2(saved_fd, STDOUT_FILENO) == -1)
 		perror("dup2");
-		//exit_free
 	close(saved_fd);
+	data->saved_fd = -1;
 }
 
 int	ft_check_arg(char *arg, int *newline)
@@ -81,9 +81,22 @@ int	ft_manage_unset(char *key, t_list *curr, t_list *prev, t_data *data)
 		else
 			prev->next = curr->next;
 		free(curr->content);
-		// free(curr);
 		curr = tmp;
 		return (1);
 	}
 	return (0);
+}
+
+int	ft_check_num(char *arg)
+{
+	int	i;
+
+	i = 0;
+	while (arg[i])
+	{
+		if (!ft_isdigit(arg[i]))
+			return (0);
+		i++;
+	}
+	return (1);
 }

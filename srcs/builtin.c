@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:35:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/24 16:56:12 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/28 16:13:47 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_builtin_echo(char **arg)
+int	ft_builtin_echo(char **arg)
 {
 	int	newline;
 	int	i;
@@ -31,20 +31,24 @@ void	ft_builtin_echo(char **arg)
 	}
 	while (i < ft_count_line(arg))
 	{
-		printf("%s", arg[i]);
+		printf("%s",arg[i]);
 		if (i + 1 < ft_count_line(arg))
 			printf(" ");
 		i++;
 	}
 	if (newline)
 		printf("\n");
+	return (0);
 }
-void	ft_buitlin_cd(char **arg, t_data *data)
+int	ft_buitlin_cd(char **arg, t_data *data)
 {
 	char	*value;
 
 	if (ft_count_line(arg) > 1)
+	{
 		perror("too many arg");
+		return (1);
+	}
 	else
 	{
 		value = ft_get_value("HOME", data->env);
@@ -64,7 +68,10 @@ void	ft_buitlin_cd(char **arg, t_data *data)
 				if (chdir(arg[0]) == 0)
 					ft_change_pwd(data, &data->old_pwd, &data->pwd, 1);
 				else
+				{
 					perror(arg[0]);
+					return (1);
+				}
 			}
 			if (value)
 				free(value);
@@ -72,17 +79,23 @@ void	ft_buitlin_cd(char **arg, t_data *data)
 		else
 			ft_putstr_fd("minishell: cd: HOME not set\n", 2);
 	}
+	return (0);
 }
-void	ft_builtin_pwd(void)
+int	ft_builtin_pwd(void)
 {
 	char	cwd[1024];
 
 	if (getcwd(cwd, sizeof(cwd)) != NULL)
 		printf("%s\n", cwd);
 	else
+	{
 		perror("pwd");
+		return (1);
+	}
+	return (0);
 }
-void	ft_builtin_exit(char **arg)
+// mbola misy tsy mety kely ny exit sy free
+int	ft_builtin_exit(t_data *data, char **arg)
 {
 	int	len;
 
@@ -90,16 +103,17 @@ void	ft_builtin_exit(char **arg)
 	printf("exit\n");
 	if (len > 1)
 	{
-		perror("Too many arg");
-		//continue
+		ft_putstr_fd("minishell: too many arguments\n", 2);
+		return(1);
 	}
-	if (arg[0])
-	{
-		//code
-	}
-	//exit_function
+	if (len == 1 && !ft_check_num(arg[0]))
+		ft_putstr_fd("minishell: numeric argument required\n", 2);
+	else if (len == 1 && ft_check_num(arg[0]))
+		return (ft_atoi(arg[0]));
+	ft_exit_1(data);
+	return (0);
 }
-void	ft_builtin_env(t_data *data)
+int	ft_builtin_env(t_data *data)
 {
 	t_list	*tmp;
 
@@ -110,4 +124,5 @@ void	ft_builtin_env(t_data *data)
 			printf("%s\n", (char *)tmp->content);
 		tmp = tmp->next;
 	}
+	return (0);
 }

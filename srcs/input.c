@@ -3,16 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 13:47:50 by enarindr          #+#    #+#             */
-/*   Updated: 2024/10/24 16:46:53 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/28 16:12:29 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include <stdio.h>
-#include <unistd.h>
+#include <stdlib.h>
+#include <time.h>
+
+int	ft_take_pipe_ext(t_data *data, int i, char *str, int *start)
+{
+	while (str[i])
+	{
+		if (str[i] == '\'' || str[i] == '\"')
+		{
+			i = ft_find_next_quote(str, i, str[i], data);
+			if (!i)
+				return (-1);
+		}
+		if (str[i] && str[i] == '|')
+		{
+			if (ft_pipe_error(str, i))
+			{
+				ft_exit_pipe(str, data);
+				return (-1);
+			}
+			i = ft_add_list(data, *start, i, str);
+			*start = i + 1;
+		}
+		i++;
+	}
+	return i;
+}
 
 int	ft_take_pipe(char *str, t_data *data)
 {
@@ -29,26 +55,10 @@ int	ft_take_pipe(char *str, t_data *data)
 		ft_exit_pipe(str, data);
 		return (0);
 	}
-	while (str[i])
-	{
-		if (str[i] == '\'' || str[i] == '\"')
-		{
-			i = ft_find_next_quote(str, i, str[i], data);
-			if (!i)
-				return (0);
-		}
-		if (str[i] && str[i] == '|')
-		{
-			if (ft_pipe_error(str, i))
-			{
-				ft_exit_pipe(str, data);
-				return (0);
-			}
-			i = ft_add_list(data, start, i, str);
-			start = i + 1;
-		}
-		i++;
-	}
+	if (str[i])
+		i = ft_take_pipe_ext(data, i, str, &start);
+	if (i < 0)
+		return (0);
 	if (start < i)
 		ft_add_list(data, start, i, str);
 	free(str);
@@ -62,46 +72,64 @@ int	ft_end_of_pipe(char *str)
 	return (0);
 }
 
-int	ft_get_input(t_data *data)
+char	*take_script(int fd)
 {
-	char	*rd_line;
+	char	*str;
+	char	*temp;
 
-	rd_line = readline("MINISHELL $ ");
-	if ((!rd_line) || ft_exit(rd_line))
-		ft_exit_1(data);
-	data->input = ft_strdup(rd_line);
-	data->history = ft_strjoin_2(data->history, ft_strdup(rd_line));
-	if (!ft_take_pipe(rd_line, data))
-		return (1);
-	if (!ft_check_list(data))
-		return (1);
-	ft_add_back_list(&data->list, data->temp_list);
-	data->temp_list = NULL;
+	str = NULL;
+	temp = get_next_line(fd);
+	str = ft_strjoin_2(str, temp);
+	while (temp) 
+	{
+		temp = get_next_line(fd);
+		str = ft_strjoin_2(str, temp);
+	}
+	return (str);
+}
+
+int	ft_end_pipe(t_data *data)
+{
+	int	i;
+
 	while (ft_end_of_pipe(data->input))
 	{
 		data->error = 0;
-		signal_heredoc(data);
-		free(data->input);
-		rd_line = readline("PiPe $ ");
-		if (!rd_line)
-		{
-			ft_putstr_fd("minishell: syntax error: unexpected end of file\n", 2);
-			ft_exit_1(data);
-		}
-		data->input = ft_strdup(rd_line);
-		data->history = ft_strjoin_2(data->history, ft_strdup(rd_line));
-		if (!ft_take_pipe(rd_line, data))
-			return (1);
-		if (!ft_check_list(data))
-			return (1);
-		ft_add_back_list(&data->list, data->temp_list);
-		data->temp_list = NULL;
-		if (data->error == 1)
-			return  (1);
+		ft_clear_input(data);
+		if (pipe(data->signal->fd) == -1)
+			return 2;
+		signal(SIGINT, SIG_IGN);
+		data->signal->pid = fork();
+		if (data->signal->pid == 0)
+			ft_pipe(data);
+		check_after_child(data);
+		close((data->signal->fd)[1]);
+		if (ft_chek_sig(data))
+			return (130);
+		waiting_signal(data);
+		i = pre_treat(data, 1);
+		if (i == 130 || i == 2)
+			return (i);
 	}
-	if (data->error == 1)
-		return  (1);
-	ft_print_all(data);
+	return (0);
+}
+int	ft_get_input(t_data *data)
+{
+	if (pipe(data->signal->fd) == -1)
+		return 2;
+	signal(SIGINT, SIG_IGN);
+	data->signal->pid = fork();
+	if (data->signal->pid == 0)
+		ft_readline(data);
+	check_after_child(data);
+	close((data->signal->fd)[1]);
+	if (ft_chek_sig(data))
+		return (130);
+	if (pre_treat(data, 0))
+		return (2);
+	if (ft_end_pipe(data))
+		return (2);
+	// ft_print_all(data);
 	ft_execute(data);
-	return (1);
+	return (0);
 }

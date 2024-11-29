@@ -6,11 +6,12 @@
 /*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 08:19:47 by enarindr          #+#    #+#             */
-/*   Updated: 2024/10/24 13:33:45 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/11/15 17:15:07 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include <time.h>
 
 int	ft_lstfree(t_d_list **list)
 {
@@ -40,6 +41,7 @@ t_d_list	*ft_newlist(char *content, t_data *data)
 	new->token = token;
 	new->data = data;
 	new->token->name = content;
+	new->token->path = NULL;
 	new->token->cmd = NULL;
 	new->token->in = NULL;
 	new->token->out = NULL;

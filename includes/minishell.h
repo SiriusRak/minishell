@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/24 13:18:04 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/11/28 14:58:03 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <errno.h>
 # include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -23,7 +24,9 @@
 # include <dirent.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
 # include "../libft/libft.h"
+# include "../get_next_line/get_next_line.h"
 # include "builtin.h"
 # include "struct.h"
 
@@ -59,6 +62,11 @@ int		ft_check_error(char *str);
 int 	ft_expand(t_d_list *list, char **chn, int i, int quote);
 int	    ft_pars_error(t_list *list);
 int	    ft_all_error(t_d_list *list);
+int 	ft_readline(t_data *data);
+int	    ft_chek_sig(t_data *data);
+int 	ft_pipe(t_data *data);
+int     pre_treat(t_data *data, int i);
+int 	check_after_child(t_data *data);
 
 char	*ft_epure_line(char *str, int i, int j);
 char	*ft_epure_redir(char *str);
@@ -68,8 +76,11 @@ char	*ft_epure_space(char *str, int i, int j);
 char	*ft_get_value(char *key, t_list *env);
 char	*ft_expand_key(t_d_list *list, char *str, int start);
 char	*ft_expand_here(t_d_list *list, char *ch);
+char	*ft_clean_quote(t_d_list *list, char *str, int type);
+char	*take_script(int fd);
 
 void    ft_exit_1(t_data *data);
+void	ft_exit_child(t_data *data, int exit_code);
 void    ft_exit_2(t_data *data);
 void	ft_exit_pipe(char *str, t_data *data);
 void    ft_init(t_data *data, char **env);
@@ -82,23 +93,26 @@ void	handler(int	sig, siginfo_t *info, void *context);
 
 void	waiting_signial_here(t_data *data);
 void	signal_handler_here(int	sig, siginfo_t *info, void *context);
+void	signal_handler_cmd(int	sig, siginfo_t *info, void *context);
+void	waiting_signial_cmd(t_data *data);
 
 void	ft_clear_input(t_data *data);
-char	*ft_clean_quote(t_d_list *list, char *str, int type);
 
 //****header Diary*****/
 
 int 	ft_count_line(char **strings);
-int		ft_check_cmd(t_data *data);
+int		ft_check_cmd(t_data *data, int is_dir, int c);
 int		ft_dlstsize(t_d_list *lst);
+int	    ft_isdir(char *cmd);
 
 void	ft_free_split(char **strings);
-void    ft_redir(t_data *data, t_list *out);
-void	ft_redir_input(t_list *in);
+void    ft_redir(t_data *data, t_list *out, int i);
+int     ft_redir_input(t_list *in);
 void    ft_execute(t_data *data);
 char	**ft_sort_tab(char **tab);
 void	ft_export_no_arg(t_data *data);
 void	ft_execute_builtin(t_data *data, char *cmd);
+void	ft_print_error(char *cmd, char *message);
 
 char	**ft_lst_to_char(t_list *list, int type);
 
