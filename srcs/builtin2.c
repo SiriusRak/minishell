@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:41:09 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/29 10:11:04 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/29 11:25:22 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,26 +54,54 @@ int	ft_builtin_export(char **keys, t_data *data, char **args)
 
 int	ft_builtin_unset(t_data *data, char **key)
 {
+	// t_list	*curr;
+	// t_list	*prev;
+	// int		i;
+
+	// curr = data->env;
+	// prev = NULL;
+	// while (curr)
+	// {
+	// 	i = 0;
+	// 	while (i < ft_count_line(key))
+	// 	{
+	// 		if (ft_manage_unset(key[i], curr, prev, data))
+	// 			break;
+	// 		i++;
+	// 	}
+	// 	if (!i || i == ft_count_line(key))
+	// 	{
+	// 		prev = curr;
+	// 		curr = curr->next;
+	// 	}
+	// }
+	// return (0);
+
 	t_list	*curr;
 	t_list	*prev;
 	int		i;
 
-	curr = data->env;
-	prev = NULL;
-	while (curr)
+	i = 0;
+	while (i < ft_count_line(key))
 	{
-		i = 0;
-		while (i < ft_count_line(key))
+		curr = data->env;
+		prev = NULL;
+		while (curr)
 		{
-			if (ft_manage_unset(key[i], curr, prev, data))
+			if (!ft_strncmp(curr->content, key[i], ft_strlen(key[i])))
+			{
+				if (prev)
+					prev->next = curr->next;
+				else
+					data->env = curr->next;
+				free(curr->content);
+				free(curr);
 				break;
-			i++;
-		}
-		if (!i || i == ft_count_line(key))
-		{
+			}
 			prev = curr;
 			curr = curr->next;
 		}
+		i++;
 	}
 	return (0);
 }
@@ -101,7 +129,7 @@ void	ft_execute_builtin(t_data *data, char *cmd)
 	else if (!ft_strncmp(cmd, "cd", len) && len == 2)
 		data->return_value = ft_buitlin_cd(arg, data);
 	else if (!ft_strncmp(cmd, "pwd", len) && len == 3)
-		data->return_value = ft_builtin_pwd(data);
+		data->return_value = ft_builtin_pwd();
 	if (data->saved_fd >= 0)
 		ft_restore_fd(data, data->saved_fd);
 	ft_free_split(arg);

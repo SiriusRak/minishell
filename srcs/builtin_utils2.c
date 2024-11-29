@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 15:43:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/29 10:41:30 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/29 11:08:04 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int	ft_manage_unset(char *key, t_list *curr, t_list *prev, t_data *data)
 		else
 			prev->next = curr->next;
 		free(curr->content);
+		free(curr);
 		curr = tmp;
 		return (1);
 	}

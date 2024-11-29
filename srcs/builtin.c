@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:35:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/29 10:38:47 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/29 10:47:48 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,22 +86,17 @@ int	ft_buitlin_cd(char **arg, t_data *data)
 	}
 	return (0);
 }
-int	ft_builtin_pwd(t_data *data)
+int	ft_builtin_pwd(void)
 {
-	// char	cwd[1024];
+	char	cwd[1024];
 
-	// if (getcwd(cwd, sizeof(cwd)) != NULL)
-	// 	printf("%s\n", cwd);
-	// else
-	// {
-	// 	perror("pwd");
-	// 	return (1);
-	// }
-	char *pwd;
-
-	pwd = ft_get_value("PWD", data->env);
-	printf("%s\n", pwd);
-	free(pwd);
+	if (getcwd(cwd, sizeof(cwd)) != NULL)
+		printf("%s\n", cwd);
+	else
+	{
+		perror("pwd");
+		return (1);
+	}
 	return (0);
 }
 
