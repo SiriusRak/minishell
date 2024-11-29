@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:02:05 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/29 08:37:20 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/29 12:45:39 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	ft_redir_input(t_list *in)
 	return (0);
 }
 
-int	ft_check_path(t_d_list *list)
+int	ft_check_path(t_data *data, t_d_list *list)
 {
 	char	*big;
 	char	*path;
@@ -93,7 +93,7 @@ int	ft_check_path(t_d_list *list)
 	}
 	else
 	{
-		path = ft_find_in_path(big);
+		path = ft_find_in_path(data, big);
 		if (path)
 		{
 			list->token->path = ft_strdup(path);
@@ -114,13 +114,13 @@ int	ft_check_cmd(t_data *data, int is_dir, int c)
 
 		checker = 0;
 		cmd = ft_strdup(data->list->token->cmd->content);
-		if (ft_is_builtin((char *)data->list->token->cmd->content))
+		if (ft_is_builtin(cmd))
 			checker = 1;
-		else if (ft_check_path(data->list) && checker == 0)
+		else if (ft_check_path(data, data->list) && checker == 0)
 			checker = 1;
 		else
 		{
-			if (!is_dir)
+			if (!is_dir || cmd[0] == '\0')
 				ft_print_error(cmd, "command not found\n");
 			else
 				return (126);

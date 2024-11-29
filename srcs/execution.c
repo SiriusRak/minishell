@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:21:42 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/29 12:09:49 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/29 12:58:13 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,14 +156,22 @@ void	ft_execute(t_data *data)
 	int		is_cmd;
 	int		nbr_cmd;
 	int		is_dir;
+	char	*cmd;
 
 	nbr_cmd = ft_dlstsize(data->list);
-	if (nbr_cmd == 1 && data->list->token->cmd)
+	if (nbr_cmd == 1)
 	{
-		is_dir = ft_isdir(data, data->list->token->cmd->content, 0);
+		cmd = ft_strdup(data->list->token->cmd->content);
+		is_dir = ft_isdir(data, cmd, 0);
 		if (!is_dir)
 		{
-			is_cmd = ft_check_cmd(data, is_dir, 0);
+			if (cmd[0] != '\0')
+				is_cmd = ft_check_cmd(data, is_dir, 0);
+			else
+			{
+				ft_print_error(cmd, "command not found\n");
+				is_cmd = 126;
+			}
 			data->return_value = is_cmd;
 		}
 		if (data->list->token->out != NULL)
@@ -172,7 +180,7 @@ void	ft_execute(t_data *data)
 			data->return_value = ft_redir_input(data->list->token->in);
 		if (data->return_value)
 			return ;
-		if (!is_dir)
+		if (!is_dir && !is_cmd)
 		{
 			if (ft_is_builtin((char *)data->list->token->cmd->content) && !is_cmd)
 				ft_execute_builtin(data, data->list->token->cmd->content);

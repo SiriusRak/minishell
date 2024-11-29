@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:43:41 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/29 10:47:54 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/29 12:16:53 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_addkey(t_list *list, char **keys, char **args);
 void	ft_change_pwd(t_data *data, char **oldpwd, char **pwd, int i);
 char	*ft_get_key(char *content);
 char	**ft_get_allkey(t_list *list);
-char	*ft_find_in_path(char *cmd);
+char	*ft_find_in_path(t_data *data, char *cmd);
 int		ft_builtin_echo(char **arg);
 int		ft_buitlin_cd(char **arg, t_data *data);
 int		ft_builtin_exit(t_data *data, char **arg);
