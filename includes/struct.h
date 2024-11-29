@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:44:23 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/29 12:09:40 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/29 13:43:00 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ typedef struct s_d_list
 typedef struct  s_data
 {
 	t_list		*env;
-	char		**path;
 	pid_t		pid;
 	int			error;
+	int			path;
 	int			is_heredoc;
 	int			return_value;
 	char		*input;

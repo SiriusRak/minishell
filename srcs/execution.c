@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:21:42 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/29 13:00:10 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/29 15:03:14 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,6 @@ void	ft_execute_cmd(t_data *data)
 	char	**env;
 	char	**arg;
 
-	if (!data->path)
-	{
-		perror("path");
-		return ;
-	}
 	env = ft_lst_to_char(data->env, 0);
 	if (ft_strncmp(data->list->token->cmd->content, "clear", 5) == 0)
 		printf ("\n");
@@ -32,7 +27,7 @@ void	ft_execute_cmd(t_data *data)
 		waiting_signial_cmd(data);
 		if (execve(data->list->token->path, arg, env) != 0)
 		{
-			ft_print_error(data->list->token->path, "Not a directory\n");
+			ft_print_error(data->list->token->path, strerror(errno));
 			ft_exit_child(data, 126);
 		}
 		ft_exit_child(data, 0);
@@ -140,7 +135,7 @@ void	ft_execute_pipe(t_data *data, int nbr_cmd)
 	i = 0;
 	while (i++ < nbr_cmd)
 	{
-		if (waitpid(data->pid, &data->status, 0) > 0)
+		if (waitpid(-1, &data->status, 0) > 0)
 		{
 			if (WIFEXITED(data->status))
 				data->return_value = WEXITSTATUS(data->status);
@@ -162,14 +157,17 @@ void	ft_execute(t_data *data)
 	if (nbr_cmd == 1)
 	{
 		cmd = ft_strdup(data->list->token->cmd->content);
-		is_dir = ft_isdir(data, cmd, 0);
+		if (ft_strchr(cmd, '/'))
+			is_dir = ft_isdir(data, cmd, 0);
+		else
+			is_dir = 0;
 		if (!is_dir)
 		{
 			if (cmd[0] != '\0')
 				is_cmd = ft_check_cmd(data, is_dir, 0);
 			else
 			{
-				ft_print_error(cmd, "command not found\n");
+				ft_print_error(cmd, "command not found");
 				is_cmd = 127;
 			}
 			data->return_value = is_cmd;

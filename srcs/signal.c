@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:14:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/15 20:07:26 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/11/29 13:43:38 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	signal_handler_cmd(int	sig, siginfo_t *info, void *context)
 		printf("ATTToo\n");
 		write(2, "\n", 1);
 		ft_lstclear_2(&(data->env));
-		ft_free_tab(data->path);
+		// ft_free_tab(data->path);
 		ft_clear_history(data);
 		ft_clear_input(data);
 		ft_free_data(data);
@@ -126,7 +126,7 @@ void	signal_handler_here(int	sig, siginfo_t *info, void *context)
 	if (sig == SIGINT)
 	{
 		ft_lstclear_2(&(data->env));
-		ft_free_tab(data->path);
+		// ft_free_tab(data->path);
 		ft_clear_history(data);
 		ft_clear_input(data);
 		ft_free_data(data);

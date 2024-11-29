@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 08:54:36 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/29 12:44:37 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/29 15:11:24 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,10 @@ char	*ft_find_in_path(t_data *data, char *cmd)
 	i = 0;
 	path = ft_get_value("PATH", data->env);
 	if (!path)
+	{
+		data->path = 0;
 		return (NULL);
+	}
 	splitted_path = ft_split(path, ":");
 	while (splitted_path[i])
 	{

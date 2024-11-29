@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:35:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/29 10:47:48 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/29 14:58:30 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	ft_buitlin_cd(char **arg, t_data *data)
 
 	if (ft_count_line(arg) > 1)
 	{
-		ft_print_error("cd", "too many arguments\n");
+		ft_print_error("cd", "too many arguments");
 		return (1);
 	}
 	else
@@ -74,7 +74,7 @@ int	ft_buitlin_cd(char **arg, t_data *data)
 				else
 				{
 					ft_putstr_fd("cd: ", 2);
-					ft_print_error(arg[0], "No such file or directory\n");
+					ft_print_error(arg[0], "No such file or directory");
 					return (1);
 				}
 			}
@@ -108,12 +108,12 @@ int	ft_builtin_exit(t_data *data, char **arg)
 	printf("exit\n");
 	if (len > 1)
 	{
-		ft_print_error("exit", "too many arguments\n");
+		ft_print_error("exit", "too many arguments");
 		return (1);
 	}
 	if (len == 1 && !ft_check_num(arg[0]))
 	{
-		ft_print_error(arg[0], "numeric argument required\n");
+		ft_print_error(arg[0], "numeric argument required");
 		ft_exit_1(data, 255);
 	}
 	else if (len == 1 && ft_check_num(arg[0]))

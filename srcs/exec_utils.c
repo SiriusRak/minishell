@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:02:05 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/29 12:59:54 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/29 15:09:40 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ int	ft_check_fd_dup(int fd, int dup, char *s)
 	if (fd < 0)
 	{
 		if (errno == EACCES)
-			ft_print_error(s, "Permission denied\n");
+			ft_print_error(s, "Permission denied");
 		else if (errno == EBADF)
-			ft_print_error(s, "Bad file descriptor\n");
+			ft_print_error(s, "Bad file descriptor");
 		else if (errno == ENOENT)
-			ft_print_error(s, "No such file or directory\n");
+			ft_print_error(s, "No such file or directory");
 		return (1);
 	}
 	if (dup < 0)
@@ -85,7 +85,8 @@ int	ft_check_path(t_data *data, t_d_list *list)
 	char	*path;
 
 	big = ft_strdup(list->token->cmd->content);
-	if (!ft_strncmp(big, "/bin/", 5) || access(big, X_OK) == 0)
+	if (!ft_strncmp(big, "/bin/", 5) || (access(big, X_OK) == 0 && 
+		ft_strchr(big, '/')))
 	{
 		list->token->path = ft_strdup(big);
 		free(big);
@@ -96,9 +97,8 @@ int	ft_check_path(t_data *data, t_d_list *list)
 		path = ft_find_in_path(data, big);
 		if (path)
 		{
-			list->token->path = ft_strdup(path);
+			list->token->path = ft_strdup_2(path);
 			free(big);
-			free(path);
 			return (1);
 		}
 	}
@@ -120,8 +120,10 @@ int	ft_check_cmd(t_data *data, int is_dir, int c)
 			checker = 1;
 		else
 		{
-			if (!is_dir)
-				ft_print_error(cmd, "command not found\n");
+			if (!data->path)
+				ft_print_error(cmd, "No such file or directory");
+			if (!is_dir && data->path)
+				ft_print_error(cmd, "command not found");
 			else
 				return (126);
 			free (cmd);
