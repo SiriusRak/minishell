@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 07:48:43 by enarindr          #+#    #+#             */
-/*   Updated: 2024/11/28 15:54:36 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/28 17:17:21 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	ft_pipe(t_data *data)
 	{
 		ft_putstr_fd("minishell: syntax error: unexpected end of file\n", 2);
 		close((data->signal->fd)[1]);
-		ft_exit_1(data);
+		ft_exit_1(data, 1);
 	}
 	write((data->signal->fd)[1], rd_line, ft_strlen(rd_line));
 	close((data->signal->fd)[1]);

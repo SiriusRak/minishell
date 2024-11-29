@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:21:42 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/28 16:56:01 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/29 08:40:06 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,19 @@ void	ft_execute_cmd(t_data *data)
 	{
 		waiting_signial_cmd(data);
 		if (execve(data->list->token->path, arg, env) != 0)
-			perror("execve");
+		{
+			ft_print_error(data->list->token->path, "Not a directory\n");
+			ft_exit_child(data, 126);
+		}
 		ft_exit_child(data, 0);
+	}
+	if (waitpid(-1, &data->status, 0) > 0)
+	{
+		if (WIFEXITED(data->status))
+			data->return_value = WEXITSTATUS(data->status);
 	}
 	signal_heredoc(data);
 	check_after_child(data);
-	wait(0);
 	if (data->saved_fd > 0)
 		ft_restore_fd(data, data->saved_fd);
 	if (ft_chek_sig(data))
@@ -73,7 +80,7 @@ void	ft_parent_process(int *fd_in, int *pipe_fd)
 	close(pipe_fd[1]);
 	*fd_in = pipe_fd[0];
 }
-//TAF: Valeur de retour signal en pipe
+
 void	ft_execute_pipe(t_data *data, int nbr_cmd)
 {
 	int		i;
@@ -87,7 +94,6 @@ void	ft_execute_pipe(t_data *data, int nbr_cmd)
 	lst = data->list;
 	while (i < nbr_cmd)
 	{
-		printf("AAAAA+%d\n", data->saved_fd);
 		pipe(pipe_fd);
 		data->pid = fork();
 		if (data->pid == 0)
@@ -97,7 +103,7 @@ void	ft_execute_pipe(t_data *data, int nbr_cmd)
 			if (data->list->token->in != NULL)
 				if (ft_redir_input(data->list->token->in))
 					ft_exit_child(data, 1);
-			check.is_dir = ft_isdir(data->list->token->cmd->content);
+			check.is_dir = ft_isdir(data, data->list->token->cmd->content, 1);
 			check.is_cmd = ft_check_cmd(data, check.is_dir, 1);
 			if (fd_in != 0)
 			{
@@ -154,19 +160,25 @@ void	ft_execute(t_data *data)
 	nbr_cmd = ft_dlstsize(data->list);
 	if (nbr_cmd == 1 && data->list->token->cmd)
 	{
-		is_dir = ft_isdir(data->list->token->cmd->content);
-		is_cmd = ft_check_cmd(data, is_dir, 0);
-		data->return_value = is_cmd;
+		is_dir = ft_isdir(data, data->list->token->cmd->content, 0);
+		if (!is_dir)
+		{
+			is_cmd = ft_check_cmd(data, is_dir, 0);
+			data->return_value = is_cmd;
+		}
 		if (data->list->token->out != NULL)
 			ft_redir(data, data->list->token->out, 0);
 		if (data->list->token->in != NULL)
 			data->return_value = ft_redir_input(data->list->token->in);
 		if (data->return_value)
 			return ;
-		if (ft_is_builtin((char *)data->list->token->cmd->content) && !is_cmd)
-			ft_execute_builtin(data, data->list->token->cmd->content);
-		else if (!ft_is_builtin((char *)data->list->token->cmd->content) && !is_cmd)
-			ft_execute_cmd(data);
+		if (!is_dir)
+		{
+			if (ft_is_builtin((char *)data->list->token->cmd->content) && !is_cmd)
+				ft_execute_builtin(data, data->list->token->cmd->content);
+			else if (!ft_is_builtin((char *)data->list->token->cmd->content) && !is_cmd)
+				ft_execute_cmd(data);
+		}
 		close (STDIN_FILENO);
 		open ("/dev/tty", O_RDONLY);
 	}

@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/28 17:00:29 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/29 08:31:01 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	ft_clear_input(t_data *data);
 int 	ft_count_line(char **strings);
 int		ft_check_cmd(t_data *data, int is_dir, int c);
 int		ft_dlstsize(t_d_list *lst);
-int	    ft_isdir(char *cmd);
+int	    ft_isdir(t_data *data, char *cmd, int c);
 
 void	ft_free_split(char **strings);
 void    ft_redir(t_data *data, t_list *out, int i);

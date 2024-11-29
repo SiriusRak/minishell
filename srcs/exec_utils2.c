@@ -6,13 +6,13 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 11:27:07 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/26 11:23:40 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/29 08:38:33 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	ft_isdir(char *cmd)
+int	ft_isdir(t_data *data, char *cmd, int c)
 {
 	struct stat	path_stat;
 
@@ -20,7 +20,11 @@ int	ft_isdir(char *cmd)
 		return (0);
 	if (S_ISDIR(path_stat.st_mode))
 	{
-		printf("minishell: %s: Is a directory\n", cmd);
+		ft_print_error(cmd, "Is a directory\n");
+		if (!c)
+			data->return_value = 126;
+		else
+			ft_exit_child(data, 126);
 		return (1);
 	}
 	return (0);
