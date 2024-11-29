@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:35:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/29 14:58:30 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/29 15:50:37 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,21 @@ int	ft_buitlin_cd(char **arg, t_data *data)
 		if (value)
 		{
 			pwd = ft_get_value("PWD", data->env);
+			if (!pwd)
+			{
+				free(value);
+				return (ft_cd_error("PWD", 0, NULL, NULL));
+			}
 			if (!arg[0] && value)
 				chdir(value);
 			else if (!ft_strncmp(arg[0], "-", ft_strlen(arg[0])))
 			{
 				old_pwd = ft_get_value("OLDPWD", data->env);
+				if (!old_pwd)
+				{
+					free(value);
+					return (ft_cd_error("OLDPWD", 0, NULL, &pwd));
+				}
 				printf("%s\n", old_pwd);
 				chdir(old_pwd);
 				ft_change_pwd(data, &old_pwd, &pwd, 0);
@@ -73,16 +83,14 @@ int	ft_buitlin_cd(char **arg, t_data *data)
 					ft_change_pwd(data, &old_pwd, &pwd, 1);
 				else
 				{
-					ft_putstr_fd("cd: ", 2);
-					ft_print_error(arg[0], "No such file or directory");
-					return (1);
+					free(value);
+					return (ft_cd_error(arg[0], 1, &old_pwd, &pwd));
 				}
 			}
-			if (value)
-				free(value);
+			free(value);
 		}
 		else
-			ft_putstr_fd("minishell: cd: HOME not set\n", 2);
+			return (ft_cd_error("HOME", 0, NULL, NULL));
 	}
 	return (0);
 }
@@ -114,7 +122,7 @@ int	ft_builtin_exit(t_data *data, char **arg)
 	if (len == 1 && !ft_check_num(arg[0]))
 	{
 		ft_print_error(arg[0], "numeric argument required");
-		ft_exit_1(data, 255);
+		ft_exit_1(data, 2);
 	}
 	else if (len == 1 && ft_check_num(arg[0]))
 		ft_exit_1(data, ft_atoi(arg[0]));

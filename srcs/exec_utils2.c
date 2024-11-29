@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 11:27:07 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/29 14:59:11 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/29 15:49:13 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ void	ft_manage_error(t_data *data, char *cmd, int err, int c)
 	{
 		ft_print_error(cmd, strerror(err));
 		if (!c)
-			data->return_value = err;
+			data->return_value = 126;
 		else
-			ft_exit_child(data, err);
+			ft_exit_child(data, 126);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:21:42 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/29 15:03:14 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/29 15:57:03 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,11 +180,12 @@ void	ft_execute(t_data *data)
 			return ;
 		if (!is_dir && !is_cmd)
 		{
-			if (ft_is_builtin((char *)data->list->token->cmd->content) && !is_cmd)
-				ft_execute_builtin(data, data->list->token->cmd->content);
-			else if (!ft_is_builtin((char *)data->list->token->cmd->content) && !is_cmd)
+			if (ft_is_builtin(cmd) && !is_cmd)
+				ft_execute_builtin(data,cmd);
+			else if (!ft_is_builtin(cmd) && !is_cmd)
 				ft_execute_cmd(data);
 		}
+		free(cmd);
 		close (STDIN_FILENO);
 		open ("/dev/tty", O_RDONLY);
 	}

@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/29 08:31:01 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/29 15:42:20 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ char	**ft_sort_tab(char **tab);
 void	ft_export_no_arg(t_data *data);
 void	ft_execute_builtin(t_data *data, char *cmd);
 void	ft_print_error(char *cmd, char *message);
+int	ft_cd_error(char *cmd, int i, char **old, char **pwd);
 
 char	**ft_lst_to_char(t_list *list, int type);
 
