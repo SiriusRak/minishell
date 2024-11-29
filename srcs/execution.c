@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:21:42 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/29 08:40:06 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/29 12:09:49 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ void	ft_execute_pipe(t_data *data, int nbr_cmd)
 	i = 0;
 	while (i++ < nbr_cmd)
 	{
-		if (waitpid(-1, &data->status, 0) > 0)
+		if (waitpid(data->pid, &data->status, 0) > 0)
 		{
 			if (WIFEXITED(data->status))
 				data->return_value = WEXITSTATUS(data->status);
