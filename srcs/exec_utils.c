@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:02:05 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/29 12:45:39 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/29 12:59:54 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ int	ft_check_cmd(t_data *data, int is_dir, int c)
 			checker = 1;
 		else
 		{
-			if (!is_dir || cmd[0] == '\0')
+			if (!is_dir)
 				ft_print_error(cmd, "command not found\n");
 			else
 				return (126);

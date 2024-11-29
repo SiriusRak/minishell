@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:21:42 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/29 12:58:13 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/29 13:00:10 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,7 @@ void	ft_execute(t_data *data)
 			else
 			{
 				ft_print_error(cmd, "command not found\n");
-				is_cmd = 126;
+				is_cmd = 127;
 			}
 			data->return_value = is_cmd;
 		}
