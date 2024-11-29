@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:57:26 by enarindr          #+#    #+#             */
-/*   Updated: 2024/10/24 13:18:19 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/11/29 17:05:40 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,22 @@ int	ft_all_error(t_d_list *list)
 		}
 	}
 	return (0);
+}
+
+void	ft_export_error(char *str, int i, char c)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd("export: ", 2);
+	if (i == 0)
+	{
+		ft_putchar_fd('`', 2);
+		ft_putstr_fd(str, 2);
+		ft_putstr_fd("': not a valid identifier\n", 2);
+	}
+	else
+	{
+		ft_putchar_fd('-', 2);
+		ft_putchar_fd(c, 2);
+		ft_putstr_fd(": invalid option\n", 2);
+	}
 }

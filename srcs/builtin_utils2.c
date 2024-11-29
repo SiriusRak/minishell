@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 15:43:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/29 11:08:04 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/29 16:50:26 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	ft_check_arg(char *arg, int *newline)
 			i++;
 		}
 		else
-			break;
+			break ;
 	}
 	return (i);
 }

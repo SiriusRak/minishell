@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:21:42 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/29 15:57:03 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/29 16:30:15 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ void	ft_execute(t_data *data)
 	nbr_cmd = ft_dlstsize(data->list);
 	if (nbr_cmd == 1)
 	{
-		cmd = ft_strdup(data->list->token->cmd->content);
+		cmd = data->list->token->cmd->content;
 		if (ft_strchr(cmd, '/'))
 			is_dir = ft_isdir(data, cmd, 0);
 		else
@@ -185,7 +185,6 @@ void	ft_execute(t_data *data)
 			else if (!ft_is_builtin(cmd) && !is_cmd)
 				ft_execute_cmd(data);
 		}
-		free(cmd);
 		close (STDIN_FILENO);
 		open ("/dev/tty", O_RDONLY);
 	}

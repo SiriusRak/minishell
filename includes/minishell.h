@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/29 15:42:20 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/29 17:03:43 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,5 +120,8 @@ char	**ft_lst_to_char(t_list *list, int type);
 t_list      *ft_duplicate(char **str);
 t_d_list	*ft_newlist(char *content, t_data *data);
 
+char	*ft_add_heredoc(t_d_list *list, char *str, int c);
+void	ft_add_file(char *content, char *file);
+void	ft_export_error(char *str, int i, char c);
 
 #endif

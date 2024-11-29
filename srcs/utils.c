@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 08:54:36 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/29 15:11:24 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/29 16:21:48 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ char	*ft_find_in_path(t_data *data, char *cmd)
 		return (NULL);
 	}
 	splitted_path = ft_split(path, ":");
+	free(path);
 	while (splitted_path[i])
 	{
 		ft_strlcpy(full_path, splitted_path[i], ft_strlen(splitted_path[i]) + 1);
