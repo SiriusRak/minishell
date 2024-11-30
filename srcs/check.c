@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 07:20:39 by enarindr          #+#    #+#             */
-/*   Updated: 2024/11/14 11:52:47 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/11/30 17:26:57 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_check_error(char *str)
 	return (1);
 }
 
-int	ft_notsep(char	c)
+int	ft_notsep(char c)
 {
 	int		i;
 	char	*sep;
@@ -62,7 +62,7 @@ int	check_after_child(t_data *data)
 {
 	waitpid(data->signal->pid, &(data->signal->stats), 0);
 	if (WIFEXITED(data->signal->stats))
-	{	
+	{
 		if (WEXITSTATUS(data->signal->stats) > 128)
 		{
 			data->return_value = WEXITSTATUS(data->signal->stats);
@@ -74,5 +74,5 @@ int	check_after_child(t_data *data)
 		data->return_value = WTERMSIG(data->signal->stats) + 128;
 		data->error = 1;
 	}
-	return  (0);
+	return (0);
 }

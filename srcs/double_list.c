@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   double_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 08:19:47 by enarindr          #+#    #+#             */
-/*   Updated: 2024/11/15 17:15:07 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/11/30 17:27:40 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	ft_add_back_list(t_d_list **list, t_d_list *new)
 
 	if (*list == NULL)
 		*list = new;
-	else 
+	else
 	{
 		temp = *list;
 		while (temp->next)
@@ -81,12 +81,11 @@ void	ft_add_back_list(t_d_list **list, t_d_list *new)
 	}
 }
 
-int		ft_add_list(t_data *data, int start, int i, char *str)
+int	ft_add_list(t_data *data, int start, int i, char *str)
 {
 	char	*content;
 
 	content = ft_substr(str, start, i - start);
 	ft_add_back_list(&(data->temp_list), ft_newlist(content, data));
 	return (i);
-
 }

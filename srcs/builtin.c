@@ -6,44 +6,31 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:35:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/29 15:50:37 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/30 17:23:49 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	ft_builtin_echo(char **arg)
+int	ft_builtin_echo(char **arg, t_data *data)
 {
 	int	newline;
 	int	i;
 
 	i = 0;
 	newline = 1;
-	while (ft_strncmp(arg[i], "-n", 2) == 0 && i < ft_count_line(arg))
+	while (ft_is_n(arg[i]) && i < ft_count_line(arg))
 	{
-		if (arg[i][2] == '\0' || arg[i][2] == 'n')
-		{
-			newline = 0;
-			i++;
-		}
-		else
-			break;
-	}
-	while (i < ft_count_line(arg))
-	{
-		printf("%s",arg[i]);
-		if (i + 1 < ft_count_line(arg))
-			printf(" ");
+		newline = 0;
 		i++;
 	}
-	if (newline)
-		printf("\n");
+	ft_print_echo(i, arg, data, newline);
 	return (0);
 }
+
 int	ft_buitlin_cd(char **arg, t_data *data)
 {
 	char	*value;
-	char	*old_pwd;
 	char	*pwd;
 
 	if (ft_count_line(arg) > 1)
@@ -57,43 +44,15 @@ int	ft_buitlin_cd(char **arg, t_data *data)
 		if (value)
 		{
 			pwd = ft_get_value("PWD", data->env);
-			if (!pwd)
-			{
-				free(value);
-				return (ft_cd_error("PWD", 0, NULL, NULL));
-			}
-			if (!arg[0] && value)
-				chdir(value);
-			else if (!ft_strncmp(arg[0], "-", ft_strlen(arg[0])))
-			{
-				old_pwd = ft_get_value("OLDPWD", data->env);
-				if (!old_pwd)
-				{
-					free(value);
-					return (ft_cd_error("OLDPWD", 0, NULL, &pwd));
-				}
-				printf("%s\n", old_pwd);
-				chdir(old_pwd);
-				ft_change_pwd(data, &old_pwd, &pwd, 0);
-			}
-			else
-			{
-				old_pwd = ft_strdup(pwd);
-				if (chdir(arg[0]) == 0)
-					ft_change_pwd(data, &old_pwd, &pwd, 1);
-				else
-				{
-					free(value);
-					return (ft_cd_error(arg[0], 1, &old_pwd, &pwd));
-				}
-			}
-			free(value);
+			if (ft_manage_cd(data, &value, arg[0], &pwd))
+				return (1);
 		}
 		else
 			return (ft_cd_error("HOME", 0, NULL, NULL));
 	}
 	return (0);
 }
+
 int	ft_builtin_pwd(void)
 {
 	char	cwd[1024];
@@ -129,6 +88,7 @@ int	ft_builtin_exit(t_data *data, char **arg)
 	ft_exit_1(data, data->return_value);
 	return (0);
 }
+
 int	ft_builtin_env(t_data *data)
 {
 	t_list	*tmp;
