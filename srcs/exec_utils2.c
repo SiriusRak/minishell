@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 11:27:07 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/29 15:49:13 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/03 12:21:35 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,3 +60,5 @@ int	ft_isdir(t_data *data, char *cmd, int c)
 	}
 	return (0);
 }
+
+// int	ft_manage_exec(t_data *data, )

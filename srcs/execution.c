@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:21:42 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/29 16:30:15 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/03 12:40:21 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,15 +91,30 @@ void	ft_execute_pipe(t_data *data, int nbr_cmd)
 	{
 		pipe(pipe_fd);
 		data->pid = fork();
+		if (i + 1 == nbr_cmd)
+			data->last_pid = data->pid;
 		if (data->pid == 0)
 		{
+			if (ft_strchr(data->list->token->cmd->content, '/'))
+			check.is_dir = ft_isdir(data, data->list->token->cmd->content, 1);
+			else
+				check.is_dir = 0;
+			if (!check.is_dir)
+			{
+				if (data->list->token->cmd->content[0] != '\0')
+					check.is_cmd = ft_check_cmd(data, check.is_dir, 1);
+				else
+				{
+					ft_print_error(data->list->token->cmd->content, "command not found");
+					ft_exit_child(data, 127);
+				}
+				data->return_value = check.is_cmd;
+			}
 			if (data->list->token->out != NULL)
 				ft_redir(data, data->list->token->out, 1);
 			if (data->list->token->in != NULL)
 				if (ft_redir_input(data->list->token->in))
 					ft_exit_child(data, 1);
-			check.is_dir = ft_isdir(data, data->list->token->cmd->content, 1);
-			check.is_cmd = ft_check_cmd(data, check.is_dir, 1);
 			if (fd_in != 0)
 			{
 				dup2(fd_in, STDIN_FILENO);
@@ -135,9 +150,10 @@ void	ft_execute_pipe(t_data *data, int nbr_cmd)
 	i = 0;
 	while (i++ < nbr_cmd)
 	{
-		if (waitpid(-1, &data->status, 0) > 0)
+		data->pid = waitpid(-1, &data->status, 0);
+		if (data->pid > 0)
 		{
-			if (WIFEXITED(data->status))
+			if (WIFEXITED(data->status) && data->pid == data->last_pid)
 				data->return_value = WEXITSTATUS(data->status);
 		}
 	}
