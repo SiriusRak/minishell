@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 11:11:32 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/29 10:21:52 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/03 16:32:54 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*ft_strjoin_2(char *s1, char *s2)
 
 	len = ft_strlen(s1) + ft_strlen(s2);
 	if (!s1)
-		return(s2);
+		return (s2);
 	if (!s2)
 		return (s1);
 	if (ft_strlen(s2) == 0)
@@ -57,7 +57,7 @@ char	*ft_strjoin_3(char *s1, char *s2)
 
 	len = ft_strlen(s1) + ft_strlen(s2);
 	if (!s1)
-		return(s2);
+		return (s2);
 	if (ft_strlen(s2) == 0)
 		return (s1);
 	res = malloc(sizeof(char) * (len + 1));

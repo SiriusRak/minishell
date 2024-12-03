@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 11:08:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/08 14:59:36 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/03 16:32:23 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ char	*ft_strchr(const char *s, int c)
 	}
 	return (NULL);
 }
+
 void	ft_free_split(char **strings)
 {
 	int	i;

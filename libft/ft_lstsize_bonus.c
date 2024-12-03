@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstsize_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42antananarivo      +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 00:42:25 by rdiary            #+#    #+#             */
-/*   Updated: 2024/10/12 12:30:04 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/03 16:32:09 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_lstsize(t_list *lst)
 
 int	ft_dlstsize(t_d_list *lst)
 {
-	int		i;
+	int			i;
 	t_d_list	*tmp;
 
 	i = 0;
