@@ -10,7 +10,8 @@ SRCS = 	./srcs/print_all.c \
 		./srcs/pre_treat.c ./srcs/add1.c ./srcs/epure2.c\
 		./srcs/builtin.c ./srcs/builtin2.c  ./srcs/builtin_utils2.c \
 		./srcs/execution.c ./srcs/exec_utils.c ./srcs/builtin_utils.c \
-		./srcs/exec_utils2.c ./srcs/builtin_utils3.c ./srcs/builtin_utils4.c\
+		./srcs/exec_utils2.c ./srcs/builtin_utils3.c ./srcs/builtin_utils4.c \
+		./srcs/exec_utils3.c
 
 LIB = libft
 
