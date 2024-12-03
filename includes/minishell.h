@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/29 17:03:43 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/03 14:14:19 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	ft_clear_input(t_data *data);
 //****header Diary*****/
 
 int 	ft_count_line(char **strings);
-int		ft_check_cmd(t_data *data, int is_dir, int c);
+int		ft_check_cmd(t_data *data, char *cmd, int is_dir, int c);
 int		ft_dlstsize(t_d_list *lst);
 int	    ft_isdir(t_data *data, char *cmd, int c);
 
@@ -123,5 +123,7 @@ t_d_list	*ft_newlist(char *content, t_data *data);
 char	*ft_add_heredoc(t_d_list *list, char *str, int c);
 void	ft_add_file(char *content, char *file);
 void	ft_export_error(char *str, int i, char c);
+
+int	*ft_manage_exec(t_data *data, char *cmd, int i);
 
 #endif

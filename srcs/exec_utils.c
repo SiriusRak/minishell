@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:02:05 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/29 15:09:40 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/03 14:14:11 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,31 +107,25 @@ int	ft_check_path(t_data *data, t_d_list *list)
 	return (0);
 }
 
-int	ft_check_cmd(t_data *data, int is_dir, int c)
+int	ft_check_cmd(t_data *data, char *cmd, int is_dir, int c)
 {
-	char		*cmd;
-	int			checker;
-
-		checker = 0;
-		cmd = ft_strdup(data->list->token->cmd->content);
-		if (ft_is_builtin(cmd))
-			checker = 1;
-		else if (ft_check_path(data, data->list) && checker == 0)
-			checker = 1;
+	data->checker[1] = 0;
+	if (ft_is_builtin(cmd))
+		data->checker[1] = 1;
+	else if (ft_check_path(data, data->list) && data->checker[1] == 0)
+		data->checker[1] = 1;
+	else
+	{
+		if (!data->path)
+			ft_print_error(cmd, "No such file or directory");
+		if (!is_dir && data->path)
+			ft_print_error(cmd, "command not found");
 		else
-		{
-			if (!data->path)
-				ft_print_error(cmd, "No such file or directory");
-			if (!is_dir && data->path)
-				ft_print_error(cmd, "command not found");
-			else
-				return (126);
-			free (cmd);
-			if (!c)
-				return (127);
-			else
-				ft_exit_child(data, 127);
-		}
-		free(cmd);
+			return (126);
+		if (!c)
+			return (127);
+		else
+			ft_exit_child(data, 127);
+	}
 	return (0);
 }

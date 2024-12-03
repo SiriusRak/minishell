@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:44:23 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/03 12:34:07 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/03 13:30:37 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct  s_data
 	char		*pwd;
 	int			saved_fd;
 	int			status;
+	int			*checker;
 	t_signal	*signal;
 	t_d_list	*list;
 	t_d_list	*temp_list;

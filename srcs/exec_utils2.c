@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 11:27:07 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/03 12:21:35 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/03 14:16:03 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,32 @@ int	ft_isdir(t_data *data, char *cmd, int c)
 		if (!c)
 			data->return_value = 126;
 		else
+		{
+			free(data->checker);
 			ft_exit_child(data, 126);
+		}
 		return (1);
 	}
 	return (0);
 }
 
-// int	ft_manage_exec(t_data *data, )
+int	*ft_manage_exec(t_data *data, char *cmd, int i)
+{
+	data->checker = malloc(sizeof(int) * 2);
+	if (ft_strchr(cmd, '/'))
+			data->checker[0] = ft_isdir(data, cmd, i);
+		else
+			data->checker[0] = 0;
+		if (!data->checker[0])
+		{
+			if (cmd[0] != '\0')
+				data->checker[1] = ft_check_cmd(data, cmd, data->checker[0], i);
+			else
+			{
+				ft_print_error(cmd, "command not found");
+				data->checker[1] = 127;
+			}
+			data->return_value = data->checker[1];
+		}
+	return (data->checker);
+}
