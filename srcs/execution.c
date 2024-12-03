@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:21:42 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/03 15:18:31 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/03 16:04:09 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,7 @@ void	ft_execute_cmd(t_data *data)
 		printf ("\n");
 	arg = ft_lst_to_char(data->list->token->cmd, 0);
 	data->signal->pid = fork();
-	if (data->signal->pid == 0)
-	{
-		waiting_signial_cmd(data);
-		if (execve(data->list->token->path, arg, env) != 0)
-		{
-			ft_print_error(data->list->token->path, strerror(errno));
-			ft_exit_child(data, 126);
-		}
-		ft_exit_child(data, 0);
-	}
-	if (waitpid(-1, &data->status, 0) > 0)
-	{
-		if (WIFEXITED(data->status))
-			data->return_value = WEXITSTATUS(data->status);
-	}
+	ft_child_exec(data, env, arg);
 	signal_heredoc(data);
 	check_after_child(data);
 	if (data->saved_fd > 0)
@@ -46,10 +32,11 @@ void	ft_execute_cmd(t_data *data)
 	ft_free_split(env);
 	ft_free_split(arg);
 }
+
 void	ft_child_process(t_data *data, t_d_list *lst)
 {
 	char	*cmd;
-	
+
 	cmd = data->list->token->cmd->content;
 	data->checker = ft_manage_exec(data, cmd, 1);
 	if (ft_is_builtin(cmd))
@@ -72,10 +59,10 @@ void	ft_parent_process(t_data *data, int nbr, int *fd_in, int *pipe_fd)
 
 void	ft_execute_pipe(t_data *data, int nbr_cmd)
 {
-	int		i;
-	int		pipe_fd[2];
-	int		fd_in;
-	t_d_list *lst;
+	int			i;
+	int			pipe_fd[2];
+	int			fd_in;
+	t_d_list	*lst;
 
 	i = 0;
 	fd_in = 0;
@@ -109,12 +96,12 @@ void	ft_execute(t_data *data)
 	{
 		cmd = data->list->token->cmd->content;
 		data->checker = ft_manage_exec(data, cmd, 0);
-		if(ft_check_redir(data, 0))
+		if (ft_check_redir(data, 0))
 			return ;
 		if (!data->checker[0] && !data->checker[1])
 		{
 			if (ft_is_builtin(cmd) && !data->checker[1])
-				ft_execute_builtin(data,cmd);
+				ft_execute_builtin(data, cmd);
 			else if (!ft_is_builtin(cmd) && !data->checker[1])
 				ft_execute_cmd(data);
 		}

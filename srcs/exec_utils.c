@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:02:05 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/03 14:14:11 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/03 16:00:54 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,20 @@ int	ft_check_fd_dup(int fd, int dup, char *s)
 	return (0);
 }
 
-void   ft_redir(t_data *data, t_list *out, int i)
+void	ft_redir(t_data *data, t_list *out, int i)
 {
-	int	fd;
+	int		fd;
+	char	*out;
 
 	if (i == 0)
 		data->saved_fd = dup(STDOUT_FILENO);
 	while (out)
 	{
+		out = (char *)out->content;
 		if (out->type == OUT)
-			fd = open((char *)out->content, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			fd = open(out, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		else if (out->type == OUT_2)
-			fd = open((char *)out->content, O_WRONLY | O_CREAT | O_APPEND, 0644);
+			fd = open(out, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		data->return_value = ft_check_fd_dup(fd, 0, (char *)out->content);
 		if (out->next)
 			close(fd);
@@ -85,8 +87,8 @@ int	ft_check_path(t_data *data, t_d_list *list)
 	char	*path;
 
 	big = ft_strdup(list->token->cmd->content);
-	if (!ft_strncmp(big, "/bin/", 5) || (access(big, X_OK) == 0 && 
-		ft_strchr(big, '/')))
+	if (!ft_strncmp(big, "/bin/", 5) || (access(big, X_OK) == 0
+			&& ft_strchr(big, '/')))
 	{
 		list->token->path = ft_strdup(big);
 		free(big);

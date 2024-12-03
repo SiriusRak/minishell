@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 11:27:07 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/03 14:59:41 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/03 16:02:33 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ int	ft_isdir(t_data *data, char *cmd, int c)
 {
 	struct stat	path_stat;
 
-	if(stat(cmd, &path_stat) != 0)
+	if (stat(cmd, &path_stat) != 0)
 	{
-		ft_manage_error(data, cmd, errno, c);			
+		ft_manage_error(data, cmd, errno, c);
 		return (-1);
 	}
 	if (S_ISDIR(path_stat.st_mode))
@@ -68,20 +68,20 @@ int	*ft_manage_exec(t_data *data, char *cmd, int i)
 {
 	data->checker = malloc(sizeof(int) * 2);
 	if (ft_strchr(cmd, '/'))
-			data->checker[0] = ft_isdir(data, cmd, i);
+		data->checker[0] = ft_isdir(data, cmd, i);
+	else
+		data->checker[0] = 0;
+	if (!data->checker[0])
+	{
+		if (cmd[0] != '\0')
+			data->checker[1] = ft_check_cmd(data, cmd, data->checker[0], i);
 		else
-			data->checker[0] = 0;
-		if (!data->checker[0])
 		{
-			if (cmd[0] != '\0')
-				data->checker[1] = ft_check_cmd(data, cmd, data->checker[0], i);
-			else
-			{
-				ft_print_error(cmd, "command not found");
-				data->checker[1] = 127;
-			}
-			data->return_value = data->checker[1];
+			ft_print_error(cmd, "command not found");
+			data->checker[1] = 127;
 		}
+		data->return_value = data->checker[1];
+	}
 	return (data->checker);
 }
 

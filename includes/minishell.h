@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/03 15:18:17 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/03 15:22:51 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,5 +128,6 @@ int	*ft_manage_exec(t_data *data, char *cmd, int i);
 int	ft_check_redir(t_data *data, int i);
 void	ft_manage_fd(int *pipe_fd, int fd_in, int i, int nbr_cmd);
 void	ft_wait_pid(t_data *data, int nbr_cmd, int fd_in);
+void	ft_child_exec(t_data *data, char **env, char **arg);
 
 #endif
