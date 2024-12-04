@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 15:43:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/28 16:55:21 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/11/29 16:50:26 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,15 @@ void	ft_change_pwd(t_data *data, char **old_pwd, char **pwd, int i)
 	keys[2] = 0;
 	if (i == 0)
 	{
-		values[0] = ft_strjoin_2(ft_strdup("PWD="), *old_pwd);
-		values[1] = ft_strjoin_2(ft_strdup("OLDPWD="), *pwd);
+		values[0] = ft_strjoin_3("PWD=", *old_pwd);
+		values[1] = ft_strjoin_3("OLDPWD=", *pwd);
 	}
 	else
 	{
 		values[0] = ft_strjoin("PWD=", getcwd(cwd, sizeof(cwd)));
-		values[1] = ft_strjoin_2(ft_strdup("OLDPWD="), *old_pwd);
+		values[1] = ft_strjoin_3("OLDPWD=", *old_pwd);
+		free(*pwd);
 	}
-	*old_pwd = ft_substr(values[1], 7, ft_strlen(values[1]) - 7);
-	*pwd = ft_substr(values[0], 4, ft_strlen(values[0]) - 4);
 	values[2] = 0;
 	ft_builtin_export(keys, data, values);
 	ft_free_split(keys);
@@ -64,7 +63,7 @@ int	ft_check_arg(char *arg, int *newline)
 			i++;
 		}
 		else
-			break;
+			break ;
 	}
 	return (i);
 }
@@ -81,6 +80,7 @@ int	ft_manage_unset(char *key, t_list *curr, t_list *prev, t_data *data)
 		else
 			prev->next = curr->next;
 		free(curr->content);
+		free(curr);
 		curr = tmp;
 		return (1);
 	}

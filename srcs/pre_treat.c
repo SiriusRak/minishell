@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   pre_treat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 07:48:43 by enarindr          #+#    #+#             */
-/*   Updated: 2024/11/28 15:54:36 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/04 09:03:49 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include <readline/readline.h>
 #include <stdio.h>
+#include <unistd.h>
 
 int	ft_readline(t_data *data)
 {
@@ -30,10 +31,20 @@ int	ft_readline(t_data *data)
     return (0);
 }
 
+int	ft_chek_sig_cmd(t_data *data)
+{
+	if (data->error == 1)
+	{
+		return (1);
+	}
+	return (0);
+}
+
 int	ft_chek_sig(t_data *data)
 {
 	if (data->error == 1)
 	{
+		close((data->signal->fd)[0]);
 		printf("\n");
 		return (1);
 	}
@@ -51,7 +62,7 @@ int	ft_pipe(t_data *data)
 	{
 		ft_putstr_fd("minishell: syntax error: unexpected end of file\n", 2);
 		close((data->signal->fd)[1]);
-		ft_exit_1(data);
+		ft_exit_1(data, 1);
 	}
 	write((data->signal->fd)[1], rd_line, ft_strlen(rd_line));
 	close((data->signal->fd)[1]);
@@ -66,10 +77,11 @@ int pre_treat(t_data *data, int i)
 
 	rd_line = take_script((data->signal->fd)[0]);
 	if (!rd_line)
+	{
+		close((data->signal->fd)[0]);
 		return (2);
+	}
 	close((data->signal->fd)[0]);
-	// if (ft_exit(rd_line))
-	// 	ft_exit_1(data);
 	data->input = ft_strdup(rd_line);
 	if (i == 1)
 		data->history = ft_strjoin_2(data->history, ft_strdup(" "));
@@ -82,7 +94,6 @@ int pre_treat(t_data *data, int i)
 	if (!ft_check_list(data))
 		return (2);
 	ft_add_back_list(&data->list, data->temp_list);
-	// free (data->temp_list);
 	data->temp_list = NULL;
 	return (0);
 }

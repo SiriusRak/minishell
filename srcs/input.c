@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 13:47:50 by enarindr          #+#    #+#             */
-/*   Updated: 2024/11/28 16:12:29 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/04 08:34:03 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ int	ft_get_input(t_data *data)
 	if (pipe(data->signal->fd) == -1)
 		return 2;
 	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	data->signal->pid = fork();
 	if (data->signal->pid == 0)
 		ft_readline(data);
