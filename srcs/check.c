@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 07:20:39 by enarindr          #+#    #+#             */
-/*   Updated: 2024/11/30 17:26:57 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/04 10:52:39 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	check_after_child(t_data *data)
 	waitpid(data->signal->pid, &(data->signal->stats), 0);
 	if (WIFEXITED(data->signal->stats))
 	{
-		if (WEXITSTATUS(data->signal->stats) > 128)
+		if (WEXITSTATUS(data->signal->stats))
 		{
 			data->return_value = WEXITSTATUS(data->signal->stats);
 			data->error = 1;

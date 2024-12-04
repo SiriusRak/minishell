@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 14:06:54 by enarindr          #+#    #+#             */
-/*   Updated: 2024/11/15 16:42:28 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/12/04 10:50:02 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,14 @@ int	ft_expand_4(char **chn, int i, char *str)
 	char	*next;
 
 	prev = ft_substr(str, 0, i);
-	next = ft_substr(str, i + 1, ft_strlen(str));
+	i++;
+	if (str[i + 1])
+		next = ft_substr(str, i + 1, ft_strlen(str));
+	else
+		next = NULL;
 	free (str);
 	*chn = ft_strjoin_2(prev, next);
-	return(0);
+	return (0);
 }
 
 int	ft_expand_return(t_d_list *list, char **chn, char *str, int i)
@@ -111,9 +115,12 @@ int	ft_expand_return(t_d_list *list, char **chn, char *str, int i)
 	char	*value;
 
 	prev = ft_substr(str, 0, i);
-	value = ft_strdup(ft_itoa(list->data->return_value));
+	value =ft_itoa(list->data->return_value);
 	i++;
-	next = ft_substr(str, i + 1, ft_strlen(str));
+	if (str[i + 1])
+		next = ft_substr(str, i + 1, ft_strlen(str));
+	else
+	 	next = NULL;
 	prev = ft_strjoin_2(prev, value);
 	free(str);
 	*chn = ft_strjoin_2(prev, next);
@@ -124,6 +131,7 @@ int	ft_expand(t_d_list *list, char **chn, int i, int quote)
 {
 	char	*str;
 
+	(void) quote;
 	str = *chn;
 	if (str[i] == '~' && (!str[i + 1]
 		|| str[i + 1] == '/') && i == 0)
@@ -138,7 +146,7 @@ int	ft_expand(t_d_list *list, char **chn, int i, int quote)
 	else if (str[i + 1] == '$')
 		ft_expand_3(list, chn, i, str);
 	else if (str[i + 1] && (ft_isalnum(str[i + 1])
-		|| str[i + 1] == '\"' || str[i + 1] == '\'') && quote == 0)
+		|| str[i + 1] == '\"' || str[i + 1] == '\''))
 		return (ft_expand_4(chn, i, str));
 	return (1);
 }
