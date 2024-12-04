@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 16:57:26 by enarindr          #+#    #+#             */
-/*   Updated: 2024/11/29 17:05:40 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/04 14:13:39 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_pipe_error(char *str, int i)
 		i++;
 	if (str[i] == '|')
 		return (1);
-	return (0);	
+	return (0);
 }
 
 int	ft_pars_error(t_list *list)

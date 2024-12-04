@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:41:09 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/30 17:24:58 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/04 14:21:50 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,8 @@ int	ft_builtin_unset(t_data *data, char **key)
 		prev = NULL;
 		while (curr)
 		{
-			if (!ft_strncmp(curr->content, key[i], ft_strlen(key[i])))
-			{
-				if (prev)
-					prev->next = curr->next;
-				else
-					data->env = curr->next;
-				free(curr->content);
-				free(curr);
+			if (ft_manage_unset(key[i], curr, prev, data))
 				break ;
-			}
 			prev = curr;
 			curr = curr->next;
 		}

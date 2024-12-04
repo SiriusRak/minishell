@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 13:47:50 by enarindr          #+#    #+#             */
-/*   Updated: 2024/12/04 08:34:03 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/12/04 14:04:30 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-
-int	ft_take_pipe_ext(t_data *data, int i, char *str, int *start)
-{
-	while (str[i])
-	{
-		if (str[i] == '\'' || str[i] == '\"')
-		{
-			i = ft_find_next_quote(str, i, str[i], data);
-			if (!i)
-				return (-1);
-		}
-		if (str[i] && str[i] == '|')
-		{
-			if (ft_pipe_error(str, i))
-			{
-				ft_exit_pipe(str, data);
-				return (-1);
-			}
-			i = ft_add_list(data, *start, i, str);
-			*start = i + 1;
-		}
-		i++;
-	}
-	return i;
-}
 
 int	ft_take_pipe(char *str, t_data *data)
 {
@@ -80,7 +55,7 @@ char	*take_script(int fd)
 	str = NULL;
 	temp = get_next_line(fd);
 	str = ft_strjoin_2(str, temp);
-	while (temp) 
+	while (temp)
 	{
 		temp = get_next_line(fd);
 		str = ft_strjoin_2(str, temp);
@@ -97,7 +72,7 @@ int	ft_end_pipe(t_data *data)
 		data->error = 0;
 		ft_clear_input(data);
 		if (pipe(data->signal->fd) == -1)
-			return 2;
+			return (2);
 		signal(SIGINT, SIG_IGN);
 		data->signal->pid = fork();
 		if (data->signal->pid == 0)
@@ -113,10 +88,11 @@ int	ft_end_pipe(t_data *data)
 	}
 	return (0);
 }
+
 int	ft_get_input(t_data *data)
 {
 	if (pipe(data->signal->fd) == -1)
-		return 2;
+		return (2);
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
 	data->signal->pid = fork();
@@ -130,7 +106,6 @@ int	ft_get_input(t_data *data)
 		return (2);
 	if (ft_end_pipe(data))
 		return (2);
-	// ft_print_all(data);
 	ft_execute(data);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/04 13:32:33 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/04 14:14:44 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,6 @@
 # include "../get_next_line/get_next_line.h"
 # include "builtin.h"
 # include "struct.h"
-
-/*debug start*/
-int			ft_print_all(t_data *data);
-/*debug end*/
 
 int			ft_lstfree(t_d_list **list);
 int			ft_free_t_d_list(t_d_list *lst);
@@ -128,6 +124,8 @@ void		ft_manage_fd(int *pipe_fd, int fd_in, int i, int nbr_cmd);
 void		ft_wait_pid(t_data *data, int nbr_cmd, int fd_in);
 void		ft_child_exec(t_data *data, char **env, char **arg);
 int	        ft_lex_ext2(t_d_list *list, char **tab, int i);
+char	    *ft_manage_path(char **s_path, char *f_path, char *cmd);
+int	        ft_take_pipe_ext(t_data *data, int i, char *str, int *start);
 
 t_list		*ft_duplicate(char **str);
 t_d_list	*ft_newlist(char *content, t_data *data);

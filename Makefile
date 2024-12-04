@@ -1,7 +1,6 @@
 NAME = minishell
 
-SRCS = 	./srcs/print_all.c \
-		./get_next_line/get_next_line_utils.c ./get_next_line/get_next_line.c \
+SRCS =  ./get_next_line/get_next_line_utils.c ./get_next_line/get_next_line.c \
 		./srcs/main.c ./srcs/signal.c ./srcs/exit.c \
 		./srcs/double_list.c ./srcs/init.c ./srcs/epure.c \
 		./srcs/check.c ./srcs/free.c ./srcs/find.c \
@@ -11,7 +10,7 @@ SRCS = 	./srcs/print_all.c \
 		./srcs/builtin.c ./srcs/builtin2.c  ./srcs/builtin_utils2.c \
 		./srcs/execution.c ./srcs/exec_utils.c ./srcs/builtin_utils.c \
 		./srcs/exec_utils2.c ./srcs/builtin_utils3.c ./srcs/builtin_utils4.c \
-		./srcs/exec_utils3.c ./srcs/parsing2.c
+		./srcs/exec_utils3.c ./srcs/parsing2.c ./srcs/signal2.c ./srcs/utils2.c
 
 LIB = libft
 
