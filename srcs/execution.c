@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:21:42 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/03 16:04:09 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/04 08:42:22 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ void	ft_execute_cmd(t_data *data)
 	char	**arg;
 
 	env = ft_lst_to_char(data->env, 0);
-	if (ft_strncmp(data->list->token->cmd->content, "clear", 5) == 0)
-		printf ("\n");
 	arg = ft_lst_to_char(data->list->token->cmd, 0);
 	data->signal->pid = fork();
 	ft_child_exec(data, env, arg);
@@ -27,8 +25,12 @@ void	ft_execute_cmd(t_data *data)
 	check_after_child(data);
 	if (data->saved_fd > 0)
 		ft_restore_fd(data, data->saved_fd);
-	if (ft_chek_sig(data))
+	if (ft_chek_sig_cmd(data))
+	{
+		ft_free_split(env);
+		ft_free_split(arg);
 		return ;
+	}
 	ft_free_split(env);
 	ft_free_split(arg);
 }

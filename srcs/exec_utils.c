@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:02:05 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/03 16:00:54 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/04 08:32:55 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,17 @@ int	ft_check_fd_dup(int fd, int dup, char *s)
 void	ft_redir(t_data *data, t_list *out, int i)
 {
 	int		fd;
-	char	*out;
+	char	*out_t;
 
 	if (i == 0)
 		data->saved_fd = dup(STDOUT_FILENO);
 	while (out)
 	{
-		out = (char *)out->content;
+		out_t = (char *)out->content;
 		if (out->type == OUT)
-			fd = open(out, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			fd = open(out_t, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		else if (out->type == OUT_2)
-			fd = open(out, O_WRONLY | O_CREAT | O_APPEND, 0644);
+			fd = open(out_t, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		data->return_value = ft_check_fd_dup(fd, 0, (char *)out->content);
 		if (out->next)
 			close(fd);

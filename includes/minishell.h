@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/03 16:24:19 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/04 08:40:56 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int			ft_pars_error(t_list *list);
 int			ft_all_error(t_d_list *list);
 int			ft_readline(t_data *data);
 int			ft_chek_sig(t_data *data);
+int     	ft_chek_sig_cmd(t_data *data);
 int			ft_pipe(t_data *data);
 int			pre_treat(t_data *data, int i);
 int			check_after_child(t_data *data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils4.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 15:20:15 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/30 17:23:22 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/04 09:06:43 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int	ft_manage_cd(t_data *data, char **value, char *arg, char **pwd)
 {
 	char	*oldpwd;
 
+	oldpwd = data->old_pwd;
 	if (!*pwd)
 	{
 		free(*value);

@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 15:55:15 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/15 20:02:07 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/12/04 08:50:22 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include <readline/readline.h>
 
 int	main(int ac, char **av, char **env)
 {
@@ -20,6 +19,7 @@ int	main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, SIG_IGN);
 	ft_init(&data, env);
 	while (1)
 	{
@@ -29,9 +29,6 @@ int	main(int ac, char **av, char **env)
 			add_history(data.history);
 		ft_clear_history(&data);
 		ft_clear_input(&data);
-		// rl_on_new_line();
-		// rl_replace_line("", 0);
-		// rl_redisplay();
 	}
 	return (0);
 }

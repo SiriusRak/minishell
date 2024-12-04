@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:15:23 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/03 15:22:36 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/04 08:38:48 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,5 @@ void	ft_child_exec(t_data *data, char **env, char **arg)
 			ft_exit_child(data, 126);
 		}
 		ft_exit_child(data, 0);
-	}
-	if (waitpid(-1, &data->status, 0) > 0)
-	{
-		if (WIFEXITED(data->status))
-			data->return_value = WEXITSTATUS(data->status);
 	}
 }

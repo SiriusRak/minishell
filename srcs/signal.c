@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:14:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/29 13:43:38 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/04 08:39:50 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,8 @@ void	signal_handler_cmd(int	sig, siginfo_t *info, void *context)
 	if (sig == SIGINT || sig == SIGQUIT)
 	{
 		data->error = 1;
-		printf("ATTToo\n");
 		write(2, "\n", 1);
 		ft_lstclear_2(&(data->env));
-		// ft_free_tab(data->path);
 		ft_clear_history(data);
 		ft_clear_input(data);
 		ft_free_data(data);
