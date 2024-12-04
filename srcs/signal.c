@@ -6,13 +6,14 @@
 /*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/10 11:14:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/04 08:39:50 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/12/04 11:42:47 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include <signal.h>
 #include <stdio.h>
+#include <unistd.h>
 
 void	signal_handler(int	sig, siginfo_t *info, void *context)
 {
@@ -123,8 +124,9 @@ void	signal_handler_here(int	sig, siginfo_t *info, void *context)
 	}
 	if (sig == SIGINT)
 	{
+		close(data->signal->fd[0]);
+		close(data->signal->fd[1]);
 		ft_lstclear_2(&(data->env));
-		// ft_free_tab(data->path);
 		ft_clear_history(data);
 		ft_clear_input(data);
 		ft_free_data(data);
