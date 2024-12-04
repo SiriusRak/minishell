@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 13:48:21 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/29 17:05:25 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/04 16:14:10 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	ft_cd_error(char *cmd, int i, char **old, char **pwd)
 	if (i == 0)
 		ft_putstr_fd("not set", 2);
 	else if (i == 1)
-		ft_putstr_fd("Not such file or directory", 2);
+		ft_putstr_fd("No such file or directory", 2);
 	ft_putstr_fd("\n", 2);
 	if (old)
 	{

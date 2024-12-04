@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 15:43:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/04 14:18:04 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/04 16:17:42 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,9 @@ int	ft_check_num(char *arg)
 	i = 0;
 	while (arg[i])
 	{
-		if (!ft_isdigit(arg[i]))
+		if (i == 0 && (arg[i] == '+' || arg[i] == '-'))
+			; 
+		else if (!ft_isdigit(arg[i]))
 			return (0);
 		i++;
 	}
