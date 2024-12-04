@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/04 08:40:56 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/12/04 13:32:33 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ int			ft_check_redir(t_data *data, int i);
 void		ft_manage_fd(int *pipe_fd, int fd_in, int i, int nbr_cmd);
 void		ft_wait_pid(t_data *data, int nbr_cmd, int fd_in);
 void		ft_child_exec(t_data *data, char **env, char **arg);
+int	        ft_lex_ext2(t_d_list *list, char **tab, int i);
 
 t_list		*ft_duplicate(char **str);
 t_d_list	*ft_newlist(char *content, t_data *data);
