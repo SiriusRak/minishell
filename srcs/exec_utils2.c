@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 11:27:07 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/03 16:02:33 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/04 15:31:36 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,10 @@ int	ft_check_redir(t_data *data, int i)
 		if (data->list->token->out != NULL)
 			ft_redir(data, data->list->token->out, 0);
 		if (data->list->token->in != NULL)
-			data->return_value = ft_redir_input(data->list->token->in);
-		if (data->return_value)
 		{
-			free(data->checker);
-			return (1);
+			data->return_value = ft_redir_input(data->list->token->in);
+			if (data->return_value)
+				return (1);
 		}
 	}
 	else

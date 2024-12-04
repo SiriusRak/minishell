@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:21:42 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/04 08:42:22 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/12/04 15:59:28 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,11 @@ void	ft_execute(t_data *data)
 	nbr_cmd = ft_dlstsize(data->list);
 	if (nbr_cmd == 1)
 	{
-		cmd = data->list->token->cmd->content;
-		data->checker = ft_manage_exec(data, cmd, 0);
 		if (ft_check_redir(data, 0))
 			return ;
+		if (ft_manage_cmd(data))
+			return ;
+		cmd = data->list->token->cmd->content;
 		if (!data->checker[0] && !data->checker[1])
 		{
 			if (ft_is_builtin(cmd) && !data->checker[1])

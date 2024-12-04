@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/04 14:24:12 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/04 15:14:49 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ void		ft_child_exec(t_data *data, char **env, char **arg);
 int			ft_lex_ext2(t_d_list *list, char **tab, int i);
 char		*ft_manage_path(char **s_path, char *f_path, char *cmd);
 int			ft_take_pipe_ext(t_data *data, int i, char *str, int *start);
+int			ft_manage_cmd(t_data *data);
 
 t_list		*ft_duplicate(char **str);
 t_d_list	*ft_newlist(char *content, t_data *data);

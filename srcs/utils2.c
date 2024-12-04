@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 13:51:46 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/04 14:15:37 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/04 15:32:02 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,22 @@ int	ft_take_pipe_ext(t_data *data, int i, char *str, int *start)
 		i++;
 	}
 	return (i);
+}
+
+int	ft_manage_cmd(t_data *data)
+{
+	char	*cmd;
+
+	if (!data->list->token->cmd)
+	{
+		if (data->saved_fd >= 0)
+			ft_restore_fd(data, data->saved_fd);
+		return (1);
+	}
+	else
+	{
+		cmd = data->list->token->cmd->content;
+		data->checker = ft_manage_exec(data, cmd, 0);
+	}
+	return (0);
 }
