@@ -6,12 +6,11 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 07:12:01 by enarindr          #+#    #+#             */
-/*   Updated: 2024/11/30 17:31:31 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/04 14:26:47 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include <stdio.h>
 
 int	ft_epure_ext(char *new, int len)
 {

@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 17:07:05 by enarindr          #+#    #+#             */
-/*   Updated: 2024/12/04 14:12:56 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/04 14:30:27 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,6 @@ int	ft_exit_quote(char *str, t_data *data)
 	free (str);
 	printf("**history**: %s\n", data->history);
 	ft_putstr_fd("unclosed quote\n", 2);
-	return (0);
-}
-
-int	ft_exit(char *str)
-{
-	char	*temp;
-
-	if (!(str[0]))
-		return (0);
-	temp = ft_strdup(str);
-	temp = ft_epure_line(temp, 0, 0);
-	if (ft_strlen(temp)
-		&& (ft_strncmp(temp, "exit", ft_strlen(temp)) == 0))
-	{
-		add_history(str);
-		free (str);
-		free (temp);
-		return (1);
-	}
-	free (temp);
 	return (0);
 }
 
