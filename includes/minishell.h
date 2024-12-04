@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/04 14:14:44 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/04 14:24:12 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int			ft_pars_error(t_list *list);
 int			ft_all_error(t_d_list *list);
 int			ft_readline(t_data *data);
 int			ft_chek_sig(t_data *data);
-int     	ft_chek_sig_cmd(t_data *data);
+int			ft_chek_sig_cmd(t_data *data);
 int			ft_pipe(t_data *data);
 int			pre_treat(t_data *data, int i);
 int			check_after_child(t_data *data);
@@ -95,8 +95,6 @@ void		waiting_signial_cmd(t_data *data);
 
 void		ft_clear_input(t_data *data);
 
-//****header Diary*****/
-
 int			ft_count_line(char **strings);
 int			ft_check_cmd(t_data *data, char *cmd, int is_dir, int c);
 int			ft_dlstsize(t_d_list *lst);
@@ -123,9 +121,9 @@ int			ft_check_redir(t_data *data, int i);
 void		ft_manage_fd(int *pipe_fd, int fd_in, int i, int nbr_cmd);
 void		ft_wait_pid(t_data *data, int nbr_cmd, int fd_in);
 void		ft_child_exec(t_data *data, char **env, char **arg);
-int	        ft_lex_ext2(t_d_list *list, char **tab, int i);
-char	    *ft_manage_path(char **s_path, char *f_path, char *cmd);
-int	        ft_take_pipe_ext(t_data *data, int i, char *str, int *start);
+int			ft_lex_ext2(t_d_list *list, char **tab, int i);
+char		*ft_manage_path(char **s_path, char *f_path, char *cmd);
+int			ft_take_pipe_ext(t_data *data, int i, char *str, int *start);
 
 t_list		*ft_duplicate(char **str);
 t_d_list	*ft_newlist(char *content, t_data *data);
