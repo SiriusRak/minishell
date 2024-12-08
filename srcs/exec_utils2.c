@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 11:27:07 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/04 15:31:36 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/08 10:07:11 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,14 +109,14 @@ int	ft_check_redir(t_data *data, int i)
 	return (0);
 }
 
-void	ft_manage_fd(int *pipe_fd, int fd_in, int i, int nbr_cmd)
+void	ft_manage_fd(int *pipe_fd, int fd_in, int i, t_data *data)
 {
-	if (fd_in != 0)
+	if (fd_in != 0 && !data->list->token->in)
 	{
 		dup2(fd_in, STDIN_FILENO);
 		close(fd_in);
 	}
-	if (i < nbr_cmd - 1)
+	if (i != 0)
 		dup2(pipe_fd[1], STDOUT_FILENO);
 	close(pipe_fd[0]);
 	close(pipe_fd[1]);

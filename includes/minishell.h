@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/04 15:14:49 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/08 10:02:11 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void		ft_export_error(char *str, int i, char c);
 
 int			*ft_manage_exec(t_data *data, char *cmd, int i);
 int			ft_check_redir(t_data *data, int i);
-void		ft_manage_fd(int *pipe_fd, int fd_in, int i, int nbr_cmd);
+void		ft_manage_fd(int *pipe_fd, int fd_in, int i, t_data *data);
 void		ft_wait_pid(t_data *data, int nbr_cmd, int fd_in);
 void		ft_child_exec(t_data *data, char **env, char **arg);
 int			ft_lex_ext2(t_d_list *list, char **tab, int i);

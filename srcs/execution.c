@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:21:42 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/04 15:59:28 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/08 10:03:39 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	ft_execute_pipe(t_data *data, int nbr_cmd)
 		if (data->pid == 0)
 		{
 			ft_check_redir(data, 1);
-			ft_manage_fd(pipe_fd, fd_in, i, nbr_cmd);
+			ft_manage_fd(pipe_fd, fd_in, i - nbr_cmd + 1, data);
 			ft_child_process(data, lst);
 		}
 		else if (data->pid != 0)
