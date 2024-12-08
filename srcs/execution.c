@@ -6,13 +6,13 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:21:42 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/08 10:03:39 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/08 11:08:12 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_execute_cmd(t_data *data)
+int	ft_execute_cmd(t_data *data)
 {
 	char	**env;
 	char	**arg;
@@ -29,10 +29,11 @@ void	ft_execute_cmd(t_data *data)
 	{
 		ft_free_split(env);
 		ft_free_split(arg);
-		return ;
+		return (data->return_value);
 	}
 	ft_free_split(env);
 	ft_free_split(arg);
+	return (data->return_value);
 }
 
 void	ft_child_process(t_data *data, t_d_list *lst)
@@ -44,9 +45,9 @@ void	ft_child_process(t_data *data, t_d_list *lst)
 	if (ft_is_builtin(cmd))
 		ft_execute_builtin(data, cmd);
 	else if (!data->checker[0] || !data->checker[1])
-		ft_execute_cmd(data);
+		data->return_value = ft_execute_cmd(data);
 	data->list = lst;
-	ft_exit_child(data, 0);
+	ft_exit_child(data, data->return_value);
 }
 
 void	ft_parent_process(t_data *data, int nbr, int *fd_in, int *pipe_fd)
