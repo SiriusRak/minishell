@@ -3,9 +3,9 @@ NAME = minishell
 SRCS =  ./get_next_line/get_next_line_utils.c ./get_next_line/get_next_line.c \
 		./srcs/main.c ./srcs/signal.c ./srcs/exit.c \
 		./srcs/double_list.c ./srcs/init.c ./srcs/epure.c \
-		./srcs/check.c ./srcs/free.c ./srcs/find.c \
+		./srcs/check.c ./srcs/free.c ./srcs/find.c ./srcs/expand3.c \
 		./srcs/input.c ./srcs/error.c ./srcs/parsing.c \
-		./srcs/add.c ./srcs/expand.c ./srcs/utils.c \
+		./srcs/add.c ./srcs/expand.c ./srcs/utils.c ./srcs/expand2.c\
 		./srcs/pre_treat.c ./srcs/add1.c ./srcs/epure2.c\
 		./srcs/builtin.c ./srcs/builtin2.c  ./srcs/builtin_utils2.c \
 		./srcs/execution.c ./srcs/exec_utils.c ./srcs/builtin_utils.c \
