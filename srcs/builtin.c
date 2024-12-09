@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:35:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/30 17:23:49 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/09 09:18:57 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,19 +73,19 @@ int	ft_builtin_exit(t_data *data, char **arg)
 
 	len = ft_count_line(arg);
 	printf("exit\n");
+	if (!ft_check_num(arg[0]))
+	{
+		ft_print_error(arg[0], "numeric argument required");
+		ft_exit_1(data, 2);
+	}
 	if (len > 1)
 	{
 		ft_print_error("exit", "too many arguments");
 		return (1);
 	}
-	if (len == 1 && !ft_check_num(arg[0]))
-	{
-		ft_print_error(arg[0], "numeric argument required");
-		ft_exit_1(data, 2);
-	}
 	else if (len == 1 && ft_check_num(arg[0]))
 		ft_exit_1(data, ft_atoi(arg[0]));
-	ft_exit_1(data, data->return_value);
+	ft_exit_1(data, data->return_value);./
 	return (0);
 }
 

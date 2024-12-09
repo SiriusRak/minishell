@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 13:49:06 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/04 13:49:29 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/09 08:25:44 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	signal_handler_here(int sig, siginfo_t *info, void *context)
 		ft_clear_input(data);
 		ft_free_data(data);
 		clear_history();
+		free (data->signal);
 		exit(sig + 128);
 	}
 }

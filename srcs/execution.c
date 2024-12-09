@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:21:42 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/08 11:08:12 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/09 08:13:31 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	ft_child_process(t_data *data, t_d_list *lst)
 	else if (!data->checker[0] || !data->checker[1])
 		data->return_value = ft_execute_cmd(data);
 	data->list = lst;
+	free (data->checker);
 	ft_exit_child(data, data->return_value);
 }
 
