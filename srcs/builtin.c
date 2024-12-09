@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:35:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/09 09:18:57 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/12/09 10:37:14 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	ft_builtin_exit(t_data *data, char **arg)
 	}
 	else if (len == 1 && ft_check_num(arg[0]))
 		ft_exit_1(data, ft_atoi(arg[0]));
-	ft_exit_1(data, data->return_value);./
+	ft_exit_1(data, data->return_value);
 	return (0);
 }
 
