@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 11:27:07 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/10 10:54:01 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/10 10:56:47 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void	ft_manage_fd(int *pipe_fd, int fd_in, int i, t_data *data)
 		dup2(fd_in, STDIN_FILENO);
 		close(fd_in);
 	}
-	if (i != 0)
+	if (i != 0 && !data->list->token->out)
 		dup2(pipe_fd[1], STDOUT_FILENO);
 	close(pipe_fd[0]);
 	close(pipe_fd[1]);
