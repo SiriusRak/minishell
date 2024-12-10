@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:21:42 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/10 10:28:05 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/10 12:18:26 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,9 @@ void	ft_child_process(t_data *data, t_d_list *lst)
 {
 	char	*cmd;
 
+	ft_manage_cmd(data, 1);
 	cmd = data->list->token->cmd->content;
-	data->checker = ft_manage_exec(data, cmd, 1);
+	// data->checker = ft_manage_exec(data, cmd, 1);
 	if (ft_is_builtin(cmd))
 		ft_execute_builtin(data, cmd);
 	else if (!data->checker[0] || !data->checker[1])
@@ -100,7 +101,7 @@ void	ft_execute(t_data *data)
 	{
 		if (ft_check_redir(data, NULL, 0, 0))
 			return ;
-		if (ft_manage_cmd(data))
+		if (ft_manage_cmd(data, 0))
 			return ;
 		cmd = data->list->token->cmd->content;
 		if (!data->checker[0] && !data->checker[1])
