@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 07:48:43 by enarindr          #+#    #+#             */
-/*   Updated: 2024/12/04 09:03:49 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/12/09 08:48:10 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 int	ft_readline(t_data *data)
 {
-	char	* rd_line;
+	char	*rd_line;
 
 	waiting_signial_here(data);
 	close((data->signal->fd)[0]);
@@ -28,7 +28,7 @@ int	ft_readline(t_data *data)
 	close((data->signal->fd)[1]);
 	free (rd_line);
 	ft_exit_child(data, 0);
-    return (0);
+	return (0);
 }
 
 int	ft_chek_sig_cmd(t_data *data)
@@ -68,14 +68,21 @@ int	ft_pipe(t_data *data)
 	close((data->signal->fd)[1]);
 	free (rd_line);
 	ft_exit_child(data, 0);
-    return (0);
+	return (0);
 }
 
-int pre_treat(t_data *data, int i)
+int	pre_treat(t_data *data, int i)
 {
 	char	*rd_line;
 
 	rd_line = take_script((data->signal->fd)[0]);
+	if (ft_strncmp(rd_line, "exit", 4) == 0 && ft_strlen(rd_line) == 4)
+	{
+		close((data->signal->fd)[0]);
+		free (rd_line);
+		printf("exit\n");
+		ft_exit_1(data, 0);
+	}
 	if (!rd_line)
 	{
 		close((data->signal->fd)[0]);

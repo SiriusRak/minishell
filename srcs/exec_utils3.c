@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:15:23 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/04 08:38:48 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/12/10 10:40:06 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,16 @@ void	ft_child_exec(t_data *data, char **env, char **arg)
 			ft_exit_child(data, 126);
 		}
 		ft_exit_child(data, 0);
+	}
+}
+
+void	ft_inputerror(int *pipe_fd, int fd_in)
+{
+	close(pipe_fd[0]);
+	close(pipe_fd[1]);
+	if (fd_in != 0)
+	{
+		dup2(fd_in, STDIN_FILENO);
+		close(fd_in);
 	}
 }

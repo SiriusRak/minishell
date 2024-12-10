@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:02:05 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/04 08:32:55 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/12/04 14:29:44 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_check_fd_dup(int fd, int dup, char *s)
 	}
 	if (dup < 0)
 	{
-		perror("Eto hafa");
+		perror("dup");
 		close(fd);
 		return (1);
 	}
@@ -53,7 +53,7 @@ void	ft_redir(t_data *data, t_list *out, int i)
 			close(fd);
 		out = out->next;
 	}
-	ft_check_fd_dup(0, dup2(fd, STDOUT_FILENO), "test");
+	ft_check_fd_dup(0, dup2(fd, STDOUT_FILENO), out_t);
 	if (fd != 0)
 		close(fd);
 }

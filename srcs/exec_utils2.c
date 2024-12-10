@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 11:27:07 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/03 16:02:33 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/10 11:06:27 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,18 +85,17 @@ int	*ft_manage_exec(t_data *data, char *cmd, int i)
 	return (data->checker);
 }
 
-int	ft_check_redir(t_data *data, int i)
+int	ft_check_redir(t_data *data, int *pipe_fd, int fd_in, int i)
 {
 	if (!i)
 	{
 		if (data->list->token->out != NULL)
 			ft_redir(data, data->list->token->out, 0);
 		if (data->list->token->in != NULL)
-			data->return_value = ft_redir_input(data->list->token->in);
-		if (data->return_value)
 		{
-			free(data->checker);
-			return (1);
+			data->return_value = ft_redir_input(data->list->token->in);
+			if (data->return_value)
+				return (1);
 		}
 	}
 	else
@@ -104,20 +103,25 @@ int	ft_check_redir(t_data *data, int i)
 		if (data->list->token->out != NULL)
 			ft_redir(data, data->list->token->out, 1);
 		if (data->list->token->in != NULL)
+		{
 			if (ft_redir_input(data->list->token->in))
+			{
+				ft_inputerror(pipe_fd, fd_in);
 				ft_exit_child(data, 1);
+			}
+		}
 	}
 	return (0);
 }
 
-void	ft_manage_fd(int *pipe_fd, int fd_in, int i, int nbr_cmd)
+void	ft_manage_fd(int *pipe_fd, int fd_in, int i, t_data *data)
 {
-	if (fd_in != 0)
+	if (fd_in != 0 && !data->list->token->in)
 	{
 		dup2(fd_in, STDIN_FILENO);
 		close(fd_in);
 	}
-	if (i < nbr_cmd - 1)
+	if (i != 0 && !data->list->token->out)
 		dup2(pipe_fd[1], STDOUT_FILENO);
 	close(pipe_fd[0]);
 	close(pipe_fd[1]);

@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 11:04:22 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/29 16:49:42 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/04 14:25:51 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,38 +54,6 @@ char	*ft_get_value(char *key, t_list *env)
 	}
 	return (value);
 }
-
-// char	*ft_get_value(char *key, t_list *env)
-// {
-// 	char	*value;
-// 	char	**tab;
-// 	char	*key_2;
-
-// 	value = NULL;
-// 	key_2 = ft_get_key(env->content);
-// 	if (key_2)
-// 	{
-// 		while (env && (ft_strncmp(key, key_2, ft_strlen(key))!= 0
-// 			|| ft_strncmp(key, key_2, ft_strlen(key_2))!= 0))
-// 		{
-// 			free (key_2);
-// 			key_2 = NULL;
-// 			env = env->next;
-// 			if (env)
-// 				key_2 = ft_get_key(env->content);
-// 		}
-// 		if (env && ft_strncmp(key, key_2, ft_strlen(key))== 0
-// 			&& ft_strlen(key) == ft_strlen(key_2))
-// 		{
-// 			tab = ft_split(env->content, "=");
-// 			value = ft_strdup(tab[1]);
-// 			ft_free_tab(tab);
-// 		}
-// 		if (key_2)
-// 			free(key_2);
-// 	}
-// 	return (value);
-// }
 
 char	**ft_get_allkey(t_list *list)
 {

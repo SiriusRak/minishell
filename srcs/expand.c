@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 14:06:54 by enarindr          #+#    #+#             */
-/*   Updated: 2024/12/04 10:50:02 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/12/08 11:29:47 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include <stdio.h>
-#include <time.h>
 
 char	*ft_expand_key(t_d_list *list, char *str, int start)
 {
@@ -23,7 +21,7 @@ char	*ft_expand_key(t_d_list *list, char *str, int start)
 
 	i = 0;
 	env = list->data->env;
-	while (ft_isalnum(str[start + i]))
+	while (str[start + i] && ft_isalnum(str[start + i]))
 		i++;
 	key = ft_substr(str, start, i);
 	i = 0;
@@ -34,6 +32,7 @@ char	*ft_expand_key(t_d_list *list, char *str, int start)
 	free (key);
 	return (value);
 }
+
 int	ft_expand_1(char **chn, int i, char *str)
 {
 	char	*prev;
@@ -70,8 +69,8 @@ int	ft_expand_2(t_d_list *list, char **chn, int i, char *str)
 		next = NULL;
 	prev = ft_strjoin_2(prev, value);
 	free (*chn);
-	*chn = ft_strjoin_2(prev,next);
-	return(j);
+	*chn = ft_strjoin_2(prev, next);
+	return (j);
 }
 
 int	ft_expand_3(t_d_list *list, char **chn, int i, char *str)
@@ -85,133 +84,38 @@ int	ft_expand_3(t_d_list *list, char **chn, int i, char *str)
 	value = ft_itoa(list->data->pid);
 	j = ft_strlen(value);
 	i += 2;
-	next = ft_substr(str, i, ft_strlen(str));	
-	prev = ft_strjoin_2(prev, value);
-	free (str);
-	*chn = ft_strjoin_2(prev,next);
-	return(j);
-}
-
-int	ft_expand_4(char **chn, int i, char *str)
-{
-	char	*prev;
-	char	*next;
-
-	prev = ft_substr(str, 0, i);
-	i++;
-	if (str[i + 1])
-		next = ft_substr(str, i + 1, ft_strlen(str));
+	if (str[i])
+		next = ft_substr(str, i, ft_strlen(str));
 	else
 		next = NULL;
+	prev = ft_strjoin_2(prev, value);
 	free (str);
 	*chn = ft_strjoin_2(prev, next);
-	return (0);
+	return (j);
 }
 
-int	ft_expand_return(t_d_list *list, char **chn, char *str, int i)
+int	ft_expand_4(char **chn, int i, char *str, int quote)
 {
 	char	*prev;
 	char	*next;
-	char	*value;
 
-	prev = ft_substr(str, 0, i);
-	value =ft_itoa(list->data->return_value);
-	i++;
-	if (str[i + 1])
-		next = ft_substr(str, i + 1, ft_strlen(str));
+	prev = NULL;
+	next = NULL;
+	if (!str[i + 1] || (quote == 1 && (str[i + 1] == '\''
+				|| str[i + 1] == '\"')))
+	{
+		prev = ft_substr(str, 0, i + 1);
+		i++;
+	}
 	else
-	 	next = NULL;
-	prev = ft_strjoin_2(prev, value);
-	free(str);
+		prev = ft_substr(str, 0, i);
+	if (quote == 0 && (str[i + 1] == '\'' || str[i + 1] == '\"'))
+		next = (ft_substr(str, i + 1, ft_strlen(str)));
+	else if (str[i] && str[i + 1] && ft_isdigit(str[i + 1]))
+		next = ft_substr(str, i + 2, ft_strlen(str));
+	else if (str[i] && str[i + 1])
+		next = (ft_substr(str, i, ft_strlen(str)));
+	free (*chn);
 	*chn = ft_strjoin_2(prev, next);
 	return (i);
-}
-
-int	ft_expand(t_d_list *list, char **chn, int i, int quote)
-{
-	char	*str;
-
-	(void) quote;
-	str = *chn;
-	if (str[i] == '~' && (!str[i + 1]
-		|| str[i + 1] == '/') && i == 0)
-		return (ft_expand_1(chn, i, str));
-	str = *chn;
-	if (str[i + 1] == '?')
-		i = ft_expand_return(list, chn, str, i);
-	else if (str[i] && str[i] == '$' && str[i + 1] &&
-		!ft_isdigit(str[i + 1]) && str[i + 1] != ' ' && str[i + 1] != '~'
-		&& ft_isalpha(str[i + 1]))
-		return (ft_expand_2(list, chn, i, str));
-	else if (str[i + 1] == '$')
-		ft_expand_3(list, chn, i, str);
-	else if (str[i + 1] && (ft_isalnum(str[i + 1])
-		|| str[i + 1] == '\"' || str[i + 1] == '\''))
-		return (ft_expand_4(chn, i, str));
-	return (1);
-}
-
-char	*ft_expand_here(t_d_list *list, char *ch)
-{
-	int		i;
-	char	*str;
-
-	i = 0;
-	str = ft_strdup(ch);
-	free(ch);
-	while (str[i])
-	{
-		if (str[i] == '$')
-			i += ft_expand(list, &str, i, 0);
-		else
-			i++;
-	}
-	return (str);
-}
-
-char	*ft_clean_quote(t_d_list *list, char *str, int type)
-{
-	int		i;
-	char	*prev;
-	char	*next;
-	char	c;
-	int		quote;
-
-	i = 0;
-	quote = 0;
-	while (str && str[i])
-	{
-		c = str[i];
-		if (str[i] == '\"' || str[i] == '\'')
-		{
-			quote = 1;
-			prev = ft_substr(str, 0, i);
-			next = ft_substr(str, i + 1, ft_strlen(str));
-			free (str);
-			str = ft_strjoin_2(prev, next);
-			while (str[i] && str[i] != c)
-			{
-				if (c == '\"' && str[i] == '$' && type != HERE)
-					i+= ft_expand(list, &str, i, quote);
-				else
-					i++;
-			}
-			if (str[i] && str[i] == c)
-			{
-				quote = 1;
-				prev = ft_substr(str, 0, i);
-				if (str[i + 1])
-					next = ft_substr(str, i + 1, ft_strlen(str));
-				else
-					next = NULL;
-				free (str);
-				str = ft_strjoin_2(prev, next);
-			}
-		}
-		else if ((str[i] == '$' && type != HERE) || str[i] == '~')
-			i += ft_expand(list, &str, i, 0);
-		else
-			i++;
-	}
-	return (str);
 }

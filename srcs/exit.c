@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 17:07:05 by enarindr          #+#    #+#             */
-/*   Updated: 2024/11/29 13:44:13 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/09 08:09:42 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,30 +22,9 @@ int	ft_exit_quote(char *str, t_data *data)
 	return (0);
 }
 
-int	ft_exit(char *str)
-{
-	char	*temp;
-
-	if (!(str[0]))
-		return (0);
-	temp = ft_strdup(str);
-	temp = ft_epure_line(temp, 0, 0);
-	if (ft_strlen(temp) 
-		&& (ft_strncmp(temp, "exit", ft_strlen(temp)) == 0))
-	{
-		add_history(str);
-		free (str);
-		free (temp);
-		return (1);
-	}
-	free (temp);
-	return (0);
-}
-
-void    ft_exit_1(t_data *data, int exit_code)
+void	ft_exit_1(t_data *data, int exit_code)
 {
 	ft_lstclear_2(&(data->env));
-	// ft_free_tab(data->path);
 	ft_free_data(data);
 	clear_history();
 	free (data->signal);
@@ -56,7 +35,6 @@ void	ft_exit_child(t_data *data, int exit_code)
 {
 	ft_lstclear_2(&(data->env));
 	ft_clear_history(data);
-	// ft_free_tab(data->path);
 	ft_free_data(data);
 	clear_history();
 	free (data->signal);

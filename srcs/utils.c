@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 08:54:36 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/29 16:21:48 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/04 13:57:49 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,33 +38,19 @@ char	*ft_find_in_path(t_data *data, char *cmd)
 {
 	char	*path;
 	char	full_path[1024];
-	char	**splitted_path;
-	int		i;
+	char	**s_path;
 
-	i = 0;
 	path = ft_get_value("PATH", data->env);
 	if (!path)
 	{
 		data->path = 0;
 		return (NULL);
 	}
-	splitted_path = ft_split(path, ":");
+	s_path = ft_split(path, ":");
 	free(path);
-	while (splitted_path[i])
-	{
-		ft_strlcpy(full_path, splitted_path[i], ft_strlen(splitted_path[i]) + 1);
-		ft_strlcat(full_path, "/", ft_strlen(full_path) + 2);
-		ft_strlcat(full_path, cmd, ft_strlen(full_path) + ft_strlen(cmd) + 1);
-		if (!access(full_path, F_OK))
-		{
-			ft_free_split(splitted_path);
-			return (ft_strdup(full_path));
-		}
-		i++;
-	}
-	ft_free_split(splitted_path);
-	return (NULL);
+	return (ft_manage_path(s_path, full_path, cmd));
 }
+
 int	ft_count_line(char **strings)
 {
 	int	height;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/04 08:40:56 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/12/10 10:41:04 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,6 @@
 # include "builtin.h"
 # include "struct.h"
 
-/*debug start*/
-int			ft_print_all(t_data *data);
-/*debug end*/
-
 int			ft_lstfree(t_d_list **list);
 int			ft_free_t_d_list(t_d_list *lst);
 int			ft_free_tab(char **tab);
@@ -47,7 +43,6 @@ int			ft_exit_quote(char *str, t_data *data);
 int			ft_get_input(t_data *data);
 int			ft_take_pipe(char *str, t_data *data);
 int			ft_clear_history(t_data *data);
-int			ft_exit(char *str);
 int			ft_free_data(t_data *data);
 int			ft_pipe_error(char *str, int i);
 int			ft_check_list(t_data *data);
@@ -64,10 +59,26 @@ int			ft_pars_error(t_list *list);
 int			ft_all_error(t_d_list *list);
 int			ft_readline(t_data *data);
 int			ft_chek_sig(t_data *data);
-int     	ft_chek_sig_cmd(t_data *data);
+int			ft_chek_sig_cmd(t_data *data);
 int			ft_pipe(t_data *data);
 int			pre_treat(t_data *data, int i);
 int			check_after_child(t_data *data);
+int			ft_count_line(char **strings);
+int			ft_check_cmd(t_data *data, char *cmd, int is_dir, int c);
+int			ft_dlstsize(t_d_list *lst);
+int			ft_isdir(t_data *data, char *cmd, int c);
+int			ft_redir_input(t_list *in);
+int			ft_cd_error(char *cmd, int i, char **old, char **pwd);
+int			*ft_manage_exec(t_data *data, char *cmd, int i);
+int			ft_check_redir(t_data *data, int *pipe_fd, int fd_in, int i);
+int			ft_clean(t_d_list **list, char **str, int i, int type);
+int			ft_expand_4(char **chn, int i, char *str, int quote);
+int			ft_expand_3(t_d_list *list, char **chn, int i, char *str);
+int			ft_expand_1(char **chn, int i, char *str);
+int			ft_expand_2(t_d_list *list, char **chn, int i, char *str);
+int			ft_take_pipe_ext(t_data *data, int i, char *str, int *start);
+int			ft_manage_cmd(t_data *data);
+int			ft_lex_ext2(t_d_list *list, char **tab, int i);
 
 char		*ft_epure_line(char *str, int i, int j);
 char		*ft_epure_redir(char *str);
@@ -79,10 +90,14 @@ char		*ft_expand_key(t_d_list *list, char *str, int start);
 char		*ft_expand_here(t_d_list *list, char *ch);
 char		*ft_clean_quote(t_d_list *list, char *str, int type);
 char		*take_script(int fd);
+char		*ft_manage_path(char **s_path, char *f_path, char *cmd);
+char		*ft_clean_ext(char *str, int i);
+char		*ft_add_heredoc(t_d_list *list, char *str, int c);
+char		**ft_lst_to_char(t_list *list, int type);
+char		**ft_sort_tab(char **tab);
 
 void		ft_exit_1(t_data *data, int exit_code);
 void		ft_exit_child(t_data *data, int exit_code);
-void		ft_exit_2(t_data *data);
 void		ft_exit_pipe(char *str, t_data *data);
 void		ft_init(t_data *data, char **env);
 void		ft_add_front_list(t_d_list **list, t_d_list *new);
@@ -91,42 +106,23 @@ void		signal_handler(int sig, siginfo_t *info, void *context);
 void		waiting_signal(t_data *data);
 void		signal_heredoc(t_data *data);
 void		handler(int sig, siginfo_t *info, void *context);
-
 void		waiting_signial_here(t_data *data);
 void		signal_handler_here(int sig, siginfo_t *info, void *context);
 void		signal_handler_cmd(int sig, siginfo_t *info, void *context);
 void		waiting_signial_cmd(t_data *data);
-
 void		ft_clear_input(t_data *data);
-
-//****header Diary*****/
-
-int			ft_count_line(char **strings);
-int			ft_check_cmd(t_data *data, char *cmd, int is_dir, int c);
-int			ft_dlstsize(t_d_list *lst);
-int			ft_isdir(t_data *data, char *cmd, int c);
-
 void		ft_free_split(char **strings);
 void		ft_redir(t_data *data, t_list *out, int i);
-int			ft_redir_input(t_list *in);
 void		ft_execute(t_data *data);
-char		**ft_sort_tab(char **tab);
 void		ft_export_no_arg(t_data *data);
 void		ft_execute_builtin(t_data *data, char *cmd);
 void		ft_print_error(char *cmd, char *message);
-int			ft_cd_error(char *cmd, int i, char **old, char **pwd);
-
-char		**ft_lst_to_char(t_list *list, int type);
-
-char		*ft_add_heredoc(t_d_list *list, char *str, int c);
 void		ft_add_file(char *content, char *file);
 void		ft_export_error(char *str, int i, char c);
-
-int			*ft_manage_exec(t_data *data, char *cmd, int i);
-int			ft_check_redir(t_data *data, int i);
-void		ft_manage_fd(int *pipe_fd, int fd_in, int i, int nbr_cmd);
+void		ft_manage_fd(int *pipe_fd, int fd_in, int i, t_data *data);
 void		ft_wait_pid(t_data *data, int nbr_cmd, int fd_in);
 void		ft_child_exec(t_data *data, char **env, char **arg);
+void		ft_inputerror(int *pipe_fd, int fd_in);
 
 t_list		*ft_duplicate(char **str);
 t_d_list	*ft_newlist(char *content, t_data *data);

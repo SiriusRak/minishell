@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 15:43:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/29 16:50:26 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/08 10:29:24 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,18 +70,14 @@ int	ft_check_arg(char *arg, int *newline)
 
 int	ft_manage_unset(char *key, t_list *curr, t_list *prev, t_data *data)
 {
-	t_list	*tmp;
-
 	if (!ft_strncmp(curr->content, key, ft_strlen(key)))
 	{
-		tmp = curr->next;
-		if (prev == NULL)
-			data->env = curr->next;
-		else
+		if (prev)
 			prev->next = curr->next;
+		else
+			data->env = curr->next;
 		free(curr->content);
 		free(curr);
-		curr = tmp;
 		return (1);
 	}
 	return (0);
@@ -94,7 +90,9 @@ int	ft_check_num(char *arg)
 	i = 0;
 	while (arg[i])
 	{
-		if (!ft_isdigit(arg[i]))
+		if (i == 0 && (arg[i] == '+' || arg[i] == '-'))
+			;
+		else if (!ft_isdigit(arg[i]))
 			return (0);
 		i++;
 	}
