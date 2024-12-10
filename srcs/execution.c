@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:21:42 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/09 08:13:31 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/12/10 10:28:05 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	ft_execute_pipe(t_data *data, int nbr_cmd)
 		data->pid = fork();
 		if (data->pid == 0)
 		{
-			ft_check_redir(data, 1);
+			ft_check_redir(data, pipe_fd, fd_in, i - nbr_cmd + 2);
 			ft_manage_fd(pipe_fd, fd_in, i - nbr_cmd + 1, data);
 			ft_child_process(data, lst);
 		}
@@ -98,7 +98,7 @@ void	ft_execute(t_data *data)
 	nbr_cmd = ft_dlstsize(data->list);
 	if (nbr_cmd == 1)
 	{
-		if (ft_check_redir(data, 0))
+		if (ft_check_redir(data, NULL, 0, 0))
 			return ;
 		if (ft_manage_cmd(data))
 			return ;

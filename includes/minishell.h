@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/08 11:32:02 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/10 10:41:04 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int			ft_isdir(t_data *data, char *cmd, int c);
 int			ft_redir_input(t_list *in);
 int			ft_cd_error(char *cmd, int i, char **old, char **pwd);
 int			*ft_manage_exec(t_data *data, char *cmd, int i);
-int			ft_check_redir(t_data *data, int i);
+int			ft_check_redir(t_data *data, int *pipe_fd, int fd_in, int i);
 int			ft_clean(t_d_list **list, char **str, int i, int type);
 int			ft_expand_4(char **chn, int i, char *str, int quote);
 int			ft_expand_3(t_d_list *list, char **chn, int i, char *str);
@@ -122,6 +122,7 @@ void		ft_export_error(char *str, int i, char c);
 void		ft_manage_fd(int *pipe_fd, int fd_in, int i, t_data *data);
 void		ft_wait_pid(t_data *data, int nbr_cmd, int fd_in);
 void		ft_child_exec(t_data *data, char **env, char **arg);
+void		ft_inputerror(int *pipe_fd, int fd_in);
 
 t_list		*ft_duplicate(char **str);
 t_d_list	*ft_newlist(char *content, t_data *data);

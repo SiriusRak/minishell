@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 11:27:07 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/09 08:14:55 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/12/10 10:50:34 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	*ft_manage_exec(t_data *data, char *cmd, int i)
 	return (data->checker);
 }
 
-int	ft_check_redir(t_data *data, int i)
+int	ft_check_redir(t_data *data, int *pipe_fd, int fd_in, int i)
 {
 	if (!i)
 	{
@@ -104,7 +104,10 @@ int	ft_check_redir(t_data *data, int i)
 			ft_redir(data, data->list->token->out, 1);
 		if (data->list->token->in != NULL)
 			if (ft_redir_input(data->list->token->in))
+			{
+				
 				ft_exit_child(data, 1);
+			}
 	}
 	return (0);
 }
