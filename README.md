@@ -7,7 +7,7 @@ This project is about creating a simple shell.
 ### Clone the repository:
 
 ```bash
-  https://github.com/SiriusRak/minishell.git
+  git clone https://github.com/SiriusRak/minishell.git
   cd minishell
   make
 ```
