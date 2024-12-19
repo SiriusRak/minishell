@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 13:18:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/19 08:58:19 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/12/19 17:44:24 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,9 @@ int	ft_lex_ext2(t_d_list *list, char **tab, int i)
 	else if (tab[i][0] == '<' && ft_strlen(tab[i]) == 1)
 		error = ft_add_in(list, tab[i + 1], IN);
 	else if (tab[i][0] == '<' && tab[i][1] == '<')
+	{
+		list->data->tab = tab;
 		error = ft_add_in(list, tab[i + 1], HERE);
+	}
 	return (error);
 }

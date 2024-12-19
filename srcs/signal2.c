@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 13:49:06 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/09 08:25:44 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/12/19 17:56:50 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	signal_handler_here(int sig, siginfo_t *info, void *context)
 		ft_lstclear_2(&(data->env));
 		ft_clear_history(data);
 		ft_clear_input(data);
+		ft_free_tab(data->tab);
 		ft_free_data(data);
 		clear_history();
 		free (data->signal);

@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 07:42:56 by enarindr          #+#    #+#             */
-/*   Updated: 2024/12/19 15:29:44 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/12/19 17:44:08 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int	ft_lex(t_d_list *list, char *str)
 
 	i = -1;
 	tab = ft_split(str, "\n");
-	list->data->tab = tab;
 	free (str);
 	while (tab[++i])
 	{
@@ -60,11 +59,11 @@ int	ft_lex(t_d_list *list, char *str)
 			error = ft_add_cmd(list, tab[i]);
 		if (error == 1)
 		{
-			ft_free_tab(tab);
+			free(tab);
 			return (0);
 		}
 	}
-	ft_free_tab(tab);
+	free(tab);
 	return (1);
 }
 

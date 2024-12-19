@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/19 15:36:15 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/12/19 18:44:41 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int			ft_exit_quote(char *str, t_data *data);
 int			ft_get_input(t_data *data);
 int			ft_take_pipe(char *str, t_data *data);
 int			ft_clear_history(t_data *data);
+int     	ft_clear_heredoc(t_data *data);
 int			ft_free_data(t_data *data);
 int			ft_pipe_error(char *str, int i);
 int			ft_check_list(t_data *data);

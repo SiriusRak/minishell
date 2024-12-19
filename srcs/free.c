@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 13:35:15 by enarindr          #+#    #+#             */
-/*   Updated: 2024/12/19 15:51:38 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/19 18:45:28 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,11 @@ int	ft_free_tab(char **tab)
 	if (tab)
 	{
 		while (tab[i])
-			free(tab[i++]);
+		{
+			free(tab[i]);
+			tab[i] = NULL;
+			i++;
+		}
 		free (tab);
 		tab = NULL;
 	}

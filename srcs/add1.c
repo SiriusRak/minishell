@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 16:43:44 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/19 15:23:13 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/12/19 18:44:53 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	fork_heredoc(t_d_list *list, char *str, char c)
 	here = ft_add_heredoc(list, str, c);
 	ft_add_file(here, str);
 	list->data->history = ft_strjoin_2(list->data->history, here);
-	ft_clear_history(list->data);
+	ft_clear_heredoc(list->data);
 	ft_clear_input(list->data);
 	ft_free_tab(list->data->tab);
 	ft_exit_child(list->data, 0);
@@ -57,7 +57,7 @@ int	ft_add_in(t_d_list *list, char *str, int i)
 		if (list->data->signal->pid == 0)
 			fork_heredoc(list, str, c);
 	}
-	lst = ft_lstnew(ft_strdup(str));
+	lst = ft_lstnew(str);
 	lst->type = i;
 	ft_lstadd_back(&(list->token->in), lst);
 	return (0);
@@ -68,7 +68,7 @@ int	ft_add_cmd(t_d_list *list, char *str)
 	t_list	*lst;
 
 	str = ft_clean_quote(list, str, 0);
-	lst = ft_lstnew(ft_strdup(str));
+	lst = ft_lstnew(str);
 	if (!list->token->cmd)
 		lst->type = CMD;
 	else
