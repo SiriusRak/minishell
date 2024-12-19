@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 13:35:15 by enarindr          #+#    #+#             */
-/*   Updated: 2024/12/04 14:10:14 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/19 08:50:14 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ int	ft_free_t_d_list(t_d_list *lst)
 			free(list->token);
 		}
 		free (list);
+		list = NULL;
 		list = temp;
 	}
 	return (0);

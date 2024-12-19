@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 17:07:05 by enarindr          #+#    #+#             */
-/*   Updated: 2024/12/09 08:09:42 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/12/19 08:57:46 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,14 @@ void	ft_exit_1(t_data *data, int exit_code)
 
 void	ft_exit_child(t_data *data, int exit_code)
 {
+	if (data->temp_list)
+	{
+		ft_free_t_d_list(data->temp_list);
+		data->temp_list = NULL;
+	}
 	ft_lstclear_2(&(data->env));
-	ft_clear_history(data);
 	ft_free_data(data);
+	ft_clear_history(data);
 	clear_history();
 	free (data->signal);
 	exit (exit_code);

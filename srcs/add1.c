@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add1.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 16:43:44 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/29 16:48:42 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/19 09:11:58 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,8 @@ void	fork_heredoc(t_d_list *list, char *str, char c)
 
 	waiting_signial_here(list->data);
 	here = ft_add_heredoc(list, str, c);
-	if (here)
-	{
-		ft_add_file(here, str);
-		list->data->history = ft_strjoin_2(list->data->history, here);
-	}
+	ft_add_file(here, str);
+	list->data->history = ft_strjoin_2(list->data->history, here);
 	ft_clear_history(list->data);
 	ft_clear_input(list->data);
 	ft_exit_child(list->data, 0);
