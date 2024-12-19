@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:44:23 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/19 15:20:42 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/12/19 15:40:34 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_data
 	char		*old_pwd;
 	char		*pwd;
 	char		**tab;
+	char		**keys;
 	int			saved_fd;
 	int			status;
 	int			*checker;

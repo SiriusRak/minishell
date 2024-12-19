@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 13:35:15 by enarindr          #+#    #+#             */
-/*   Updated: 2024/12/19 15:33:11 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/12/19 15:51:38 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,8 @@ int	ft_free_tab(char **tab)
 int	ft_free_data(t_data *data)
 {
 	if (data->input)
-	{
 		free(data->input);
-		data->input = NULL;
-	}
+	data->input = NULL;
 	if (data->history)
 	{
 		free (data->history);
@@ -81,6 +79,9 @@ int	ft_free_data(t_data *data)
 		data->list = NULL;
 		data->temp_list = NULL;
 	}
+	if (data->keys)
+		ft_free_split(data->keys);
+	data->keys = NULL;
 	return (0);
 }
 

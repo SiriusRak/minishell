@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 17:09:48 by enarindr          #+#    #+#             */
-/*   Updated: 2024/12/04 14:07:19 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/19 15:49:20 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,6 @@ void	ft_init(t_data *data, char **env)
 	data->env = ft_duplicate(env);
 	data->saved_fd = -1;
 	data->path = 1;
+	data->keys = NULL;
+	data->checker = NULL;
 }

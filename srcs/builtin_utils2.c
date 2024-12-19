@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 15:43:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/08 10:29:24 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/19 15:44:22 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,14 @@
 
 void	ft_change_pwd(t_data *data, char **old_pwd, char **pwd, int i)
 {
-	char	**keys;
 	char	**values;
 	char	cwd[1024];
 
-	keys = malloc(sizeof(char *) * 3);
+	data->keys = malloc(sizeof(char *) * 3);
 	values = malloc(sizeof(char *) * 3);
-	keys[0] = ft_strdup("PWD");
-	keys[1] = ft_strdup("OLDPWD");
-	keys[2] = 0;
+	data->keys[0] = ft_strdup("PWD");
+	data->keys[1] = ft_strdup("OLDPWD");
+	data->keys[2] = 0;
 	if (i == 0)
 	{
 		values[0] = ft_strjoin_3("PWD=", *old_pwd);
@@ -35,8 +34,7 @@ void	ft_change_pwd(t_data *data, char **old_pwd, char **pwd, int i)
 		free(*pwd);
 	}
 	values[2] = 0;
-	ft_builtin_export(keys, data, values);
-	ft_free_split(keys);
+	ft_builtin_export(data, values);
 	ft_free_split(values);
 }
 
