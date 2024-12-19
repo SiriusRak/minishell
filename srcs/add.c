@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 12:17:53 by enarindr          #+#    #+#             */
-/*   Updated: 2024/12/19 09:15:32 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/12/19 15:18:52 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ char	*ft_add_heredoc(t_d_list *list, char *str, int c)
 	i = 0;
 	here = NULL;
 	temp = readline("here > ");
+	if (!temp)
+		write_error(str);
 	while (temp != NULL && (ft_strncmp(temp, str, ft_strlen(str)) != 0
 			|| ft_strncmp(temp, str, ft_strlen(temp)) != 0))
 	{
@@ -57,7 +59,7 @@ int	ft_add_out(t_d_list *list, char *str, int i)
 		return (1);
 	}
 	str = ft_clean_quote(list, str, i);
-	lst = ft_lstnew(str);
+	lst = ft_lstnew(ft_strdup(str));
 	lst->type = i;
 	ft_lstadd_back(&(list->token->out), lst);
 	return (0);

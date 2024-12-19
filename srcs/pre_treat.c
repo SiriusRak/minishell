@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 07:48:43 by enarindr          #+#    #+#             */
-/*   Updated: 2024/12/09 08:48:10 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/12/19 08:00:29 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,28 +76,21 @@ int	pre_treat(t_data *data, int i)
 	char	*rd_line;
 
 	rd_line = take_script((data->signal->fd)[0]);
+	close((data->signal->fd)[0]);
 	if (ft_strncmp(rd_line, "exit", 4) == 0 && ft_strlen(rd_line) == 4)
 	{
-		close((data->signal->fd)[0]);
 		free (rd_line);
 		printf("exit\n");
 		ft_exit_1(data, 0);
 	}
 	if (!rd_line)
-	{
-		close((data->signal->fd)[0]);
 		return (2);
-	}
-	close((data->signal->fd)[0]);
 	data->input = ft_strdup(rd_line);
 	if (i == 1)
 		data->history = ft_strjoin_2(data->history, ft_strdup(" "));
 	data->history = ft_strjoin_2(data->history, ft_strdup(rd_line));
 	if (!ft_take_pipe(rd_line, data))
-	{
-		data->return_value = 2;
-		return (2);
-	}
+		return (pre_treat_ext(data));
 	if (!ft_check_list(data))
 		return (2);
 	ft_add_back_list(&data->list, data->temp_list);

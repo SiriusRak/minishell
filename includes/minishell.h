@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/19 08:59:07 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/12/19 15:36:15 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int			ft_chek_sig(t_data *data);
 int			ft_chek_sig_cmd(t_data *data);
 int			ft_pipe(t_data *data);
 int			pre_treat(t_data *data, int i);
+int			pre_treat_ext(t_data *data);
 int			check_after_child(t_data *data);
 int			ft_count_line(char **strings);
 int			ft_check_cmd(t_data *data, char *cmd, int is_dir, int c);

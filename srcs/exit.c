@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 17:07:05 by enarindr          #+#    #+#             */
-/*   Updated: 2024/12/19 08:57:46 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/12/19 15:36:54 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,10 @@ void	ft_exit_pipe(char *str, t_data *data)
 	free (str);
 	ft_free_data(data);
 	ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+}
+
+int	pre_treat_ext(t_data *data)
+{
+	data->return_value = 2;
+	return (2);
 }
