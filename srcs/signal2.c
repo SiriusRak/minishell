@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   signal2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 13:49:06 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/19 17:56:50 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/12/20 21:12:39 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include <time.h>
 
 void	signal_handler_cmd(int sig, siginfo_t *info, void *context)
 {
@@ -43,6 +44,25 @@ void	waiting_signial_cmd(t_data *data)
 	signal_handler_cmd(0, NULL, data);
 }
 
+int		free_here_tab(t_data * data)
+{
+	if (data->tab)
+	{
+		while (data->tab[data->i])
+		{
+			free (data->tab[(data->i)]);
+			data->tab[(data->i)++] = NULL;
+		}
+		free (data->tab);
+	}
+	if (data->heredoc)
+	{
+		free(data->heredoc);
+		data->heredoc = NULL;
+	}
+	return (0);
+}
+
 void	signal_handler_here(int sig, siginfo_t *info, void *context)
 {
 	static t_data	*data;
@@ -60,7 +80,9 @@ void	signal_handler_here(int sig, siginfo_t *info, void *context)
 		ft_lstclear_2(&(data->env));
 		ft_clear_history(data);
 		ft_clear_input(data);
-		ft_free_tab(data->tab);
+		if (data->temp_list)
+			ft_free_t_d_list(data->temp_list);
+		free_here_tab(data);
 		ft_free_data(data);
 		clear_history();
 		free (data->signal);

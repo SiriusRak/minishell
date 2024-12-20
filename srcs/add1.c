@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   add1.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 16:43:44 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/19 18:44:53 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/12/20 20:34:14 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include <time.h>
 
 int	ft_check_quote(char *str)
 {
@@ -28,7 +29,9 @@ int	ft_check_quote(char *str)
 
 void	fork_heredoc(t_d_list *list, char *str, char c)
 {
+	char	**tab;
 	char	*here;
+	int		i;
 
 	waiting_signial_here(list->data);
 	here = ft_add_heredoc(list, str, c);
@@ -36,7 +39,15 @@ void	fork_heredoc(t_d_list *list, char *str, char c)
 	list->data->history = ft_strjoin_2(list->data->history, here);
 	ft_clear_heredoc(list->data);
 	ft_clear_input(list->data);
-	ft_free_tab(list->data->tab);
+	tab = list->data->tab;
+	i = list->data->i;
+	while (tab[i])
+	{
+		free(tab[i]);
+		tab[i] = NULL;
+		i++;
+	}
+	free(tab);
 	ft_exit_child(list->data, 0);
 }
 

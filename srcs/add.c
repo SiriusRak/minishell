@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 12:17:53 by enarindr          #+#    #+#             */
-/*   Updated: 2024/12/19 15:18:52 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/12/20 20:35:39 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ char	*ft_add_heredoc(t_d_list *list, char *str, int c)
 		if (temp && c == 0)
 			temp = ft_expand_here(list, temp);
 		temp = ft_strjoin_2(temp, ft_strdup("\n"));
+		list->data->heredoc = temp;
 		here = ft_strjoin_2(here, temp);
+		list->data->heredoc = here;
 		temp = readline("here > ");
 		if (!temp)
 			write_error(str);

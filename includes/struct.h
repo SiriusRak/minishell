@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:44:23 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/19 15:40:34 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/20 20:33:37 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,13 @@ typedef struct s_data
 	int			path;
 	int			is_heredoc;
 	int			return_value;
+	int			i;
 	char		*input;
 	char		*prompt;
 	char		*history;
 	char		*old_pwd;
 	char		*pwd;
+	char		*heredoc;
 	char		**tab;
 	char		**keys;
 	int			saved_fd;

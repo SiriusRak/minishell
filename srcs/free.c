@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 13:35:15 by enarindr          #+#    #+#             */
-/*   Updated: 2024/12/19 18:45:28 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/12/20 21:03:37 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
