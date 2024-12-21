@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 13:49:06 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/20 21:12:39 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/12/21 07:11:23 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	waiting_signial_cmd(t_data *data)
 	signal_handler_cmd(0, NULL, data);
 }
 
-int		free_here_tab(t_data * data)
+int	free_here_tab(t_data *data)
 {
 	if (data->tab)
 	{

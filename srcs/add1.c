@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add1.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 16:43:44 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/20 20:34:14 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/12/21 08:33:00 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int	ft_add_in(t_d_list *list, char *str, int i)
 	str = ft_clean_quote(list, str, i);
 	if (i == HERE)
 	{
+		if (!ft_check_list_ext(list->data))
+			return (1);
 		signal(SIGINT, SIG_IGN);
 		list->data->is_heredoc = 1;
 		list->data->signal->pid = fork();

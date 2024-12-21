@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 17:07:05 by enarindr          #+#    #+#             */
-/*   Updated: 2024/12/19 15:55:48 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/21 09:12:05 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include <readline/history.h>
 #include <stdio.h>
+#include <time.h>
 
 int	ft_exit_quote(char *str, t_data *data)
 {
@@ -26,6 +27,9 @@ void	ft_exit_1(t_data *data, int exit_code)
 {
 	ft_lstclear_2(&(data->env));
 	ft_free_data(data);
+	if (data->checker)
+		free(data->checker);
+	data->checker = NULL;
 	clear_history();
 	free (data->signal);
 	exit (exit_code);

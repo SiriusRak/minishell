@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 13:18:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/20 19:44:18 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/12/21 08:02:13 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
