@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 07:42:56 by enarindr          #+#    #+#             */
-/*   Updated: 2024/12/21 13:33:17 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/12/21 09:35:08 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int	ft_lex_ext(t_d_list *list, char **tab, int i)
 		if (error == 1)
 		{
 			list->data->return_value = 2;
+			while (tab[++i])
+				free(tab[i]);
 		}
 		return (error);
 	}
@@ -45,14 +47,14 @@ int	ft_lex(t_d_list *list, char *str)
 
 	i = -1;
 	tab = ft_split(str, "\n");
-	if (!list->data->tab)
-		list->data->tab = tab;
 	free (str);
 	while (tab[++i])
 	{
 		if (tab[i][0] == '<' || tab[i][0] == '>')
 		{
 			error = ft_lex_ext(list, tab, i);
+			free (tab[i]);
+			tab[i] = NULL;
 			++i;
 		}
 		else
@@ -60,7 +62,7 @@ int	ft_lex(t_d_list *list, char *str)
 		if (error == 1)
 			return (ft_lex_error(tab, list));
 	}
-	ft_free_tab(tab);
+	free(tab);
 	list->data->tab = NULL;
 	return (1);
 }

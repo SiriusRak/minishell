@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 13:49:06 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/21 13:52:33 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/21 07:11:23 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,14 @@ void	waiting_signial_cmd(t_data *data)
 int	free_here_tab(t_data *data)
 {
 	if (data->tab)
-		ft_free_tab(data->tab);
+	{
+		while (data->tab[data->i])
+		{
+			free (data->tab[(data->i)]);
+			data->tab[(data->i)++] = NULL;
+		}
+		free (data->tab);
+	}
 	if (data->heredoc)
 	{
 		free(data->heredoc);
@@ -71,11 +78,11 @@ void	signal_handler_here(int sig, siginfo_t *info, void *context)
 		close(data->signal->fd[0]);
 		close(data->signal->fd[1]);
 		ft_lstclear_2(&(data->env));
-		free_here_tab(data);
 		ft_clear_history(data);
 		ft_clear_input(data);
 		if (data->temp_list)
 			ft_free_t_d_list(data->temp_list);
+		free_here_tab(data);
 		ft_free_data(data);
 		clear_history();
 		free (data->signal);

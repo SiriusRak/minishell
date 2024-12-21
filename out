@@ -4,6 +4,7 @@ includes
 libft
 Makefile
 minishell
+o
 out
 readline.supp
 README.md

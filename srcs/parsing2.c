@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 13:18:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/21 13:29:43 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/12/21 17:24:15 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@ int	ft_check_list_ext(t_data *data)
 		if (ft_chek_sig(data))
 		{
 			if (data->temp_list)
+			{
 				ft_free_t_d_list(data->temp_list);
-			data->temp_list = NULL;
+				data->temp_list = NULL;
+			}
 			return (0);
 		}
 	}
@@ -73,6 +75,8 @@ int	ft_lex_ext2(t_d_list *list, char **tab, int i)
 		error = ft_add_in(list, tab[i + 1], IN);
 	else if (tab[i][0] == '<' && tab[i][1] == '<')
 	{
+		list->data->tab = tab;
+		list->data->i = i;
 		error = ft_add_in(list, tab[i + 1], HERE);
 	}
 	return (error);
@@ -80,10 +84,7 @@ int	ft_lex_ext2(t_d_list *list, char **tab, int i)
 
 int	ft_lex_error(char **tab, t_d_list *list)
 {
-	if (tab)
-	{
-		ft_free_tab(tab);
-		list->data->tab = NULL;
-	}
+	free(tab);
+	list->data->tab = NULL;
 	return (0);
 }
