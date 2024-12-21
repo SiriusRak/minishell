@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 13:49:06 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/21 13:35:01 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/12/21 13:52:33 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,7 @@ void	waiting_signial_cmd(t_data *data)
 int	free_here_tab(t_data *data)
 {
 	if (data->tab)
-	{
-		// while (data->tab[data->i])
-		// {
-		// 	free (data->tab[(data->i)]);
-		// 	data->tab[(data->i)++] = NULL;
-		// }
-		// free (data->tab);
 		ft_free_tab(data->tab);
-	}
 	if (data->heredoc)
 	{
 		free(data->heredoc);
