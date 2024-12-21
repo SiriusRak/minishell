@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 17:07:05 by enarindr          #+#    #+#             */
-/*   Updated: 2024/12/21 09:12:05 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/12/21 10:06:53 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,6 @@ void	ft_exit_1(t_data *data, int exit_code)
 {
 	ft_lstclear_2(&(data->env));
 	ft_free_data(data);
-	if (data->checker)
-		free(data->checker);
-	data->checker = NULL;
 	clear_history();
 	free (data->signal);
 	exit (exit_code);

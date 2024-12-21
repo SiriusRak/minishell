@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 14:35:27 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/21 09:18:25 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/12/21 10:44:21 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,28 +69,29 @@ int	ft_builtin_pwd(void)
 
 int	ft_builtin_exit(t_data *data, char **arg)
 {
-	int	len;
 	int	ret;
 
 	ret = ft_atoi(arg[0]);
-	len = ft_count_line(arg);
 	printf("exit\n");
 	if (!ft_check_num(arg[0]))
 	{
+		free(data->checker);
 		ft_print_error(arg[0], "numeric argument required");
 		ft_free_tab(arg);
 		ft_exit_1(data, 2);
 	}
-	if (len > 1)
+	if (ft_count_line(arg) > 1)
 	{
 		ft_print_error("exit", "too many arguments");
 		return (1);
 	}
-	else if (len == 1 && ft_check_num(arg[0]))
+	else if (ft_count_line(arg) == 1 && ft_check_num(arg[0]))
 	{
+		free(data->checker);
 		ft_free_tab(arg);
 		ft_exit_1(data, ret);
 	}
+	free(data->checker);
 	ft_exit_1(data, data->return_value);
 	return (0);
 }
