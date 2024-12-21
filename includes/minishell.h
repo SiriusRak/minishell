@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/21 09:34:38 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/21 09:53:16 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int			ft_expand_2(t_d_list *list, char **chn, int i, char *str);
 int			ft_take_pipe_ext(t_data *data, int i, char *str, int *start);
 int			ft_manage_cmd(t_data *data, int i);
 int			ft_lex_ext2(t_d_list *list, char **tab, int i);
-int	        ft_lex_error(char **tab, t_d_list *list);
+int			ft_lex_error(char **tab, t_d_list *list);
 
 char		*ft_epure_line(char *str, int i, int j);
 char		*ft_epure_redir(char *str);
