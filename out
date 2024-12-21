@@ -1,0 +1,11 @@
+check_leaks.sh
+get_next_line
+includes
+libft
+Makefile
+minishell
+out
+readline.supp
+README.md
+srcs
+valgrind_readline_leaks_ignore.txt

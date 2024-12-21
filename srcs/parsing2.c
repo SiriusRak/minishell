@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 13:18:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/21 09:34:20 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/21 13:29:43 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,6 @@ int	ft_lex_ext2(t_d_list *list, char **tab, int i)
 		error = ft_add_in(list, tab[i + 1], IN);
 	else if (tab[i][0] == '<' && tab[i][1] == '<')
 	{
-		list->data->tab = tab;
-		list->data->i = i;
 		error = ft_add_in(list, tab[i + 1], HERE);
 	}
 	return (error);
@@ -82,7 +80,10 @@ int	ft_lex_ext2(t_d_list *list, char **tab, int i)
 
 int	ft_lex_error(char **tab, t_d_list *list)
 {
-	free(tab);
-	list->data->tab = NULL;
+	if (tab)
+	{
+		ft_free_tab(tab);
+		list->data->tab = NULL;
+	}
 	return (0);
 }
