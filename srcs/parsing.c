@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 07:42:56 by enarindr          #+#    #+#             */
-/*   Updated: 2024/12/21 08:38:06 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/12/21 09:35:08 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,7 @@ int	ft_lex(t_d_list *list, char *str)
 		else
 			error = ft_add_cmd(list, tab[i]);
 		if (error == 1)
-		{
-			free(tab);
-			list->data->tab = NULL;
-			return (0);
-		}
+			return (ft_lex_error(tab, list));
 	}
 	free(tab);
 	list->data->tab = NULL;
