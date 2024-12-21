@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 14:41:09 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/19 15:49:08 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/21 11:38:38 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	ft_export_no_arg(t_data *data)
 	int		i;
 
 	env = ft_lst_to_char(data->env, 0);
-	env = ft_sort_tab(env);
 	i = 0;
 	while (env[i])
 	{
