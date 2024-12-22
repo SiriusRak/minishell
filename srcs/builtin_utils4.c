@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils4.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
+/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 15:20:15 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/04 09:06:43 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/12/19 15:58:53 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ int	ft_print_echo(int i, char **arg, t_data *data, int newline)
 		}
 		if (newline)
 			printf("\n");
+		ft_free_split(arg);
+		free(data->checker);
 		ft_exit_child(data, 0);
 	}
 	else

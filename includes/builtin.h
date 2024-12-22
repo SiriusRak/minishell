@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 13:43:41 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/03 16:08:50 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/19 15:43:17 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		ft_buitlin_cd(char **arg, t_data *data);
 int		ft_builtin_exit(t_data *data, char **arg);
 int		ft_builtin_pwd(void);
 int		ft_builtin_env(t_data *data);
-int		ft_builtin_export(char **key, t_data *data, char **args);
+int		ft_builtin_export(t_data *data, char **args);
 int		ft_builtin_unset(t_data *data, char **key);
 int		ft_is_builtin(char *cmd);
 int		ft_check_arg(char *arg, int *newline);

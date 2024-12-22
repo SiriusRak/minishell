@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 13:18:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/04 13:37:35 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/21 17:24:15 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,11 @@ int	ft_check_list_ext(t_data *data)
 		check_after_child(data);
 		if (ft_chek_sig(data))
 		{
-			ft_free_t_d_list(data->temp_list);
-			data->temp_list = NULL;
+			if (data->temp_list)
+			{
+				ft_free_t_d_list(data->temp_list);
+				data->temp_list = NULL;
+			}
 			return (0);
 		}
 	}
@@ -71,6 +74,17 @@ int	ft_lex_ext2(t_d_list *list, char **tab, int i)
 	else if (tab[i][0] == '<' && ft_strlen(tab[i]) == 1)
 		error = ft_add_in(list, tab[i + 1], IN);
 	else if (tab[i][0] == '<' && tab[i][1] == '<')
+	{
+		list->data->tab = tab;
+		list->data->i = i;
 		error = ft_add_in(list, tab[i + 1], HERE);
+	}
 	return (error);
+}
+
+int	ft_lex_error(char **tab, t_d_list *list)
+{
+	free(tab);
+	list->data->tab = NULL;
+	return (0);
 }

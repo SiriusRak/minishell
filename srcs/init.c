@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 17:09:48 by enarindr          #+#    #+#             */
-/*   Updated: 2024/12/04 14:07:19 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/20 20:33:46 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,8 @@ void	ft_init(t_data *data, char **env)
 	data->env = ft_duplicate(env);
 	data->saved_fd = -1;
 	data->path = 1;
+	data->keys = NULL;
+	data->heredoc = NULL;
+	data->tab = NULL;
+	data->checker = NULL;
 }

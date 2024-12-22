@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 16:06:04 by rdiary            #+#    #+#             */
-/*   Updated: 2024/12/10 10:41:04 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/21 09:59:57 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int			ft_exit_quote(char *str, t_data *data);
 int			ft_get_input(t_data *data);
 int			ft_take_pipe(char *str, t_data *data);
 int			ft_clear_history(t_data *data);
+int			ft_clear_heredoc(t_data *data);
 int			ft_free_data(t_data *data);
 int			ft_pipe_error(char *str, int i);
 int			ft_check_list(t_data *data);
@@ -60,8 +61,10 @@ int			ft_all_error(t_d_list *list);
 int			ft_readline(t_data *data);
 int			ft_chek_sig(t_data *data);
 int			ft_chek_sig_cmd(t_data *data);
+int			ft_check_list_ext(t_data *data);
 int			ft_pipe(t_data *data);
 int			pre_treat(t_data *data, int i);
+int			pre_treat_ext(t_data *data);
 int			check_after_child(t_data *data);
 int			ft_count_line(char **strings);
 int			ft_check_cmd(t_data *data, char *cmd, int is_dir, int c);
@@ -77,8 +80,9 @@ int			ft_expand_3(t_d_list *list, char **chn, int i, char *str);
 int			ft_expand_1(char **chn, int i, char *str);
 int			ft_expand_2(t_d_list *list, char **chn, int i, char *str);
 int			ft_take_pipe_ext(t_data *data, int i, char *str, int *start);
-int			ft_manage_cmd(t_data *data);
+int			ft_manage_cmd(t_data *data, int i);
 int			ft_lex_ext2(t_d_list *list, char **tab, int i);
+int			ft_lex_error(char **tab, t_d_list *list);
 
 char		*ft_epure_line(char *str, int i, int j);
 char		*ft_epure_redir(char *str);

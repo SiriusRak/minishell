@@ -6,7 +6,7 @@
 /*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 07:42:56 by enarindr          #+#    #+#             */
-/*   Updated: 2024/12/04 13:37:05 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/21 09:35:08 by rdiary           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,17 +54,16 @@ int	ft_lex(t_d_list *list, char *str)
 		{
 			error = ft_lex_ext(list, tab, i);
 			free (tab[i]);
+			tab[i] = NULL;
 			++i;
 		}
 		else
 			error = ft_add_cmd(list, tab[i]);
 		if (error == 1)
-		{
-			free (tab);
-			return (0);
-		}
+			return (ft_lex_error(tab, list));
 	}
-	free (tab);
+	free(tab);
+	list->data->tab = NULL;
 	return (1);
 }
 

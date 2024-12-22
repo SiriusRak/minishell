@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   add1.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rdiary <rdiary@student.42.fr>              +#+  +:+       +#+        */
+/*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 16:43:44 by rdiary            #+#    #+#             */
-/*   Updated: 2024/11/29 16:48:42 by rdiary           ###   ########.fr       */
+/*   Updated: 2024/12/21 08:33:00 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+#include <time.h>
 
 int	ft_check_quote(char *str)
 {
@@ -28,17 +29,25 @@ int	ft_check_quote(char *str)
 
 void	fork_heredoc(t_d_list *list, char *str, char c)
 {
+	char	**tab;
 	char	*here;
+	int		i;
 
 	waiting_signial_here(list->data);
 	here = ft_add_heredoc(list, str, c);
-	if (here)
-	{
-		ft_add_file(here, str);
-		list->data->history = ft_strjoin_2(list->data->history, here);
-	}
-	ft_clear_history(list->data);
+	ft_add_file(here, str);
+	list->data->history = ft_strjoin_2(list->data->history, here);
+	ft_clear_heredoc(list->data);
 	ft_clear_input(list->data);
+	tab = list->data->tab;
+	i = list->data->i;
+	while (tab[i])
+	{
+		free(tab[i]);
+		tab[i] = NULL;
+		i++;
+	}
+	free(tab);
 	ft_exit_child(list->data, 0);
 }
 
@@ -53,6 +62,8 @@ int	ft_add_in(t_d_list *list, char *str, int i)
 	str = ft_clean_quote(list, str, i);
 	if (i == HERE)
 	{
+		if (!ft_check_list_ext(list->data))
+			return (1);
 		signal(SIGINT, SIG_IGN);
 		list->data->is_heredoc = 1;
 		list->data->signal->pid = fork();
