@@ -6,7 +6,7 @@
 /*   By: enarindr <enarindr@student.42antananarivo. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 12:17:53 by enarindr          #+#    #+#             */
-/*   Updated: 2024/12/21 07:24:21 by enarindr         ###   ########.fr       */
+/*   Updated: 2024/12/22 13:19:03 by enarindr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	ft_add_out(t_d_list *list, char *str, int i)
 		return (1);
 	}
 	str = ft_clean_quote(list, str, i);
-	lst = ft_lstnew(ft_strdup(str));
+	lst = ft_lstnew(str);
 	lst->type = i;
 	ft_lstadd_back(&(list->token->out), lst);
 	return (0);

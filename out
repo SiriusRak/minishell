@@ -4,9 +4,9 @@ includes
 libft
 Makefile
 minishell
-o
 out
 readline.supp
 README.md
 srcs
+ut
 valgrind_readline_leaks_ignore.txt
